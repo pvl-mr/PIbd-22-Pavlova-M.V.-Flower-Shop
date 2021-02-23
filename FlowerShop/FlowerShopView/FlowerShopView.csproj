@@ -97,6 +97,24 @@
     <Compile Include="FormMain.Designer.cs">
       <DependentUpon>FormMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormStorePlace.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormStorePlace.Designer.cs">
+      <DependentUpon>FormStorePlace.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormStorePlaceRefill.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormStorePlaceRefill.Designer.cs">
+      <DependentUpon>FormStorePlaceRefill.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormStorePlaces.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormStorePlaces.Designer.cs">
+      <DependentUpon>FormStorePlaces.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="FormComponent.resx">
@@ -119,6 +137,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormMain.resx">
       <DependentUpon>FormMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormStorePlace.resx">
+      <DependentUpon>FormStorePlace.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormStorePlaceRefill.resx">
+      <DependentUpon>FormStorePlaceRefill.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormStorePlaces.resx">
+      <DependentUpon>FormStorePlaces.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
