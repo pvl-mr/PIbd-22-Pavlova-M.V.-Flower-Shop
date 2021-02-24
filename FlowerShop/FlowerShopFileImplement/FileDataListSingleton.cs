@@ -15,7 +15,7 @@ namespace FlowerShopFileImplement
         private static FileDataListSingleton instance;
         private readonly string ComponentFileName = "Component.xml";
         private readonly string OrderFileName = "Order.xml";
-        private readonly string FlowerFileName = "Product.xml";
+        private readonly string FlowerFileName = "Flower.xml";
         public List<Componet> Components { get; set; }
         public List<Order> Orders { get; set; }
         public List<Flower> Flowers { get; set; }
@@ -23,7 +23,7 @@ namespace FlowerShopFileImplement
         {
             Components = LoadComponents();
             Orders = LoadOrders();
-            Flowers = LoadProducts();
+            Flowers = LoadFlowers();
         }
 
         public static FileDataListSingleton GetInstance()
@@ -74,7 +74,7 @@ namespace FlowerShopFileImplement
                     list.Add(new Order
                     {
                         Id = Convert.ToInt32(elem.Attribute("Id").Value),
-                        FlowerId = Convert.ToInt32(elem.Attribute("FlowerId").Value),
+                        FlowerId = Convert.ToInt32(elem.Element("FlowerId").Value),
                         Count = Convert.ToInt32(elem.Element("Count").Value),
                         Sum = Convert.ToDecimal(elem.Element("Sum").Value),
                         Status = (OrderStatus)Enum.Parse(typeof(OrderStatus), elem.Element("Status").Value),
@@ -87,24 +87,24 @@ namespace FlowerShopFileImplement
             return list;
         }
 
-        private List<Flower> LoadProducts()
+        private List<Flower> LoadFlowers()
         {
             var list = new List<Flower>();
             if (File.Exists(FlowerFileName))
             {
                 XDocument xDocument = XDocument.Load(FlowerFileName);
-                var xElements = xDocument.Root.Elements("Product").ToList();
+                var xElements = xDocument.Root.Elements("Flower").ToList();
                 foreach (var elem in xElements)
                 {
                     var flowerComp = new Dictionary<int, int>();
-                    foreach (var component in elem.Element("ProductComponents").Elements("ProductComponent").ToList())
+                    foreach (var component in elem.Element("FlowerComponents").Elements("FlowerComponent").ToList())
                     {
                         flowerComp.Add(Convert.ToInt32(component.Element("Key").Value), Convert.ToInt32(component.Element("Value").Value));
                     }
                     list.Add(new Flower
                     {
                         Id = Convert.ToInt32(elem.Attribute("Id").Value),
-                        FlowerName = elem.Element("ProductName").Value,
+                        FlowerName = elem.Element("FlowerName").Value,
                         Price = Convert.ToDecimal(elem.Element("Price").Value),
                         FlowerComponents = flowerComp
                     });
@@ -158,14 +158,14 @@ namespace FlowerShopFileImplement
                 var xElement = new XElement("Flowers");
                 foreach (var flower in Flowers)
                 {
-                    var compElement = new XElement("ProductComponents");
+                    var compElement = new XElement("FlowerComponents");
                     foreach (var component in flower.FlowerComponents)
                     {
                         compElement.Add(new XElement("FlowerComponent",
                         new XElement("Key", component.Key),
                         new XElement("Value", component.Value)));
                     }
-                    xElement.Add(new XElement("Product",
+                    xElement.Add(new XElement("Flower",
                     new XAttribute("Id", flower.Id),
                     new XElement("FlowerName", flower.FlowerName),
                     new XElement("Price", flower.Price),

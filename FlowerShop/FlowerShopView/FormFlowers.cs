@@ -24,6 +24,11 @@ namespace FlowerShopView
             this.logic = logic;
         }
 
+        private void FormFlowers_Load(object sender, EventArgs e)
+        {
+            LoadData();
+        }
+
         private void LoadData()
         {
             try

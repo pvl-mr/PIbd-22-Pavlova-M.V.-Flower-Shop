@@ -25,10 +25,7 @@ namespace FlowerShopView
             InitializeComponent();
             this._orderLogic = orderLogic;
         }
-        private void FormMain_Load(object sender, EventArgs e)
-        {
-            LoadData();
-        }
+       
         private void LoadData()
         {
             try
@@ -124,6 +121,11 @@ namespace FlowerShopView
         {
             var form = Container.Resolve<FormFlowers>();
             form.ShowDialog();
-        }        
+        }
+
+        private void FormMain_Load_1(object sender, EventArgs e)
+        {
+            LoadData();
+        }
     }
 }
