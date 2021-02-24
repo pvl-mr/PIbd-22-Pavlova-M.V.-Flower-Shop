@@ -93,5 +93,10 @@ namespace FlowerShopView
         {
             LoadData();
         }
+
+        private void FormStorePlaces_Load(object sender, EventArgs e)
+        {
+            LoadData();
+        }
     }
 }

@@ -25,10 +25,7 @@ namespace FlowerShopView
             InitializeComponent();
             this._orderLogic = orderLogic;
         }
-        private void FormMain_Load(object sender, EventArgs e)
-        {
-            LoadData();
-        }
+        
         private void LoadData()
         {
             try
@@ -136,6 +133,11 @@ namespace FlowerShopView
         {
             FormStorePlaceRefill form = Container.Resolve<FormStorePlaceRefill>();
             form.ShowDialog();
+        }
+
+        private void FormMain_Load(object sender, EventArgs e)
+        {
+            LoadData();
         }
     }
 }
