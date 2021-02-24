@@ -2,11 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace FlowerShopListImplement.Models
+namespace FlowerShopFileImplement.Models
 {
-    /// <summary>
-    /// Изделие, изготавливаемое в магазине
-    /// </summary>
     public class Flower
     {
         public int Id { get; set; }

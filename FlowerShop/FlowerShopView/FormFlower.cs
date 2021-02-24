@@ -38,9 +38,9 @@ namespace FlowerShopView
                     FlowerViewModel view = logic.Read(new FlowerBindingModel { Id = id.Value })?[0];
                     if (view != null)
                     {
-                        textBoxName.Text = view.ProductName;
+                        textBoxName.Text = view.FlowerName;
                         textBoxPrice.Text = view.Price.ToString();
-                        flowerComponents = view.ProductComponents;
+                        flowerComponents = view.FlowerComponents;
                         LoadData();
                     }
                 }

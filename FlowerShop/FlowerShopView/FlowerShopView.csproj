@@ -148,9 +148,9 @@
       <Project>{e02c73dc-c448-4eee-b227-2850a76023e4}</Project>
       <Name>FlowerShopBusinessLogic</Name>
     </ProjectReference>
-    <ProjectReference Include="..\FlowerShopListImplement\FlowerShopListImplement.csproj">
-      <Project>{fa8d15e9-0998-4891-9403-10ed0016d718}</Project>
-      <Name>FlowerShopListImplement</Name>
+    <ProjectReference Include="..\FlowerShopFileImplement\FlowerShopFileImplement.csproj">
+      <Project>{38f06cb1-2569-4410-a1d2-96e8393e3c3a}</Project>
+      <Name>FlowerShopFileImplement</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
