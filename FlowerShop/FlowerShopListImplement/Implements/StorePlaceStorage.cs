@@ -146,7 +146,6 @@ namespace FlowerShopListImplement.Implements
                     tempStorePlace.Id = storehouse.Id + 1;
                 }
             }
-
             source.StorePlaces.Add(CreateModel(model, tempStorePlace));
         }
 

@@ -25,6 +25,12 @@ namespace FlowerShopView
             InitializeComponent();
             this.logic = logic;
         }
+
+        private void FormStorePlaces_Load(object sender, EventArgs e)
+        {
+            LoadData();
+        }
+
         private void LoadData()
         {
             try
@@ -90,11 +96,6 @@ namespace FlowerShopView
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
-        {
-            LoadData();
-        }
-
-        private void FormStorePlaces_Load(object sender, EventArgs e)
         {
             LoadData();
         }

@@ -93,7 +93,6 @@ namespace FlowerShopBusinessLogic.BusinessLogic
                 DateCreate = storePlace.DateCreate,
                 StorePlaceComponents = storageComponents
             });
-
         }
     }
 }

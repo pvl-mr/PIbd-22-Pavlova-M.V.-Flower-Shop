@@ -44,7 +44,7 @@ namespace FlowerShopView
             this.labelStorePlace.AutoSize = true;
             this.labelStorePlace.Location = new System.Drawing.Point(57, 43);
             this.labelStorePlace.Name = "labelStorePlace";
-            this.labelStorePlace.Size = new System.Drawing.Size(56, 17);
+            this.labelStorePlace.Size = new System.Drawing.Size(54, 16);
             this.labelStorePlace.TabIndex = 0;
             this.labelStorePlace.Text = "Склад: ";
             // 
@@ -53,7 +53,7 @@ namespace FlowerShopView
             this.labelComponent.AutoSize = true;
             this.labelComponent.Location = new System.Drawing.Point(57, 111);
             this.labelComponent.Name = "labelComponent";
-            this.labelComponent.Size = new System.Drawing.Size(89, 17);
+            this.labelComponent.Size = new System.Drawing.Size(86, 16);
             this.labelComponent.TabIndex = 1;
             this.labelComponent.Text = "Компонент: ";
             // 
@@ -62,7 +62,7 @@ namespace FlowerShopView
             this.labelCount.AutoSize = true;
             this.labelCount.Location = new System.Drawing.Point(57, 186);
             this.labelCount.Name = "labelCount";
-            this.labelCount.Size = new System.Drawing.Size(94, 17);
+            this.labelCount.Size = new System.Drawing.Size(92, 16);
             this.labelCount.TabIndex = 2;
             this.labelCount.Text = "Количество: ";
             // 
@@ -124,6 +124,7 @@ namespace FlowerShopView
             this.Controls.Add(this.labelStorePlace);
             this.Name = "FormStorePlaceRefill";
             this.Text = "FormStorePlaceRefill";
+            this.Load += new System.EventHandler(this.FormStorePlaceRefill_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

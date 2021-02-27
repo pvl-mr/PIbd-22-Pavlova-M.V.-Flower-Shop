@@ -32,7 +32,7 @@ namespace FlowerShopView
             {
                 var list = _logicF.Read(null);
                 comboBoxFlower.DataSource = list;
-                comboBoxFlower.DisplayMember = "ProductName";
+                comboBoxFlower.DisplayMember = "FlowerName";
                 comboBoxFlower.ValueMember = "Id";
             }
             catch (Exception ex)
@@ -48,9 +48,9 @@ namespace FlowerShopView
                 try
                 {
                     int id = Convert.ToInt32(comboBoxFlower.SelectedValue);
-                    FlowerViewModel product = _logicF.Read(new FlowerBindingModel { Id = id })?[0];
+                    FlowerViewModel flower = _logicF.Read(new FlowerBindingModel { Id = id })?[0];
                     int count = Convert.ToInt32(textBoxCount.Text);
-                    textBoxSum.Text = (count * product?.Price ?? 0).ToString();
+                    textBoxSum.Text = (count * flower?.Price ?? 0).ToString();
                 }
                 catch (Exception ex)
                 {
@@ -85,7 +85,7 @@ namespace FlowerShopView
             {
                 _logicO.CreateOrder(new CreateOrderBindingModel
                 {
-                    ProductId = Convert.ToInt32(comboBoxFlower.SelectedValue),
+                    FlowerId = Convert.ToInt32(comboBoxFlower.SelectedValue),
                     Count = Convert.ToInt32(textBoxCount.Text),
                     Sum = Convert.ToDecimal(textBoxSum.Text)
                 });

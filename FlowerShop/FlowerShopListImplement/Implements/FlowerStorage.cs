@@ -32,11 +32,11 @@ namespace FlowerShopListImplement.Implements
                 return null;
             }
             List<FlowerViewModel> result = new List<FlowerViewModel>();
-            foreach (var product in source.Flowers)
+            foreach (var flower in source.Flowers)
             {
-                if (product.FlowerName.Contains(model.FlowerName))
+                if (flower.FlowerName.Contains(model.FlowerName))
                 {
-                    result.Add(CreateModel(product));
+                    result.Add(CreateModel(flower));
                 }
             }
             return result;
@@ -60,31 +60,31 @@ namespace FlowerShopListImplement.Implements
 
         public void Insert(FlowerBindingModel model)
         {
-            Flower tempProduct = new Flower { Id = 1, FlowerComponents = new Dictionary<int, int>() };
-            foreach (var product in source.Flowers)
+            Flower tempFlower = new Flower { Id = 1, FlowerComponents = new Dictionary<int, int>() };
+            foreach (var flower in source.Flowers)
             {
-                if (product.Id >= tempProduct.Id)
+                if (flower.Id >= tempFlower.Id)
                 {
-                    tempProduct.Id = product.Id + 1;
+                    tempFlower.Id = flower.Id + 1;
                 }
             }
-            source.Flowers.Add(CreateModel(model, tempProduct));
+            source.Flowers.Add(CreateModel(model, tempFlower));
         }
         public void Update(FlowerBindingModel model)
         {
-            Flower tempProduct = null;
-            foreach (var product in source.Flowers)
+            Flower tempFlower = null;
+            foreach (var flower in source.Flowers)
             {
-                if (product.Id == model.Id)
+                if (flower.Id == model.Id)
                 {
-                    tempProduct = product;
+                    tempFlower = flower;
                 }
             }
-            if (tempProduct == null)
+            if (tempFlower == null)
             {
                 throw new Exception("Элемент не найден");
             }
-            CreateModel(model, tempProduct);
+            CreateModel(model, tempFlower);
         }
         public void Delete(FlowerBindingModel model)
         {

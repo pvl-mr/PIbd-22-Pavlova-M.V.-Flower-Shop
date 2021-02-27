@@ -30,7 +30,7 @@ namespace FlowerShopBusinessLogic.BusinessLogic
         {
             _orderStorage.Insert(new OrderBindingModel
             {
-                FlowerId = model.ProductId,
+                FlowerId = model.FlowerId,
                 Count = model.Count,
                 Sum = model.Sum,
                 DateCreate = DateTime.Now,
