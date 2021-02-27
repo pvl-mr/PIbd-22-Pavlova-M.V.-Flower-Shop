@@ -99,9 +99,5 @@ namespace FlowerShopView
         {
             LoadData();
         }
-        private void FormFlowers_Load(object sender, EventArgs e)
-        {
-            LoadData();
-        }
     }
 }

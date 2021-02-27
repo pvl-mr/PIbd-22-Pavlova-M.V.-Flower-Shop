@@ -124,7 +124,6 @@ namespace FlowerShopView
             this.Controls.Add(this.labelStorePlace);
             this.Name = "FormStorePlaceRefill";
             this.Text = "FormStorePlaceRefill";
-            this.Load += new System.EventHandler(this.FormStorePlaceRefill_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
