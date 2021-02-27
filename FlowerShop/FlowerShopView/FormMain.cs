@@ -25,7 +25,7 @@ namespace FlowerShopView
             InitializeComponent();
             this._orderLogic = orderLogic;
         }
-        
+
         private void LoadData()
         {
             try
@@ -122,6 +122,7 @@ namespace FlowerShopView
             var form = Container.Resolve<FormFlowers>();
             form.ShowDialog();
         }
+
 
         private void складыToolStripMenuItem_Click(object sender, EventArgs e)
         {

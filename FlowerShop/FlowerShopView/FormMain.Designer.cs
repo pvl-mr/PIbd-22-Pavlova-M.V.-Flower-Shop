@@ -48,13 +48,14 @@
             // 
             // menuStripObjects
             // 
+            this.menuStripObjects.GripMargin = new System.Windows.Forms.Padding(2, 2, 0, 2);
             this.menuStripObjects.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStripObjects.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.cправочникиToolStripMenuItem,
             this.пополнениеСкладаToolStripMenuItem});
             this.menuStripObjects.Location = new System.Drawing.Point(0, 0);
             this.menuStripObjects.Name = "menuStripObjects";
-            this.menuStripObjects.Size = new System.Drawing.Size(1424, 28);
+            this.menuStripObjects.Size = new System.Drawing.Size(1424, 29);
             this.menuStripObjects.TabIndex = 0;
             this.menuStripObjects.Text = "menuStrip1";
             // 
@@ -65,20 +66,20 @@
             this.изделияToolStripMenuItem,
             this.складыToolStripMenuItem});
             this.cправочникиToolStripMenuItem.Name = "cправочникиToolStripMenuItem";
-            this.cправочникиToolStripMenuItem.Size = new System.Drawing.Size(117, 24);
+            this.cправочникиToolStripMenuItem.Size = new System.Drawing.Size(121, 25);
             this.cправочникиToolStripMenuItem.Text = "Cправочники";
             // 
             // компонентыToolStripMenuItem
             // 
             this.компонентыToolStripMenuItem.Name = "компонентыToolStripMenuItem";
-            this.компонентыToolStripMenuItem.Size = new System.Drawing.Size(182, 26);
+            this.компонентыToolStripMenuItem.Size = new System.Drawing.Size(188, 30);
             this.компонентыToolStripMenuItem.Text = "Компоненты";
             this.компонентыToolStripMenuItem.Click += new System.EventHandler(this.компонентыToolStripMenuItem_Click_1);
             // 
             // изделияToolStripMenuItem
             // 
             this.изделияToolStripMenuItem.Name = "изделияToolStripMenuItem";
-            this.изделияToolStripMenuItem.Size = new System.Drawing.Size(182, 26);
+            this.изделияToolStripMenuItem.Size = new System.Drawing.Size(188, 30);
             this.изделияToolStripMenuItem.Text = "Изделия";
             this.изделияToolStripMenuItem.Click += new System.EventHandler(this.изделияToolStripMenuItem_Click_1);
             // 

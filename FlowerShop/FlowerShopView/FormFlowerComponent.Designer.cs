@@ -62,7 +62,7 @@ namespace FlowerShopView
             this.labelCount.Location = new System.Drawing.Point(45, 68);
             this.labelCount.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelCount.Name = "labelCount";
-            this.labelCount.Size = new System.Drawing.Size(94, 17);
+            this.labelCount.Size = new System.Drawing.Size(92, 16);
             this.labelCount.TabIndex = 2;
             this.labelCount.Text = "Количество: ";
             // 
