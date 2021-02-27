@@ -114,6 +114,5 @@ namespace FlowerShopListImplement.Implements
                 ComponentName = component.ComponentName
             };
         }
-
     }
 }

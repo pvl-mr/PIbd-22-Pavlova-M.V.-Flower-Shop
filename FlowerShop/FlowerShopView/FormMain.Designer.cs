@@ -46,12 +46,13 @@
             // 
             // menuStripObjects
             // 
+            this.menuStripObjects.GripMargin = new System.Windows.Forms.Padding(2, 2, 0, 2);
             this.menuStripObjects.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStripObjects.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.cправочникиToolStripMenuItem});
             this.menuStripObjects.Location = new System.Drawing.Point(0, 0);
             this.menuStripObjects.Name = "menuStripObjects";
-            this.menuStripObjects.Size = new System.Drawing.Size(1424, 28);
+            this.menuStripObjects.Size = new System.Drawing.Size(1424, 29);
             this.menuStripObjects.TabIndex = 0;
             this.menuStripObjects.Text = "menuStrip1";
             // 
@@ -61,20 +62,20 @@
             this.компонентыToolStripMenuItem,
             this.изделияToolStripMenuItem});
             this.cправочникиToolStripMenuItem.Name = "cправочникиToolStripMenuItem";
-            this.cправочникиToolStripMenuItem.Size = new System.Drawing.Size(117, 24);
+            this.cправочникиToolStripMenuItem.Size = new System.Drawing.Size(121, 25);
             this.cправочникиToolStripMenuItem.Text = "Cправочники";
             // 
             // компонентыToolStripMenuItem
             // 
             this.компонентыToolStripMenuItem.Name = "компонентыToolStripMenuItem";
-            this.компонентыToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.компонентыToolStripMenuItem.Size = new System.Drawing.Size(188, 30);
             this.компонентыToolStripMenuItem.Text = "Компоненты";
             this.компонентыToolStripMenuItem.Click += new System.EventHandler(this.компонентыToolStripMenuItem_Click_1);
             // 
             // изделияToolStripMenuItem
             // 
             this.изделияToolStripMenuItem.Name = "изделияToolStripMenuItem";
-            this.изделияToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.изделияToolStripMenuItem.Size = new System.Drawing.Size(188, 30);
             this.изделияToolStripMenuItem.Text = "Изделия";
             this.изделияToolStripMenuItem.Click += new System.EventHandler(this.изделияToolStripMenuItem_Click_1);
             // 
@@ -87,7 +88,7 @@
             // btnCreateOrder
             // 
             this.btnCreateOrder.Location = new System.Drawing.Point(1117, 59);
-            this.btnCreateOrder.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnCreateOrder.Margin = new System.Windows.Forms.Padding(4);
             this.btnCreateOrder.Name = "btnCreateOrder";
             this.btnCreateOrder.Size = new System.Drawing.Size(225, 46);
             this.btnCreateOrder.TabIndex = 2;
@@ -98,7 +99,7 @@
             // btnTakeOrderInWork
             // 
             this.btnTakeOrderInWork.Location = new System.Drawing.Point(1117, 137);
-            this.btnTakeOrderInWork.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnTakeOrderInWork.Margin = new System.Windows.Forms.Padding(4);
             this.btnTakeOrderInWork.Name = "btnTakeOrderInWork";
             this.btnTakeOrderInWork.Size = new System.Drawing.Size(224, 50);
             this.btnTakeOrderInWork.TabIndex = 3;
@@ -109,7 +110,7 @@
             // btnOrderReady
             // 
             this.btnOrderReady.Location = new System.Drawing.Point(1117, 223);
-            this.btnOrderReady.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnOrderReady.Margin = new System.Windows.Forms.Padding(4);
             this.btnOrderReady.Name = "btnOrderReady";
             this.btnOrderReady.Size = new System.Drawing.Size(223, 53);
             this.btnOrderReady.TabIndex = 4;
@@ -120,7 +121,7 @@
             // btnPayOrder
             // 
             this.btnPayOrder.Location = new System.Drawing.Point(1117, 306);
-            this.btnPayOrder.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnPayOrder.Margin = new System.Windows.Forms.Padding(4);
             this.btnPayOrder.Name = "btnPayOrder";
             this.btnPayOrder.Size = new System.Drawing.Size(221, 50);
             this.btnPayOrder.TabIndex = 5;
@@ -131,7 +132,7 @@
             // btnUpdate
             // 
             this.btnUpdate.Location = new System.Drawing.Point(1117, 393);
-            this.btnUpdate.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnUpdate.Margin = new System.Windows.Forms.Padding(4);
             this.btnUpdate.Name = "btnUpdate";
             this.btnUpdate.Size = new System.Drawing.Size(220, 48);
             this.btnUpdate.TabIndex = 6;
@@ -144,7 +145,7 @@
             this.dataGridViewOrders.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
             this.dataGridViewOrders.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewOrders.Location = new System.Drawing.Point(16, 59);
-            this.dataGridViewOrders.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dataGridViewOrders.Margin = new System.Windows.Forms.Padding(4);
             this.dataGridViewOrders.Name = "dataGridViewOrders";
             this.dataGridViewOrders.RowHeadersWidth = 51;
             this.dataGridViewOrders.Size = new System.Drawing.Size(1071, 393);
@@ -163,9 +164,10 @@
             this.Controls.Add(this.btnCreateOrder);
             this.Controls.Add(this.menuStripObjects);
             this.MainMenuStrip = this.menuStripObjects;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FormMain";
             this.Text = "FormMain";
+            this.Load += new System.EventHandler(this.FormMain_Load);
             this.menuStripObjects.ResumeLayout(false);
             this.menuStripObjects.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewOrders)).EndInit();
