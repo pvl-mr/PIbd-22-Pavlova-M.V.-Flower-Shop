@@ -166,7 +166,7 @@
             this.MainMenuStrip = this.menuStripObjects;
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FormMain";
-            this.Text = "FormMain";
+            this.Text = "Цветочная лавка";
             this.Load += new System.EventHandler(this.FormMain_Load);
             this.menuStripObjects.ResumeLayout(false);
             this.menuStripObjects.PerformLayout();

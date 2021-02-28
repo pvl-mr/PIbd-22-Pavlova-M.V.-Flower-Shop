@@ -104,7 +104,7 @@ namespace FlowerShopView
             this.Controls.Add(this.dataGridViewFlowers);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FormFlowers";
-            this.Text = "FormFlowers";
+            this.Text = "Изделия";
             this.Load += new System.EventHandler(this.FormFlowers_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewFlowers)).EndInit();
             this.ResumeLayout(false);
