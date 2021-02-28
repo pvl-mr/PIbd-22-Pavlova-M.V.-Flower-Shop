@@ -43,7 +43,7 @@ namespace FlowerShopView
             this.labelComponent.Location = new System.Drawing.Point(45, 28);
             this.labelComponent.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelComponent.Name = "labelComponent";
-            this.labelComponent.Size = new System.Drawing.Size(89, 17);
+            this.labelComponent.Size = new System.Drawing.Size(86, 16);
             this.labelComponent.TabIndex = 0;
             this.labelComponent.Text = "Компонент: ";
             // 
@@ -51,7 +51,7 @@ namespace FlowerShopView
             // 
             this.comboBoxComponent.FormattingEnabled = true;
             this.comboBoxComponent.Location = new System.Drawing.Point(145, 25);
-            this.comboBoxComponent.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.comboBoxComponent.Margin = new System.Windows.Forms.Padding(4);
             this.comboBoxComponent.Name = "comboBoxComponent";
             this.comboBoxComponent.Size = new System.Drawing.Size(405, 24);
             this.comboBoxComponent.TabIndex = 1;
@@ -69,7 +69,7 @@ namespace FlowerShopView
             // textBoxCount
             // 
             this.textBoxCount.Location = new System.Drawing.Point(145, 68);
-            this.textBoxCount.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBoxCount.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxCount.Name = "textBoxCount";
             this.textBoxCount.Size = new System.Drawing.Size(405, 22);
             this.textBoxCount.TabIndex = 3;
@@ -77,7 +77,7 @@ namespace FlowerShopView
             // btnAdd
             // 
             this.btnAdd.Location = new System.Drawing.Point(176, 121);
-            this.btnAdd.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnAdd.Margin = new System.Windows.Forms.Padding(4);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(164, 50);
             this.btnAdd.TabIndex = 4;
@@ -88,7 +88,7 @@ namespace FlowerShopView
             // btnCancel
             // 
             this.btnCancel.Location = new System.Drawing.Point(381, 121);
-            this.btnCancel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnCancel.Margin = new System.Windows.Forms.Padding(4);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(171, 50);
             this.btnCancel.TabIndex = 5;
@@ -107,9 +107,9 @@ namespace FlowerShopView
             this.Controls.Add(this.labelCount);
             this.Controls.Add(this.comboBoxComponent);
             this.Controls.Add(this.labelComponent);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FormFlowerComponent";
-            this.Text = "FormFlowerComponent";
+            this.Text = "Компонент изделия";
             this.ResumeLayout(false);
             this.PerformLayout();
 

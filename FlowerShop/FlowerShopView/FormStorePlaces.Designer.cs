@@ -100,7 +100,7 @@ namespace FlowerShopView
             this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.dataGridViewStorePlaces);
             this.Name = "FormStorePlaces";
-            this.Text = "FormStorePlaces";
+            this.Text = "Склады";
             this.Load += new System.EventHandler(this.FormStorePlaces_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStorePlaces)).EndInit();
             this.ResumeLayout(false);

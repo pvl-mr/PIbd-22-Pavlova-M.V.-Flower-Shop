@@ -42,7 +42,7 @@ namespace FlowerShopView
             this.dataGridViewComponents.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
             this.dataGridViewComponents.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewComponents.Location = new System.Drawing.Point(16, 15);
-            this.dataGridViewComponents.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dataGridViewComponents.Margin = new System.Windows.Forms.Padding(4);
             this.dataGridViewComponents.Name = "dataGridViewComponents";
             this.dataGridViewComponents.RowHeadersWidth = 51;
             this.dataGridViewComponents.Size = new System.Drawing.Size(756, 465);
@@ -51,7 +51,7 @@ namespace FlowerShopView
             // btnAdd
             // 
             this.btnAdd.Location = new System.Drawing.Point(780, 15);
-            this.btnAdd.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnAdd.Margin = new System.Windows.Forms.Padding(4);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(224, 64);
             this.btnAdd.TabIndex = 1;
@@ -62,7 +62,7 @@ namespace FlowerShopView
             // btnChange
             // 
             this.btnChange.Location = new System.Drawing.Point(780, 138);
-            this.btnChange.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnChange.Margin = new System.Windows.Forms.Padding(4);
             this.btnChange.Name = "btnChange";
             this.btnChange.Size = new System.Drawing.Size(224, 66);
             this.btnChange.TabIndex = 2;
@@ -73,7 +73,7 @@ namespace FlowerShopView
             // btnDelete
             // 
             this.btnDelete.Location = new System.Drawing.Point(780, 257);
-            this.btnDelete.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnDelete.Margin = new System.Windows.Forms.Padding(4);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(224, 62);
             this.btnDelete.TabIndex = 3;
@@ -84,7 +84,7 @@ namespace FlowerShopView
             // btnUpdate
             // 
             this.btnUpdate.Location = new System.Drawing.Point(780, 370);
-            this.btnUpdate.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnUpdate.Margin = new System.Windows.Forms.Padding(4);
             this.btnUpdate.Name = "btnUpdate";
             this.btnUpdate.Size = new System.Drawing.Size(224, 64);
             this.btnUpdate.TabIndex = 4;
@@ -102,9 +102,9 @@ namespace FlowerShopView
             this.Controls.Add(this.btnChange);
             this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.dataGridViewComponents);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FormComponents";
-            this.Text = "FormComponents";
+            this.Text = "Компоненты";
             this.Load += new System.EventHandler(this.FormComponents_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewComponents)).EndInit();
             this.ResumeLayout(false);

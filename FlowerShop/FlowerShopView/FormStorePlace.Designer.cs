@@ -46,7 +46,7 @@ namespace FlowerShopView
             this.labelStorePlaceName.AutoSize = true;
             this.labelStorePlaceName.Location = new System.Drawing.Point(30, 51);
             this.labelStorePlaceName.Name = "labelStorePlaceName";
-            this.labelStorePlaceName.Size = new System.Drawing.Size(130, 17);
+            this.labelStorePlaceName.Size = new System.Drawing.Size(129, 16);
             this.labelStorePlaceName.TabIndex = 0;
             this.labelStorePlaceName.Text = "Название склада: ";
             // 
@@ -62,7 +62,7 @@ namespace FlowerShopView
             this.labelAdministratorName.AutoSize = true;
             this.labelAdministratorName.Location = new System.Drawing.Point(30, 104);
             this.labelAdministratorName.Name = "labelAdministratorName";
-            this.labelAdministratorName.Size = new System.Drawing.Size(119, 17);
+            this.labelAdministratorName.Size = new System.Drawing.Size(117, 16);
             this.labelAdministratorName.TabIndex = 2;
             this.labelAdministratorName.Text = "Ответственный: ";
             // 
@@ -136,7 +136,7 @@ namespace FlowerShopView
             this.Controls.Add(this.textBoxStorePlaceName);
             this.Controls.Add(this.labelStorePlaceName);
             this.Name = "FormStorePlace";
-            this.Text = "FormStorePlace";
+            this.Text = "Склад";
             this.Load += new System.EventHandler(this.FormStorePlace_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewComponents)).EndInit();
             this.ResumeLayout(false);

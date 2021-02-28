@@ -123,7 +123,7 @@ namespace FlowerShopView
             this.Controls.Add(this.labelComponent);
             this.Controls.Add(this.labelStorePlace);
             this.Name = "FormStorePlaceRefill";
-            this.Text = "FormStorePlaceRefill";
+            this.Text = "Пополнение склада";
             this.ResumeLayout(false);
             this.PerformLayout();
 
