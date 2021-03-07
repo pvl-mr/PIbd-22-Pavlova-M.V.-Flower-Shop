@@ -63,7 +63,6 @@ namespace FlowerShopFileImplement
 
         private List<Order> LoadOrders()
         {
-            // прописать логику
             var list = new List<Order>();
             if (File.Exists(OrderFileName))
             {
@@ -132,7 +131,6 @@ namespace FlowerShopFileImplement
 
         private void SaveOrders()
         {
-            // прописать логику
             if (Orders != null)
             {
                 var xElement = new XElement("Orders");

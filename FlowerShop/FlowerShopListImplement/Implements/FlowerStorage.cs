@@ -129,27 +129,13 @@ namespace FlowerShopListImplement.Implements
 
         private FlowerViewModel CreateModel(Flower flower)
         {
-            // требуется дополнительно получить список компонентов для изделия с названиями и их количество
-            Dictionary<int, (string, int)> flowerComponents = new Dictionary<int, (string, int)>();
-            foreach (var pc in flower.FlowerComponents)
-            {
-                string componentName = string.Empty;
-                foreach (var component in source.Components)
-                {
-                    if (pc.Key == component.Id)
-                    {
-                        componentName = component.ComponentName;
-                        break;
-                    }
-                }
-                flowerComponents.Add(pc.Key, (componentName, pc.Value));
-            }
             return new FlowerViewModel
             {
                 Id = flower.Id,
                 FlowerName = flower.FlowerName,
                 Price = flower.Price,
-                FlowerComponents = flowerComponents
+                FlowerComponents = flower.FlowerComponents.ToDictionary(recPC => recPC.Key, recPC =>
+                    (source.Components.FirstOrDefault(recC => recC.Id == recPC.Key)?.ComponentName, recPC.Value))
             };
         }
     }

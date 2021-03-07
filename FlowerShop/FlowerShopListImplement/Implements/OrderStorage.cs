@@ -4,6 +4,7 @@ using FlowerShopBusinessLogic.ViewModels;
 using FlowerShopListImplement.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace FlowerShopListImplement.Implements
@@ -75,19 +76,10 @@ namespace FlowerShopListImplement.Implements
 
         private OrderViewModel CreateModel(Order order)
         {
-            string FlowerName = "";
-            for (int j = 0; j < source.Flowers.Count; ++j)
-            {
-                if (source.Flowers[j].Id == order.FlowerId)
-                {
-                    FlowerName = source.Flowers[j].FlowerName;
-                    break;
-                }
-            }
             return new OrderViewModel
             {
                 Id = order.Id,
-                FlowerName = FlowerName,
+                FlowerName = source.Flowers.FirstOrDefault(flower => flower.Id == order.FlowerId)?.FlowerName,
                 Count = order.Count,
                 Sum = order.Sum,
                 Status = order.Status,

@@ -86,20 +86,11 @@ namespace FlowerShopFileImplement.Implements
 
         private OrderViewModel CreateModel(Order order)
         {
-            string flowerName = "";
-            foreach (Flower flower in source.Flowers)
-            {
-                if (flower.Id == order.FlowerId)
-                {
-                    flowerName = flower.FlowerName;
-                }
-            }
-
             return new OrderViewModel
             {
                 Id = order.Id,
                 FlowerId = order.FlowerId,
-                FlowerName = flowerName,
+                FlowerName = source.Flowers.FirstOrDefault(flower => flower.Id == order.FlowerId)?.FlowerName, 
                 Count = order.Count,
                 Sum = order.Sum,
                 DateCreate = order.DateCreate,

@@ -41,60 +41,67 @@
             // labelName
             // 
             this.labelName.AutoSize = true;
-            this.labelName.Location = new System.Drawing.Point(29, 23);
+            this.labelName.Location = new System.Drawing.Point(39, 28);
+            this.labelName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelName.Name = "labelName";
-            this.labelName.Size = new System.Drawing.Size(57, 13);
+            this.labelName.Size = new System.Drawing.Size(72, 16);
             this.labelName.TabIndex = 0;
             this.labelName.Text = "Изделие: ";
             // 
             // labelCount
             // 
             this.labelCount.AutoSize = true;
-            this.labelCount.Location = new System.Drawing.Point(29, 68);
+            this.labelCount.Location = new System.Drawing.Point(39, 84);
+            this.labelCount.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelCount.Name = "labelCount";
-            this.labelCount.Size = new System.Drawing.Size(72, 13);
+            this.labelCount.Size = new System.Drawing.Size(92, 16);
             this.labelCount.TabIndex = 1;
             this.labelCount.Text = "Количество: ";
             // 
             // labelSum
             // 
             this.labelSum.AutoSize = true;
-            this.labelSum.Location = new System.Drawing.Point(29, 110);
+            this.labelSum.Location = new System.Drawing.Point(39, 135);
+            this.labelSum.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelSum.Name = "labelSum";
-            this.labelSum.Size = new System.Drawing.Size(47, 13);
+            this.labelSum.Size = new System.Drawing.Size(57, 16);
             this.labelSum.TabIndex = 2;
             this.labelSum.Text = "Сумма: ";
             // 
             // textBoxCount
             // 
-            this.textBoxCount.Location = new System.Drawing.Point(107, 65);
+            this.textBoxCount.Location = new System.Drawing.Point(143, 80);
+            this.textBoxCount.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.textBoxCount.Name = "textBoxCount";
-            this.textBoxCount.Size = new System.Drawing.Size(332, 20);
+            this.textBoxCount.Size = new System.Drawing.Size(441, 22);
             this.textBoxCount.TabIndex = 3;
             this.textBoxCount.TextChanged += new System.EventHandler(this.TextBoxCount_TextChanged);
             // 
             // textBoxSum
             // 
-            this.textBoxSum.Location = new System.Drawing.Point(107, 110);
+            this.textBoxSum.Location = new System.Drawing.Point(143, 135);
+            this.textBoxSum.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.textBoxSum.Name = "textBoxSum";
             this.textBoxSum.ReadOnly = true;
-            this.textBoxSum.Size = new System.Drawing.Size(332, 20);
+            this.textBoxSum.Size = new System.Drawing.Size(441, 22);
             this.textBoxSum.TabIndex = 4;
             // 
             // comboBoxFlower
             // 
             this.comboBoxFlower.FormattingEnabled = true;
-            this.comboBoxFlower.Location = new System.Drawing.Point(107, 20);
+            this.comboBoxFlower.Location = new System.Drawing.Point(143, 25);
+            this.comboBoxFlower.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.comboBoxFlower.Name = "comboBoxFlower";
-            this.comboBoxFlower.Size = new System.Drawing.Size(332, 21);
+            this.comboBoxFlower.Size = new System.Drawing.Size(441, 24);
             this.comboBoxFlower.TabIndex = 5;
             this.comboBoxFlower.SelectedIndexChanged += new System.EventHandler(this.ComboBoxFlower_SelectedIndexChanged);
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(268, 149);
+            this.btnSave.Location = new System.Drawing.Point(357, 183);
+            this.btnSave.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(75, 32);
+            this.btnSave.Size = new System.Drawing.Size(100, 39);
             this.btnSave.TabIndex = 6;
             this.btnSave.Text = "Сохранить";
             this.btnSave.UseVisualStyleBackColor = true;
@@ -102,9 +109,10 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(364, 149);
+            this.btnCancel.Location = new System.Drawing.Point(485, 183);
+            this.btnCancel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(75, 32);
+            this.btnCancel.Size = new System.Drawing.Size(100, 39);
             this.btnCancel.TabIndex = 7;
             this.btnCancel.Text = "Отмена";
             this.btnCancel.UseVisualStyleBackColor = true;
@@ -112,9 +120,9 @@
             // 
             // FormCreateOrder
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(451, 204);
+            this.ClientSize = new System.Drawing.Size(601, 251);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.comboBoxFlower);
@@ -123,8 +131,9 @@
             this.Controls.Add(this.labelSum);
             this.Controls.Add(this.labelCount);
             this.Controls.Add(this.labelName);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "FormCreateOrder";
-            this.Text = "FormCreateOrder";
+            this.Text = "Заказ";
             this.Load += new System.EventHandler(this.FormCreateOrder_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
