@@ -167,7 +167,7 @@
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FormMain";
             this.Text = "Цветочная лавка";
-            this.Load += new System.EventHandler(this.FormMain_Load_1);
+            this.Load += new System.EventHandler(this.FormMain_Load);
             this.menuStripObjects.ResumeLayout(false);
             this.menuStripObjects.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewOrders)).EndInit();

@@ -136,6 +136,7 @@ namespace FlowerShopListImplement.Implements
                 Price = flower.Price,
                 FlowerComponents = flower.FlowerComponents.ToDictionary(recPC => recPC.Key, recPC =>
                     (source.Components.FirstOrDefault(recC => recC.Id == recPC.Key)?.ComponentName, recPC.Value))
+
             };
         }
     }
