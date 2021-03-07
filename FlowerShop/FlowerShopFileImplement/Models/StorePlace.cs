@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace FlowerShopListImplement.Models
+namespace FlowerShopFileImplement.Models
 {
     public class StorePlace
     {
