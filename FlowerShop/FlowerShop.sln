@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FlowerShopBusinessLogic", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FlowerShopListImplement", "FlowerShopListImplement\FlowerShopListImplement.csproj", "{FA8D15E9-0998-4891-9403-10ED0016D718}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlowerShopFileImplement", "FlowerShopFileImplement\FlowerShopFileImplement.csproj", "{38F06CB1-2569-4410-A1D2-96E8393E3C3A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FlowerShopFileImplement", "FlowerShopFileImplement\FlowerShopFileImplement.csproj", "{38F06CB1-2569-4410-A1D2-96E8393E3C3A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlowerShopDatabaseImplement", "FlowerShopDatabaseImplement\FlowerShopDatabaseImplement.csproj", "{93A21AA7-66A4-4D06-B5A3-C113CDEFA71E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{38F06CB1-2569-4410-A1D2-96E8393E3C3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{38F06CB1-2569-4410-A1D2-96E8393E3C3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{38F06CB1-2569-4410-A1D2-96E8393E3C3A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{93A21AA7-66A4-4D06-B5A3-C113CDEFA71E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93A21AA7-66A4-4D06-B5A3-C113CDEFA71E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93A21AA7-66A4-4D06-B5A3-C113CDEFA71E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93A21AA7-66A4-4D06-B5A3-C113CDEFA71E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
