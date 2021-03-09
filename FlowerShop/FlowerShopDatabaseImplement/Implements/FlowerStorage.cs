@@ -1,4 +1,5 @@
 ﻿using FlowerShopBusinessLogic.BindingModel;
+using FlowerShopBusinessLogic.Interfaces;
 using FlowerShopBusinessLogic.ViewModels;
 using FlowerShopDatabaseImplement.Models;
 using Microsoft.EntityFrameworkCore;
@@ -9,7 +10,7 @@ using System.Text;
 
 namespace FlowerShopDatabaseImplement.Implements
 {
-    public class FlowerStorage
+    public class FlowerStorage : IFlowerStorage
     {
         public List<FlowerViewModel> GetFullList()
         {
@@ -30,6 +31,7 @@ namespace FlowerShopDatabaseImplement.Implements
                 .ToList();
             }
         }
+
         public List<FlowerViewModel> GetFilteredList(FlowerBindingModel model)
         {
             if (model == null)
@@ -49,12 +51,11 @@ namespace FlowerShopDatabaseImplement.Implements
                     FlowerName = rec.FlowerName,
                     Price = rec.Price,
                     FlowerComponents = rec.FlowerComponents
-                .ToDictionary(recPC => recPC.ComponentId, recPC =>
-                (recPC.Component?.ComponentName, recPC.Count))
-                })
-                .ToList();
+                .ToDictionary(recPC => recPC.ComponentId, recPC => (recPC.Component?.ComponentName, recPC.Count))
+                }).ToList();
             }
         }
+
         public FlowerViewModel GetElement(FlowerBindingModel model)
         {
             if (model == null)
@@ -79,6 +80,7 @@ namespace FlowerShopDatabaseImplement.Implements
                 null;
             }
         }
+
         public void Insert(FlowerBindingModel model)
         {
             using (var context = new FlowerShopDatabase())
@@ -87,8 +89,10 @@ namespace FlowerShopDatabaseImplement.Implements
                 {
                     try
                     {
-                        context.Flowers.Add(CreateModel(model, new Flower(), context));
+                        Flower flower = CreateModel(model, new Flower());
+                        context.Flowers.Add(flower);
                         context.SaveChanges();
+                        CreateModel(model, flower, context);
                         transaction.Commit();
                     }
                     catch
@@ -99,6 +103,7 @@ namespace FlowerShopDatabaseImplement.Implements
                 }
             }
         }
+
         public void Update(FlowerBindingModel model)
         {
             using (var context = new FlowerShopDatabase())
@@ -124,6 +129,7 @@ namespace FlowerShopDatabaseImplement.Implements
                 }
             }
         }
+
         public void Delete(FlowerBindingModel model)
         {
             using (var context = new FlowerShopDatabase())
@@ -140,10 +146,18 @@ namespace FlowerShopDatabaseImplement.Implements
                 }
             }
         }
-        private Flower CreateModel(FlowerBindingModel model, Flower product, FlowerShopDatabase context)
+
+        private Flower CreateModel(FlowerBindingModel model, Flower flower)
         {
-            product.FlowerName = model.FlowerName;
-            product.Price = model.Price;
+            flower.FlowerName = model.FlowerName;
+            flower.Price = model.Price;
+            return flower;
+        }
+
+        private Flower CreateModel(FlowerBindingModel model, Flower flower, FlowerShopDatabase context)
+        {
+            flower.FlowerName = model.FlowerName;
+            flower.Price = model.Price;
             if (model.Id.HasValue)
             {
                 var productComponents = context.FlowerComponents.Where(rec => rec.FlowerId == model.Id.Value).ToList();
@@ -163,13 +177,14 @@ namespace FlowerShopDatabaseImplement.Implements
             {
                 context.FlowerComponents.Add(new FlowerComponent
                 {
-                    FlowerId = product.Id,
+                    FlowerId = flower.Id,
                     ComponentId = pc.Key,
                     Count = pc.Value.Item2
                 });
                 context.SaveChanges();
             }
-            return product;
+            return flower;
         }
+
     }
 }
