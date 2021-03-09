@@ -14,5 +14,6 @@ namespace FlowerShopBusinessLogic.Interfaces
         void Insert(StorePlaceBindingModel model);
         void Update(StorePlaceBindingModel model);
         void Delete(StorePlaceBindingModel model);
+        bool TakeComponents(Dictionary<int, (string, int)> flowerComponents, int count);
     }
 }

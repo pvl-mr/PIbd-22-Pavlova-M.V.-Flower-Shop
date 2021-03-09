@@ -120,9 +120,43 @@ namespace FlowerShopFileImplement.Implements
             CreateModel(model, element);
         }
 
-        public bool TakeComponents(Dictionary<int, (string, int)> components, int count)
+        public bool TakeComponents(Dictionary<int, (string, int)> components, int flowerCount)
         {
-            
+            foreach (var storePlaceComponent in components)
+            {
+                int count = source.StorePlaces.Where(component => component.StorePlaceComponents.ContainsKey(storePlaceComponent.Key)).Sum(material => material.StorePlaceComponents[storePlaceComponent.Key]);
+                if (count < storePlaceComponent.Value.Item2 * flowerCount)
+                {
+                    return false;
+                }
+            }
+
+            foreach (var storePlaceComponent in components)
+            {
+                int count = storePlaceComponent.Value.Item2 * flowerCount;
+                IEnumerable<StorePlace> storePlaces = source.StorePlaces.Where(component => component.StorePlaceComponents.ContainsKey(storePlaceComponent.Key));
+
+                foreach (StorePlace storePlace in storePlaces)
+                {
+                    if (storePlace.StorePlaceComponents[storePlaceComponent.Key] <= count)
+                    {
+                        count -= storePlace.StorePlaceComponents[storePlaceComponent.Key];
+                        storePlace.StorePlaceComponents.Remove(storePlaceComponent.Key);
+                    }
+                    else
+                    {
+                        storePlace.StorePlaceComponents[storePlaceComponent.Key] -= count;
+                        count = 0;
+                    }
+
+                    if (count == 0)
+                    {
+                        break;
+                    }
+                }
+            }
+
+            return true;
         }
     }
 }
