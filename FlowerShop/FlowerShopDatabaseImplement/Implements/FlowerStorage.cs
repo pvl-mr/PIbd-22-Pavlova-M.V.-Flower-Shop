@@ -64,17 +64,17 @@ namespace FlowerShopDatabaseImplement.Implements
             }
             using (var context = new FlowerShopDatabase())
             {
-                var product = context.Flowers
+                var flower = context.Flowers
                 .Include(rec => rec.FlowerComponents)
                 .ThenInclude(rec => rec.Component)
                 .FirstOrDefault(rec => rec.FlowerName == model.FlowerName || rec.Id == model.Id);
-                return product != null ?
+                return flower != null ?
                 new FlowerViewModel
                 {
-                    Id = product.Id,
-                    FlowerName = product.FlowerName,
-                    Price = product.Price,
-                    FlowerComponents = product.FlowerComponents
+                    Id = flower.Id,
+                    FlowerName = flower.FlowerName,
+                    Price = flower.Price,
+                    FlowerComponents = flower.FlowerComponents
                 .ToDictionary(recPC => recPC.ComponentId, recPC => (recPC.Component?.ComponentName, recPC.Count))
                 } :
                 null;
@@ -160,12 +160,12 @@ namespace FlowerShopDatabaseImplement.Implements
             flower.Price = model.Price;
             if (model.Id.HasValue)
             {
-                var productComponents = context.FlowerComponents.Where(rec => rec.FlowerId == model.Id.Value).ToList();
+                var flowerComponents = context.FlowerComponents.Where(rec => rec.FlowerId == model.Id.Value).ToList();
                 // удалили те, которых нет в модели
-                context.FlowerComponents.RemoveRange(productComponents.Where(rec => !model.FlowerComponents.ContainsKey(rec.ComponentId)).ToList());
+                context.FlowerComponents.RemoveRange(flowerComponents.Where(rec => !model.FlowerComponents.ContainsKey(rec.ComponentId)).ToList());
                 context.SaveChanges();
                 // обновили количество у существующих записей
-                foreach (var updateComponent in productComponents)
+                foreach (var updateComponent in flowerComponents)
                 {
                     updateComponent.Count = model.FlowerComponents[updateComponent.ComponentId].Item2;
                     model.FlowerComponents.Remove(updateComponent.ComponentId);
