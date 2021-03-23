@@ -64,17 +64,17 @@ namespace FlowerShopDatabaseImplement.Implements
             }
             using (var context = new FlowerShopDatabase())
             {
-                var product = context.Flowers
+                var flower = context.Flowers
                 .Include(rec => rec.FlowerComponents)
                 .ThenInclude(rec => rec.Component)
                 .FirstOrDefault(rec => rec.FlowerName == model.FlowerName || rec.Id == model.Id);
-                return product != null ?
+                return flower != null ?
                 new FlowerViewModel
                 {
-                    Id = product.Id,
-                    FlowerName = product.FlowerName,
-                    Price = product.Price,
-                    FlowerComponents = product.FlowerComponents
+                    Id = flower.Id,
+                    FlowerName = flower.FlowerName,
+                    Price = flower.Price,
+                    FlowerComponents = flower.FlowerComponents
                 .ToDictionary(recPC => recPC.ComponentId, recPC => (recPC.Component?.ComponentName, recPC.Count))
                 } :
                 null;
