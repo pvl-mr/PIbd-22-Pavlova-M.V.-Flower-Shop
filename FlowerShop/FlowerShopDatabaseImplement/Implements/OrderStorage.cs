@@ -21,7 +21,7 @@ namespace FlowerShopDatabaseImplement.Implements
                 {
                     Id = rec.Id,
                     FlowerId = rec.FlowerId,
-                    FlowerName = context.Flowers.FirstOrDefault(pr => pr.Id == rec.FlowerId).FlowerName,
+                    FlowerName = rec.Flower.FlowerName,
                     Count = rec.Count,
                     Sum = rec.Sum,
                     Status = rec.Status,
@@ -46,7 +46,7 @@ namespace FlowerShopDatabaseImplement.Implements
                 {
                     Id = rec.Id,
                     FlowerId = rec.FlowerId,
-                    FlowerName = context.Flowers.FirstOrDefault(pr => pr.Id == rec.FlowerId).FlowerName,
+                    FlowerName = rec.Flower.FlowerName,
                     Count = rec.Count,
                     Sum = rec.Sum,
                     Status = rec.Status,
@@ -72,7 +72,7 @@ namespace FlowerShopDatabaseImplement.Implements
                 {
                     Id = order.Id,
                     FlowerId = order.FlowerId,
-                    FlowerName = context.Flowers.FirstOrDefault(rec => rec.Id == order.FlowerId).FlowerName,
+                    FlowerName = order.Flower.FlowerName,
                     Count = order.Count,
                     Sum = order.Sum,
                     Status = order.Status,
