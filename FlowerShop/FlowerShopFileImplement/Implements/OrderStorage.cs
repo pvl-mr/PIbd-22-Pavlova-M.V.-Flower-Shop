@@ -29,7 +29,7 @@ namespace FlowerShopFileImplement.Implements
                 return null;
             }
             return source.Orders
-                    .Where(rec => rec.FlowerId.ToString().Contains(model.FlowerId.ToString()))
+                    .Where(rec => rec.DateCreate >= model.DateFrom && rec.DateCreate <= model.DateTo)
                     .Select(CreateModel)
                     .ToList();
         }
