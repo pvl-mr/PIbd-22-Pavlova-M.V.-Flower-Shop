@@ -5,6 +5,9 @@ using System.Text;
 
 namespace FlowerShopDatabaseImplement.Models
 {
+    /// <summary>
+    /// Сколько компонентов, требуется при изготовлении изделия
+    /// </summary>
     public class FlowerComponent
     {
         public int Id { get; set; }

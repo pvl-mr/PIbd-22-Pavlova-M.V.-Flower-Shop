@@ -19,5 +19,6 @@ namespace FlowerShopDatabaseImplement.Models
         [Required]
         public DateTime DateCreate { get; set; }
         public DateTime? DateImplement { get; set; }
+        public virtual Flower Flower { get; set; }
     }
 }

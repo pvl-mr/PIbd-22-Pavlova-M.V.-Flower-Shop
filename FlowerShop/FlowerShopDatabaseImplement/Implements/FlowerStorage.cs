@@ -89,10 +89,15 @@ namespace FlowerShopDatabaseImplement.Implements
                 {
                     try
                     {
-                        Flower flower = CreateModel(model, new Flower());
+                        Flower flower = new Flower
+                        {
+                            FlowerName = model.FlowerName,
+                            Price = model.Price
+                        };
                         context.Flowers.Add(flower);
                         context.SaveChanges();
                         CreateModel(model, flower, context);
+                        context.SaveChanges();
                         transaction.Commit();
                     }
                     catch
@@ -156,16 +161,14 @@ namespace FlowerShopDatabaseImplement.Implements
 
         private Flower CreateModel(FlowerBindingModel model, Flower flower, FlowerShopDatabase context)
         {
-            flower.FlowerName = model.FlowerName;
-            flower.Price = model.Price;
             if (model.Id.HasValue)
             {
-                var productComponents = context.FlowerComponents.Where(rec => rec.FlowerId == model.Id.Value).ToList();
+                var flowerComponents = context.FlowerComponents.Where(rec => rec.FlowerId == model.Id.Value).ToList();
                 // удалили те, которых нет в модели
-                context.FlowerComponents.RemoveRange(productComponents.Where(rec => !model.FlowerComponents.ContainsKey(rec.ComponentId)).ToList());
+                context.FlowerComponents.RemoveRange(flowerComponents.Where(rec => !model.FlowerComponents.ContainsKey(rec.ComponentId)).ToList());
                 context.SaveChanges();
                 // обновили количество у существующих записей
-                foreach (var updateComponent in productComponents)
+                foreach (var updateComponent in flowerComponents)
                 {
                     updateComponent.Count = model.FlowerComponents[updateComponent.ComponentId].Item2;
                     model.FlowerComponents.Remove(updateComponent.ComponentId);

@@ -16,7 +16,7 @@ namespace FlowerShopDatabaseImplement.Implements
         {
             using (var context = new FlowerShopDatabase())
             {
-                return context.Orders
+                return context.Orders.Include(rec => rec.Flower)
                 .Select(rec => new OrderViewModel
                 {
                     Id = rec.Id,
@@ -40,7 +40,7 @@ namespace FlowerShopDatabaseImplement.Implements
             }
             using (var context = new FlowerShopDatabase())
             {
-                return context.Orders
+                return context.Orders.Include(rec => rec.Flower)
                 .Where(rec => rec.FlowerId == model.FlowerId)
                 .Select(rec => new OrderViewModel
                 {
@@ -65,7 +65,7 @@ namespace FlowerShopDatabaseImplement.Implements
             }
             using (var context = new FlowerShopDatabase())
             {
-                var order = context.Orders
+                var order = context.Orders.Include(rec => rec.Flower)
                 .FirstOrDefault(rec => rec.Id == model.Id);
                 return order != null ?
                 new OrderViewModel
