@@ -34,7 +34,7 @@ namespace FlowerShopBusinessLogic.BusinessLogic
                 {
                     docBody.AppendChild(CreateParagraph(new WordParagraph
                     {
-                        Texts = new List<(string, WordTextProperties)> { (flower.FlowerName + " ", new WordTextProperties { Size = "24", }), (flower.Price.ToString(), new WordTextProperties { Size = "24" }) },
+                        Texts = new List<(string, WordTextProperties)> { (flower.FlowerName + " ", new WordTextProperties { Bold = true, Size = "24", }), (flower.Price.ToString(), new WordTextProperties { Size = "24" }) },
                         TextProperties = new WordTextProperties
                         {
 

@@ -7,7 +7,7 @@
         <DataProvider>System.Data.DataSet</DataProvider>
         <ConnectString>/* Local Connection */</ConnectString>
       </ConnectionProperties>
-      <rd:DataSourceID>6ae97505-f33b-4a92-8fcf-bb4d38b1a05c</rd:DataSourceID>
+      <rd:DataSourceID>03dc3d60-2ff6-4078-aa11-adb64686cea4</rd:DataSourceID>
     </DataSource>
   </DataSources>
   <DataSets>
@@ -418,6 +418,7 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                   </TablixCells>
