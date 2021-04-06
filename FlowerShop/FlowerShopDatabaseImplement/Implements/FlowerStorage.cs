@@ -152,13 +152,6 @@ namespace FlowerShopDatabaseImplement.Implements
             }
         }
 
-        private Flower CreateModel(FlowerBindingModel model, Flower flower)
-        {
-            flower.FlowerName = model.FlowerName;
-            flower.Price = model.Price;
-            return flower;
-        }
-
         private Flower CreateModel(FlowerBindingModel model, Flower flower, FlowerShopDatabase context)
         {
             if (model.Id.HasValue)

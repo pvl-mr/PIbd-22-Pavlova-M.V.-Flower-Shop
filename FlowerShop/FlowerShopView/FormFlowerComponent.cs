@@ -66,6 +66,6 @@ namespace FlowerShopView
         {
             DialogResult = DialogResult.Cancel;
             Close();
-        }
+        }      
     }
 }
