@@ -101,10 +101,10 @@ namespace FlowerShopView
                 if (storePlaceComponents != null)
                 {
                    dataGridViewComponents.Rows.Clear();
-                    foreach (KeyValuePair<int, (string, int)> storePlaceMaterial in storePlaceComponents)
+                    foreach (KeyValuePair<int, (string, int)> storePlaceComponent in storePlaceComponents)
                     {
-                        dataGridViewComponents.Rows.Add(new object[] { storePlaceMaterial.Value.Item1,
-                        storePlaceMaterial.Value.Item2 });
+                        dataGridViewComponents.Rows.Add(new object[] { storePlaceComponent.Value.Item1,
+                        storePlaceComponent.Value.Item2 });
                     }
                 }
             }

@@ -1,0 +1,80 @@
+﻿using FlowerShopBusinessLogic.BindingModel;
+using FlowerShopBusinessLogic.BusinessLogic;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using Unity;
+
+namespace FlowerShopView
+{
+    public partial class FormReportStorePlaceComponents : Form
+    {
+        [Dependency]
+        public new IUnityContainer Container { get; set; }
+
+        private readonly ReportLogic logic;
+        public FormReportStorePlaceComponents()
+        {
+            InitializeComponent();
+            this.logic = logic;
+        }
+
+        private void dataGridViewStorePlaceComponents_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            try
+            {
+                var storePlaceComponents = logic.GetStorePlaceComponents();
+                if (storePlaceComponents != null)
+                {
+                    dataGridViewStorePlaceComponents.Rows.Clear();
+
+                    foreach (var storePlace in storePlaceComponents)
+                    {
+                        dataGridViewStorePlaceComponents.Rows.Add(new object[] { storePlace.StorePlaceName, "", "" });
+
+                        foreach (var component in storePlace.Components)
+                        {
+                            dataGridViewStorePlaceComponents.Rows.Add(new object[] { "", component.Item1, component.Item2 });
+                        }
+
+                        dataGridViewStorePlaceComponents.Rows.Add(new object[] { "Итого", "", storePlace.TotalCount });
+                        dataGridViewStorePlaceComponents.Rows.Add(new object[] { });
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnSaveToExcel_Click(object sender, EventArgs e)
+        {
+            using (var dialog = new SaveFileDialog { Filter = "xlsx|*.xlsx" })
+            {
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    try
+                    {
+                        logic.SaveStorePlaceComponentsToExcelFile(new ReportBindingModel
+                        {
+                            FileName = dialog.FileName
+                        });
+                        MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+        }
+    }
+    
+}

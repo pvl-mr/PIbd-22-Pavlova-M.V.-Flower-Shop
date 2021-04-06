@@ -148,13 +148,13 @@ namespace FlowerShopDatabaseImplement.Implements
         {
             using (var context = new FlowerShopDatabase())
             {
-                StorePlace storehouse = context.StorePlaces.FirstOrDefault(rec => rec.Id == model.Id);
+                StorePlace storePlace = context.StorePlaces.FirstOrDefault(rec => rec.Id == model.Id);
 
-                if (storehouse == null)
+                if (storePlace == null)
                 {
                     throw new Exception("Склад не найден");
                 }
-                context.StorePlaces.Remove(storehouse);
+                context.StorePlaces.Remove(storePlace);
                 context.SaveChanges();
             }
         }
@@ -174,20 +174,20 @@ namespace FlowerShopDatabaseImplement.Implements
                             int freeCount = StorePlaceComponents.Sum(storePlace => storePlace.Count);
                             if (freeCount < count)
                             {
-                                throw new Exception("Недостаточно материалов");
+                                throw new Exception("Недостаточно компонентов");
                             }
 
-                            foreach (StorePlaceComponent material in StorePlaceComponents)
+                            foreach (StorePlaceComponent component in StorePlaceComponents)
                             {
-                                if (material.Count <= count)
+                                if (component.Count <= count)
                                 {
-                                    count -= material.Count;
-                                    context.StorePlaceComponents.Remove(material);
+                                    count -= component.Count;
+                                    context.StorePlaceComponents.Remove(component);
                                     context.SaveChanges();
                                 }
                                 else
                                 {
-                                    material.Count -= count;
+                                    component.Count -= count;
                                     context.SaveChanges();
                                     count = 0;
                                 }

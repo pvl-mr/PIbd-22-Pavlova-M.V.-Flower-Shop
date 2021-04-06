@@ -124,7 +124,7 @@ namespace FlowerShopFileImplement.Implements
         {
             foreach (var storePlaceComponent in components)
             {
-                int count = source.StorePlaces.Where(component => component.StorePlaceComponents.ContainsKey(storePlaceComponent.Key)).Sum(material => material.StorePlaceComponents[storePlaceComponent.Key]);
+                int count = source.StorePlaces.Where(component => component.StorePlaceComponents.ContainsKey(storePlaceComponent.Key)).Sum(compomemt => compomemt.StorePlaceComponents[storePlaceComponent.Key]);
                 if (count < storePlaceComponent.Value.Item2 * flowerCount)
                 {
                     return false;
