@@ -1,4 +1,6 @@
-﻿@{ ViewData["Title"] = "Создать заказ"; }
+﻿@{
+    ViewData["Title"] = "Создать заказ";
+}
 <div class="text-center">
     <h2 class="display-4">Создание заказа</h2>
 </div>
@@ -25,23 +27,24 @@
     </div>
 </form>
 <script>
-$('#flower').on('change', function () {
-    check();
-});
-$('#count').on('change', function () {
-    check();
-});
-function check() {
-var count = $('#count').val();
-    var flower = $('#flower').val();
-    if (count && flower) {
-    $.ajax({
-    method: "POST",
-        url: "/Home/Calc",
-        data: { count: count, flower: flower },
-        success: function (result) {
-                $("#sum").val(result);
-            }
-        });
-    };
-}</script>
+    $('#flower').on('change', function () {
+        check();
+    });
+    $('#count').on('change', function () {
+        check();
+    });
+    function check() {
+        var count = $('#count').val();
+        var flower = $('#flower').val();
+        if (count && flower) {
+            $.ajax({
+                method: "POST",
+                url: "/Home/Calc",
+                data: { count: count, flower: flower },
+                success: function (result) {
+                    $("#sum").val(result);
+                }
+            });
+        };
+    }
+</script>

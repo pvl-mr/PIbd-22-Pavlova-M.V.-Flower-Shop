@@ -22,7 +22,8 @@ namespace FlowerShopClientApp.Controllers
             {
                 return Redirect("~/Home/Enter");
             }
-            return View(APIClient.GetRequest<List<OrderViewModel>>($"api/main/getorders?clientId={Program.Client.Id}"));
+            return
+            View(APIClient.GetRequest<List<OrderViewModel>>($"api/main/getorders?clientId={Program.Client.Id}"));
         }
         [HttpGet]
         public IActionResult Privacy()
@@ -36,9 +37,16 @@ namespace FlowerShopClientApp.Controllers
         [HttpPost]
         public void Privacy(string login, string password, string fio)
         {
-            if (!string.IsNullOrEmpty(login) && !string.IsNullOrEmpty(password) && !string.IsNullOrEmpty(fio))
+            if (!string.IsNullOrEmpty(login) && !string.IsNullOrEmpty(password)
+            && !string.IsNullOrEmpty(fio))
             {
-                //прописать запрос
+                APIClient.PostRequest("api/client/updatedata", new ClientBindingModel
+                {
+                    Id = Program.Client.Id,
+                    ClientFIO = fio,
+                    Email = login,
+                    Password = password
+                });
                 Program.Client.ClientFIO = fio;
                 Program.Client.Email = login;
                 Program.Client.Password = password;
@@ -50,7 +58,10 @@ namespace FlowerShopClientApp.Controllers
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return View(new ErrorViewModel
+            {
+                RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier
+            });
         }
         [HttpGet]
         public IActionResult Enter()
@@ -60,17 +71,17 @@ namespace FlowerShopClientApp.Controllers
         [HttpPost]
         public void Enter(string login, string password)
         {
-        if (!string.IsNullOrEmpty(login) && !string.IsNullOrEmpty(password))
-        {
-        Program.Client = APIClient.GetRequest<ClientViewModel>($"api/client/login?login={login}&password={password}");
-        if (Program.Client == null)
-        {
-        throw new Exception("Неверный логин/пароль");
+            if (!string.IsNullOrEmpty(login) && !string.IsNullOrEmpty(password))
+            {
+                Program.Client = APIClient.GetRequest<ClientViewModel>($"api/client/login?login={login}&password={password}");
+                if (Program.Client == null)
+                {
+                    throw new Exception("Неверный логин/пароль");
+                }
+                Response.Redirect("Index");
+                return;
             }
-            Response.Redirect("Index");
-        return;
-        }
-        throw new Exception("Введите логин, пароль");
+            throw new Exception("Введите логин, пароль");
         }
         [HttpGet]
         public IActionResult Register()
@@ -80,8 +91,10 @@ namespace FlowerShopClientApp.Controllers
         [HttpPost]
         public void Register(string login, string password, string fio)
         {
+            Console.WriteLine("----------------------------------------------------");
             if (!string.IsNullOrEmpty(login) && !string.IsNullOrEmpty(password) && !string.IsNullOrEmpty(fio))
             {
+                Console.WriteLine("----------------------------------------------------");
                 APIClient.PostRequest("api/client/register", new ClientBindingModel
                 {
                     ClientFIO = fio,
@@ -96,7 +109,7 @@ namespace FlowerShopClientApp.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            ViewBag.Products = APIClient.GetRequest<List<FlowerViewModel>>("api/main/getflowerlist");
+            ViewBag.Flowers = APIClient.GetRequest<List<FlowerViewModel>>("api/main/getflowerlist");
             return View();
         }
         [HttpPost]
@@ -106,14 +119,20 @@ namespace FlowerShopClientApp.Controllers
             {
                 return;
             }
-            //прописать запрос
+            APIClient.PostRequest("api/main/createorder", new CreateOrderBindingModel
+            {
+                ClientId = (int)Program.Client.Id,
+                FlowerId = flower,
+                Count = count,
+                Sum = sum
+            });
             Response.Redirect("Index");
         }
         [HttpPost]
         public decimal Calc(decimal count, int flower)
         {
-        FlowerViewModel prod = APIClient.GetRequest<FlowerViewModel>($"api/main/getflower?flowertId={flower}");
-            return count * prod.Price;
+            FlowerViewModel _flower = APIClient.GetRequest<FlowerViewModel>($"api/main/getflower?flowerId={flower}");
+            return count * _flower.Price;
         }
     }
 }

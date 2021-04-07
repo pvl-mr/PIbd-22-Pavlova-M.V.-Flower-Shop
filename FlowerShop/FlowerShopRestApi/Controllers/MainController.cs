@@ -25,7 +25,7 @@ namespace FlowerShopRestApi.Controllers
         [HttpGet]
         public List<FlowerViewModel> GetFlowerList() => _flower.Read(null)?.ToList();
         [HttpGet]
-        public FlowerViewModel GetProduct(int productId) => _flower.Read(new FlowerBindingModel { Id = productId })?[0];
+        public FlowerViewModel GetFlower(int flowerId) => _flower.Read(new FlowerBindingModel { Id = flowerId })?[0];
         [HttpGet]
         public List<OrderViewModel> GetOrders(int clientId) => _order.Read(new OrderBindingModel { ClientId = clientId });
         [HttpPost]

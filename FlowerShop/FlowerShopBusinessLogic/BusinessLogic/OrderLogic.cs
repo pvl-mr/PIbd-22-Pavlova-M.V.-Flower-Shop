@@ -41,6 +41,7 @@ namespace FlowerShopBusinessLogic.BusinessLogic
         public void TakeOrderInWork(ChangeStatusBindingModel model)
         {
             var order = _orderStorage.GetElement(new OrderBindingModel { Id = model.OrderId });
+            Console.WriteLine("order client id " , order.ClientId);
             if (order == null)
             {
                 throw new Exception("Не найден заказ");
