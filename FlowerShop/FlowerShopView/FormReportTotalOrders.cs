@@ -16,5 +16,11 @@ namespace FlowerShopView
         {
             InitializeComponent();
         }
+
+        private void FormReportTotalOrders_Load(object sender, EventArgs e)
+        {
+
+            this.reportViewer1.RefreshReport();
+        }
     }
 }
