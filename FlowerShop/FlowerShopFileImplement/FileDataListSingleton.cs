@@ -49,7 +49,7 @@ namespace FlowerShopFileImplement
             SaveImplementers();
         }
 
-        rivate List<Implementer> LoadImplementers()
+        private List<Implementer> LoadImplementers()
         {
             var list = new List<Implementer>();
             if (File.Exists(ClientFileName))
