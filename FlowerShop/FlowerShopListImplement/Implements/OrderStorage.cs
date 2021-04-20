@@ -37,7 +37,10 @@ namespace FlowerShopListImplement.Implements
             List<OrderViewModel> result = new List<OrderViewModel>();
             foreach (var order in source.Orders)
             {
-                if (order.DateCreate >= model.DateFrom && order.DateCreate <= model.DateTo)
+                if (((model.ClientId.HasValue && order.ClientId == model.ClientId) ||
+                    !model.DateFrom.HasValue && !model.DateTo.HasValue && order.DateCreate.Date == model.DateCreate.Date) ||
+                    (model.DateFrom.HasValue && model.DateTo.HasValue && order.DateCreate.Date >= model.DateFrom.Value.Date
+                    && order.DateCreate.Date <= model.DateTo.Value.Date))
                 {
                     result.Add(CreateModel(order));
                 }
@@ -88,6 +91,7 @@ namespace FlowerShopListImplement.Implements
             return new OrderViewModel
             {
                 Id = order.Id,
+                ClientId = order.ClientId,
                 FlowerName = FlowerName,
                 Count = order.Count,
                 Sum = order.Sum,
@@ -99,6 +103,7 @@ namespace FlowerShopListImplement.Implements
 
         private Order CreateModel(OrderBindingModel model, Order tempOrder)
         {
+            tempOrder.ClientId = (int)model.ClientId;
             tempOrder.FlowerId = model.FlowerId == 0 ? tempOrder.FlowerId : model.FlowerId;
             tempOrder.Count = model.Count;
             tempOrder.Sum = model.Sum;

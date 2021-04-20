@@ -19,28 +19,6 @@ namespace FlowerShopView
             this.logic = logic;
         }
 
-        private void btnAdd_Click(object sender, EventArgs e)
-        {
-            var form = Container.Resolve<FormClient>();
-            if (form.ShowDialog() == DialogResult.OK)
-            {
-                LoadData();
-            }
-        }
-
-        private void btnChange_Click(object sender, EventArgs e)
-        {
-            if (dataGridViewClients.SelectedRows.Count == 1)
-            {
-                var form = Container.Resolve<FormClient>();
-                form.Id = Convert.ToInt32(dataGridViewClients.SelectedRows[0].Cells[0].Value);
-                if (form.ShowDialog() == DialogResult.OK)
-                {
-                    LoadData();
-                }
-            }
-        }
-
         private void btnDelete_Click(object sender, EventArgs e)
         {
             if (dataGridViewClients.SelectedRows.Count == 1)
@@ -62,11 +40,6 @@ namespace FlowerShopView
                     LoadData();
                 }
             }
-        }
-
-        private void btnUpdate_Click(object sender, EventArgs e)
-        {
-            LoadData();
         }
 
         private void FormClients_Load(object sender, EventArgs e)

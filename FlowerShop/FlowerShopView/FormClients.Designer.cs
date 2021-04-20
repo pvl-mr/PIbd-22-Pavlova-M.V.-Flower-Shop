@@ -30,10 +30,7 @@ namespace FlowerShopView
         private void InitializeComponent()
         {
             this.dataGridViewClients = new System.Windows.Forms.DataGridView();
-            this.btnAdd = new System.Windows.Forms.Button();
-            this.btnChange = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
-            this.btnUpdate = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewClients)).BeginInit();
             this.SuspendLayout();
             // 
@@ -48,55 +45,22 @@ namespace FlowerShopView
             this.dataGridViewClients.Size = new System.Drawing.Size(550, 436);
             this.dataGridViewClients.TabIndex = 0;
             // 
-            // btnAdd
-            // 
-            this.btnAdd.Location = new System.Drawing.Point(656, 76);
-            this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(181, 58);
-            this.btnAdd.TabIndex = 1;
-            this.btnAdd.Text = "Добавить";
-            this.btnAdd.UseVisualStyleBackColor = true;
-            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
-            // 
-            // btnChange
-            // 
-            this.btnChange.Location = new System.Drawing.Point(656, 188);
-            this.btnChange.Name = "btnChange";
-            this.btnChange.Size = new System.Drawing.Size(181, 68);
-            this.btnChange.TabIndex = 2;
-            this.btnChange.Text = "Изменить";
-            this.btnChange.UseVisualStyleBackColor = true;
-            this.btnChange.Click += new System.EventHandler(this.btnChange_Click);
-            // 
             // btnDelete
             // 
-            this.btnDelete.Location = new System.Drawing.Point(656, 299);
+            this.btnDelete.Location = new System.Drawing.Point(32, 498);
             this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(181, 69);
+            this.btnDelete.Size = new System.Drawing.Size(550, 69);
             this.btnDelete.TabIndex = 3;
             this.btnDelete.Text = "Удалить";
             this.btnDelete.UseVisualStyleBackColor = true;
             this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
-            // btnUpdate
-            // 
-            this.btnUpdate.Location = new System.Drawing.Point(661, 406);
-            this.btnUpdate.Name = "btnUpdate";
-            this.btnUpdate.Size = new System.Drawing.Size(176, 73);
-            this.btnUpdate.TabIndex = 4;
-            this.btnUpdate.Text = "Обновить";
-            this.btnUpdate.UseVisualStyleBackColor = true;
-            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
-            // 
             // FormClients
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(888, 491);
-            this.Controls.Add(this.btnUpdate);
+            this.ClientSize = new System.Drawing.Size(618, 579);
             this.Controls.Add(this.btnDelete);
-            this.Controls.Add(this.btnChange);
-            this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.dataGridViewClients);
             this.Name = "FormClients";
             this.Text = "FormClients";
@@ -109,9 +73,6 @@ namespace FlowerShopView
         #endregion
 
         private System.Windows.Forms.DataGridView dataGridViewClients;
-        private System.Windows.Forms.Button btnAdd;
-        private System.Windows.Forms.Button btnChange;
         private System.Windows.Forms.Button btnDelete;
-        private System.Windows.Forms.Button btnUpdate;
     }
 }
