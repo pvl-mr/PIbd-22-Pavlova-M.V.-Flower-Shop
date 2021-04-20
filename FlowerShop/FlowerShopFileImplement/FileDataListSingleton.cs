@@ -78,6 +78,7 @@ namespace FlowerShopFileImplement
                     {
                         Id = Convert.ToInt32(elem.Attribute("Id").Value),
                         FlowerId = Convert.ToInt32(elem.Element("FlowerId").Value),
+                        ClientId = Convert.ToInt32(elem.Element("ClientId").Value),
                         Count = Convert.ToInt32(elem.Element("Count").Value),
                         Sum = Convert.ToDecimal(elem.Element("Sum").Value),
                         Status = (OrderStatus)Enum.Parse(typeof(OrderStatus), elem.Element("Status").Value),
@@ -164,6 +165,7 @@ namespace FlowerShopFileImplement
                     xElement.Add(new XElement("Order",
                     new XAttribute("Id", order.Id),
                     new XElement("FlowerId", order.FlowerId),
+                    new XElement("ClientId", order.ClientId),
                     new XElement("Count", order.Count),
                     new XElement("Sum", order.Sum),
                     new XElement("Status", order.Status),
