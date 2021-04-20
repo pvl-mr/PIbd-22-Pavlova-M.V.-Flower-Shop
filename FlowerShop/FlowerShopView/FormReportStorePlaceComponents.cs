@@ -19,13 +19,35 @@ namespace FlowerShopView
         public new IUnityContainer Container { get; set; }
 
         private readonly ReportLogic logic;
-        public FormReportStorePlaceComponents()
+        public FormReportStorePlaceComponents(ReportLogic logic)
         {
             InitializeComponent();
             this.logic = logic;
         }
 
-        private void dataGridViewStorePlaceComponents_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void btnSaveToExcel_Click(object sender, EventArgs e)
+        {
+            using (var dialog = new SaveFileDialog { Filter = "xlsx|*.xlsx" })
+            {
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    try
+                    {
+                        logic.SaveStorePlaceComponentsToExcelFile(new ReportBindingModel
+                        {
+                            FileName = dialog.FileName
+                        });
+                        MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+        }
+
+        private void FormReportStorePlaceComponents_Load(object sender, EventArgs e)
         {
             try
             {
@@ -51,28 +73,6 @@ namespace FlowerShopView
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        private void btnSaveToExcel_Click(object sender, EventArgs e)
-        {
-            using (var dialog = new SaveFileDialog { Filter = "xlsx|*.xlsx" })
-            {
-                if (dialog.ShowDialog() == DialogResult.OK)
-                {
-                    try
-                    {
-                        logic.SaveStorePlaceComponentsToExcelFile(new ReportBindingModel
-                        {
-                            FileName = dialog.FileName
-                        });
-                        MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                }
             }
         }
     }

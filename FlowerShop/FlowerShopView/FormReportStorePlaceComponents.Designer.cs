@@ -61,7 +61,6 @@ namespace FlowerShopView
             this.dataGridViewStorePlaceComponents.RowTemplate.Height = 24;
             this.dataGridViewStorePlaceComponents.Size = new System.Drawing.Size(733, 325);
             this.dataGridViewStorePlaceComponents.TabIndex = 1;
-            this.dataGridViewStorePlaceComponents.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewStorePlaceComponents_CellContentClick);
             // 
             // ColumnStorePlace
             // 
@@ -84,15 +83,16 @@ namespace FlowerShopView
             this.ColumnCount.Name = "ColumnCount";
             this.ColumnCount.Width = 130;
             // 
-            // FormStorePlaceComponents
+            // FormReportStorePlaceComponents
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.dataGridViewStorePlaceComponents);
             this.Controls.Add(this.btnSaveToExcel);
-            this.Name = "FormStorePlaceComponents";
+            this.Name = "FormReportStorePlaceComponents";
             this.Text = "FormStorePlaceComponents";
+            this.Load += new System.EventHandler(this.FormReportStorePlaceComponents_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStorePlaceComponents)).EndInit();
             this.ResumeLayout(false);
 

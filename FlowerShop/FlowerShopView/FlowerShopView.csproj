@@ -352,11 +352,8 @@
     <EmbeddedResource Include="ReportOrders.rdlc" />
     <EmbeddedResource Include="ReportTotalOrders.rdlc" />
     <None Include="packages.config" />
-    <None Include="Properties\DataSources\FlowerShopBusinessLogic.ViewModels.ComponentViewModel.datasource" />
-    <None Include="Properties\DataSources\FlowerShopBusinessLogic.ViewModels.FlowerViewModel.datasource" />
-    <None Include="Properties\DataSources\FlowerShopBusinessLogic.ViewModels.OrderViewModel.datasource" />
-    <None Include="Properties\DataSources\FlowerShopBusinessLogic.ViewModels.ReportFlowerComponentViewModel.datasource" />
     <None Include="Properties\DataSources\FlowerShopBusinessLogic.ViewModels.ReportOrdersViewModel.datasource" />
+    <None Include="Properties\DataSources\FlowerShopBusinessLogic.ViewModels.ReportTotalOrdersViewModel1.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

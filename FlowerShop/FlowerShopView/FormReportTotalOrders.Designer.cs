@@ -31,47 +31,48 @@ namespace FlowerShopView
         {
             this.btnCreateOrder = new System.Windows.Forms.Button();
             this.btnSaveToPdf = new System.Windows.Forms.Button();
-            this.reportViewer1 = new Microsoft.Reporting.WinForms.ReportViewer();
+            this.reportTotalOrders = new Microsoft.Reporting.WinForms.ReportViewer();
             this.SuspendLayout();
             // 
             // btnCreateOrder
             // 
-            this.btnCreateOrder.Location = new System.Drawing.Point(425, 26);
+            this.btnCreateOrder.Location = new System.Drawing.Point(698, 482);
             this.btnCreateOrder.Name = "btnCreateOrder";
             this.btnCreateOrder.Size = new System.Drawing.Size(163, 47);
             this.btnCreateOrder.TabIndex = 0;
             this.btnCreateOrder.Text = "Сформировать";
             this.btnCreateOrder.UseVisualStyleBackColor = true;
+            this.btnCreateOrder.Click += new System.EventHandler(this.btnCreateOrder_Click);
             // 
             // btnSaveToPdf
             // 
-            this.btnSaveToPdf.Location = new System.Drawing.Point(625, 26);
+            this.btnSaveToPdf.Location = new System.Drawing.Point(884, 482);
             this.btnSaveToPdf.Name = "btnSaveToPdf";
             this.btnSaveToPdf.Size = new System.Drawing.Size(148, 47);
             this.btnSaveToPdf.TabIndex = 1;
-            this.btnSaveToPdf.Text = "button1";
+            this.btnSaveToPdf.Text = "Сохранить в pdf";
             this.btnSaveToPdf.UseVisualStyleBackColor = true;
+            this.btnSaveToPdf.Click += new System.EventHandler(this.btnSaveToPdf_Click);
             // 
-            // reportViewer1
+            // reportTotalOrders
             // 
-            this.reportViewer1.LocalReport.ReportEmbeddedResource = "FlowerShopView.ReportTotalOrders.rdlc";
-            this.reportViewer1.Location = new System.Drawing.Point(42, 113);
-            this.reportViewer1.Name = "reportViewer1";
-            this.reportViewer1.ServerReport.BearerToken = null;
-            this.reportViewer1.Size = new System.Drawing.Size(710, 308);
-            this.reportViewer1.TabIndex = 2;
+            this.reportTotalOrders.LocalReport.ReportEmbeddedResource = "FlowerShopView.ReportTotalOrders.rdlc";
+            this.reportTotalOrders.Location = new System.Drawing.Point(23, 33);
+            this.reportTotalOrders.Name = "reportTotalOrders";
+            this.reportTotalOrders.ServerReport.BearerToken = null;
+            this.reportTotalOrders.Size = new System.Drawing.Size(1009, 426);
+            this.reportTotalOrders.TabIndex = 2;
             // 
             // FormReportTotalOrders
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.reportViewer1);
+            this.ClientSize = new System.Drawing.Size(1084, 554);
+            this.Controls.Add(this.reportTotalOrders);
             this.Controls.Add(this.btnSaveToPdf);
             this.Controls.Add(this.btnCreateOrder);
             this.Name = "FormReportTotalOrders";
             this.Text = "FormReportTotalOrders";
-            this.Load += new System.EventHandler(this.FormReportTotalOrders_Load);
             this.ResumeLayout(false);
 
         }
@@ -80,6 +81,6 @@ namespace FlowerShopView
 
         private System.Windows.Forms.Button btnCreateOrder;
         private System.Windows.Forms.Button btnSaveToPdf;
-        private Microsoft.Reporting.WinForms.ReportViewer reportViewer1;
+        private Microsoft.Reporting.WinForms.ReportViewer reportTotalOrders;
     }
 }
