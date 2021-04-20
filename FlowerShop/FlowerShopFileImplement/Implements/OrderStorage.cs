@@ -94,6 +94,7 @@ namespace FlowerShopFileImplement.Implements
             {
                 Id = order.Id,
                 ClientId = order.ClientId,
+                ClientFIO = source.Clients.FirstOrDefault(rec => rec.Id == order.ClientId)?.ClientFIO,
                 FlowerId = order.FlowerId,
                 FlowerName = source.Flowers.FirstOrDefault(flower => flower.Id == order.FlowerId)?.FlowerName, 
                 Count = order.Count,

@@ -88,10 +88,22 @@ namespace FlowerShopListImplement.Implements
                     break;
                 }
             }
+
+            string clientFIO = null;
+
+            foreach (var client in source.Clients)
+            {
+                if (client.Id == order.ClientId)
+                {
+                    clientFIO = client.ClientFIO;
+                }
+            }
+
             return new OrderViewModel
             {
                 Id = order.Id,
                 ClientId = order.ClientId,
+                ClientFIO = clientFIO,
                 FlowerName = FlowerName,
                 Count = order.Count,
                 Sum = order.Sum,
