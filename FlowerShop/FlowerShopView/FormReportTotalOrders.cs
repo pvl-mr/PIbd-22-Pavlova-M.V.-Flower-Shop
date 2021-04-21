@@ -48,7 +48,7 @@ namespace FlowerShopView
             }
         }
 
-        private void btnCreateOrder_Click(object sender, EventArgs e)
+        private void btnCreateReportOrders_Click(object sender, EventArgs e)
         {
             try
             {

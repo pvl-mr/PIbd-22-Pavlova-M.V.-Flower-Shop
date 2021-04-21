@@ -42,7 +42,7 @@ namespace FlowerShopView
             this.btnCreateOrder.TabIndex = 0;
             this.btnCreateOrder.Text = "Сформировать";
             this.btnCreateOrder.UseVisualStyleBackColor = true;
-            this.btnCreateOrder.Click += new System.EventHandler(this.btnCreateOrder_Click);
+            this.btnCreateOrder.Click += new System.EventHandler(this.btnCreateReportOrders_Click);
             // 
             // btnSaveToPdf
             // 
