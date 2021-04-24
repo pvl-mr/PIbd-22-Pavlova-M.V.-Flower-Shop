@@ -128,7 +128,7 @@ namespace FlowerShopDatabaseImplement.Migrations
 
             modelBuilder.Entity("FlowerShopDatabaseImplement.Models.Order", b =>
                 {
-                    b.HasOne("FlowerShopDatabaseImplement.Models.Flower", null)
+                    b.HasOne("FlowerShopDatabaseImplement.Models.Flower", "Flower")
                         .WithMany("Orders")
                         .HasForeignKey("FlowerId")
                         .OnDelete(DeleteBehavior.Cascade)
