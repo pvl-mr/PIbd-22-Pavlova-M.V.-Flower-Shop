@@ -73,9 +73,8 @@ namespace FlowerShopBusinessLogic.BusinessLogic
 
         public List<ReportStorePlaceComponentViewModel> GetStorePlaceComponents()
         {
-            var components = _componentStorage.GetFullList();
             var storePlaces = _storePlaceStorage.GetFullList();
-            var records = new List<ReportStorePlaceComponentViewModel>();
+            var list = new List<ReportStorePlaceComponentViewModel>();
             foreach (var storePlace in storePlaces)
             {
                 var record = new ReportStorePlaceComponentViewModel
@@ -84,19 +83,14 @@ namespace FlowerShopBusinessLogic.BusinessLogic
                     Components = new List<Tuple<string, int>>(),
                     TotalCount = 0
                 };
-                foreach (var component in components)
+                foreach (var component in storePlace.StorePlaceComponents)
                 {
-                    if (storePlace.StorePlaceComponents.ContainsKey(component.Id))
-                    {
-                        record.Components.Add(new Tuple<string, int>(
-                            component.ComponentName, storePlace.StorePlaceComponents[component.Id].Item2));
-
-                        record.TotalCount += storePlace.StorePlaceComponents[component.Id].Item2;
-                    }
+                    record.Components.Add(new Tuple<string, int>(component.Value.Item1, component.Value.Item2));
+                    record.TotalCount += component.Value.Item2;
                 }
-                records.Add(record);
+                list.Add(record);
             }
-            return records;
+            return list;
         }
 
         public List<ReportTotalOrdersViewModel> GetTotalOrders()

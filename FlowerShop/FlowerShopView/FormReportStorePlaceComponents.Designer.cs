@@ -91,7 +91,7 @@ namespace FlowerShopView
             this.Controls.Add(this.dataGridViewStorePlaceComponents);
             this.Controls.Add(this.btnSaveToExcel);
             this.Name = "FormReportStorePlaceComponents";
-            this.Text = "FormStorePlaceComponents";
+            this.Text = "Компоненты на складах";
             this.Load += new System.EventHandler(this.FormReportStorePlaceComponents_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStorePlaceComponents)).EndInit();
             this.ResumeLayout(false);

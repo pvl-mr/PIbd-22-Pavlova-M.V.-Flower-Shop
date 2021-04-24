@@ -72,7 +72,7 @@ namespace FlowerShopView
             this.Controls.Add(this.btnSaveToPdf);
             this.Controls.Add(this.btnCreateOrder);
             this.Name = "FormReportTotalOrders";
-            this.Text = "FormReportTotalOrders";
+            this.Text = "Заказы за весь период";
             this.ResumeLayout(false);
 
         }
