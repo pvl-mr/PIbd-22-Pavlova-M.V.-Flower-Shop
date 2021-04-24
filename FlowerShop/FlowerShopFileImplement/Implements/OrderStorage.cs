@@ -29,7 +29,8 @@ namespace FlowerShopFileImplement.Implements
                 return null;
             }
             return source.Orders
-                    .Where(rec => rec.FlowerId.ToString().Contains(model.FlowerId.ToString()))
+                    .Where(rec => (!model.DateFrom.HasValue && !model.DateTo.HasValue && rec.DateCreate.Date == model.DateCreate.Date) ||
+                    (model.DateFrom.HasValue && model.DateTo.HasValue && rec.DateCreate.Date >= model.DateFrom.Value.Date && rec.DateCreate.Date <= model.DateTo.Value.Date))
                     .Select(CreateModel)
                     .ToList();
         }
@@ -40,9 +41,9 @@ namespace FlowerShopFileImplement.Implements
             {
                 return null;
             }
-            var order = source.Orders
-                        .FirstOrDefault(rec => rec.Id == model.Id || rec.FlowerId == model.FlowerId);
-            return order != null ? CreateModel(order) : null;
+            var Order = source.Orders
+                        .FirstOrDefault(rec => rec.Id == model.Id);
+            return Order != null ? CreateModel(Order) : null;
         }
 
         public void Insert(OrderBindingModel model)
