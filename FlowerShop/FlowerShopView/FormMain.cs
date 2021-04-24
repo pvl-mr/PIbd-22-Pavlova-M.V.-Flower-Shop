@@ -19,11 +19,13 @@ namespace FlowerShopView
         [Dependency]
         public new IUnityContainer Container { get; set; }
         private readonly OrderLogic _orderLogic;
+        private readonly ReportLogic _report;
 
-        public FormMain(OrderLogic orderLogic)
+        public FormMain(OrderLogic orderLogic, ReportLogic reportLogic)
         {
             InitializeComponent();
             this._orderLogic = orderLogic;
+            _report = reportLogic;
         }
 
         private void LoadData()
@@ -137,6 +139,58 @@ namespace FlowerShopView
         private void FormMain_Load(object sender, EventArgs e)
         {
             LoadData();
+        }
+
+        private void списокКомпонентовToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (var dialog = new SaveFileDialog { Filter = "docx|*.docx" })
+            {
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    _report.SaveFlowersToWordFile(new ReportBindingModel { FileName = dialog.FileName });
+                    MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+        }
+
+        private void компонентыПоИзделиямToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = Container.Resolve<FormReportFlowerComponents>();
+            form.ShowDialog();
+        }
+
+        private void списокЗаказовToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = Container.Resolve<FormReportOrders>();
+            form.ShowDialog();
+        }
+
+        private void списокСкладовToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (var dialog = new SaveFileDialog { Filter = "docx|*.docx" })
+            {
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    _report.SaveStorePlacesToWordFile(new ReportBindingModel
+                    {
+                        FileName = dialog.FileName
+                    });
+
+                    MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+        }
+
+        private void загруженностьСкладовToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = Container.Resolve<FormReportStorePlaceComponents>();
+            form.ShowDialog();
+        }
+
+        private void всеЗаказыToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = Container.Resolve<FormReportTotalOrders>();
+            form.ShowDialog();
         }
     }
 }

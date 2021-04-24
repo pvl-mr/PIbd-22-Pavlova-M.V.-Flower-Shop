@@ -29,7 +29,8 @@ namespace FlowerShopFileImplement.Implements
                 return null;
             }
             return source.Orders
-                    .Where(rec => rec.FlowerId.ToString().Contains(model.FlowerId.ToString()))
+                    .Where(rec => (!model.DateFrom.HasValue && !model.DateTo.HasValue && rec.DateCreate.Date == model.DateCreate.Date) ||
+                    (model.DateFrom.HasValue && model.DateTo.HasValue && rec.DateCreate.Date >= model.DateFrom.Value.Date && rec.DateCreate.Date <= model.DateTo.Value.Date))
                     .Select(CreateModel)
                     .ToList();
         }
@@ -40,15 +41,15 @@ namespace FlowerShopFileImplement.Implements
             {
                 return null;
             }
-            var order = source.Orders
-                        .FirstOrDefault(rec => rec.Id == model.Id || rec.FlowerId == model.FlowerId);
-            return order != null ? CreateModel(order) : null;
+            var Order = source.Orders
+                        .FirstOrDefault(rec => rec.Id == model.Id);
+            return Order != null ? CreateModel(Order) : null;
         }
 
         public void Insert(OrderBindingModel model)
         {
             int maxId = source.Orders.Count > 0 ? source.Orders.Max(rec => rec.Id) : 0;
-            var element = new Order { Id = maxId + 1};
+            var element = new Order { Id = maxId + 1 };
             source.Orders.Add(CreateModel(model, element));
         }
         public void Update(OrderBindingModel model)
@@ -90,7 +91,7 @@ namespace FlowerShopFileImplement.Implements
             {
                 Id = order.Id,
                 FlowerId = order.FlowerId,
-                FlowerName = source.Flowers.FirstOrDefault(flower => flower.Id == order.FlowerId)?.FlowerName, 
+                FlowerName = source.Flowers.FirstOrDefault(flower => flower.Id == order.FlowerId)?.FlowerName,
                 Count = order.Count,
                 Sum = order.Sum,
                 DateCreate = order.DateCreate,

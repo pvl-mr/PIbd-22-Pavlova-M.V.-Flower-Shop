@@ -2,6 +2,12 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <UserSecretsId>ea9c3bc9-c4ca-4a7a-9439-dbbed33ede44</UserSecretsId>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DocumentFormat.OpenXml" Version="2.12.3" />
+    <PackageReference Include="PDFsharp-MigraDoc" Version="1.50.5147" />
+  </ItemGroup>
 
 </Project>

@@ -139,11 +139,11 @@ namespace FlowerShopListImplement.Implements
                 DateCreate = DateTime.Now
             };
 
-            foreach (StorePlace storehouse in source.StorePlaces)
+            foreach (StorePlace storePlace in source.StorePlaces)
             {
-                if (storehouse.Id >= tempStorePlace.Id)
+                if (storePlace.Id >= tempStorePlace.Id)
                 {
-                    tempStorePlace.Id = storehouse.Id + 1;
+                    tempStorePlace.Id = storePlace.Id + 1;
                 }
             }
             source.StorePlaces.Add(CreateModel(model, tempStorePlace));
@@ -151,22 +151,22 @@ namespace FlowerShopListImplement.Implements
 
         public void Update(StorePlaceBindingModel model)
         {
-            StorePlace tempStoreHouse = null;
+            StorePlace tempStorePlace = null;
 
-            foreach (StorePlace storehouse in source.StorePlaces)
+            foreach (StorePlace storePlace in source.StorePlaces)
             {
-                if (storehouse.Id == model.Id)
+                if (storePlace.Id == model.Id)
                 {
-                    tempStoreHouse = storehouse;
+                    tempStorePlace = storePlace;
                 }
             }
 
-            if (tempStoreHouse == null)
+            if (tempStorePlace == null)
             {
                 throw new Exception("Элемент не найден");
             }
 
-            CreateModel(model, tempStoreHouse);
+            CreateModel(model, tempStorePlace);
         }
 
         public bool TakeComponents(Dictionary<int, (string, int)> flowerComponents, int count)
