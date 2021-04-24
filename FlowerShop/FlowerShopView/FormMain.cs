@@ -34,7 +34,6 @@ namespace FlowerShopView
             {
                 var list = _orderLogic.Read(null);             
                 dataGridViewOrders.DataSource = list;
-                Console.WriteLine(list);
                 dataGridViewOrders.Columns[0].Visible = false;
                 dataGridViewOrders.Columns[1].Visible = false;
                 dataGridViewOrders.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;

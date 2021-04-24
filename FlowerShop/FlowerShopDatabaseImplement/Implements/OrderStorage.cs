@@ -40,9 +40,6 @@ namespace FlowerShopDatabaseImplement.Implements
             }
             using (var context = new FlowerShopDatabase())
             {
-                Console.WriteLine(model.DateFrom.ToString());
-                Console.WriteLine(model.DateTo.ToString());
-
                 var orders = context.Orders.Include(rec => rec.Flower)
                  .Where(rec => rec.DateCreate >= model.DateFrom && rec.DateCreate <= model.DateTo)
                 .Select(rec => new OrderViewModel
@@ -57,15 +54,8 @@ namespace FlowerShopDatabaseImplement.Implements
                     DateImplement = rec.DateImplement,
                 })
                 .ToList();
-                Console.WriteLine("order");
-                foreach (var order in orders)
-                {
-                    Console.WriteLine(order.DateCreate.ToString());
-                }
                 return orders;
-            }
-
-           
+            }           
         }
 
         public OrderViewModel GetElement(OrderBindingModel model)
