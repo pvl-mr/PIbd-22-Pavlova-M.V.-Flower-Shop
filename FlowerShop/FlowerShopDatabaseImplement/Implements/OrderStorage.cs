@@ -55,11 +55,6 @@ namespace FlowerShopDatabaseImplement.Implements
                     DateImplement = rec.DateImplement,
                 })
                 .ToList();
-                Console.WriteLine("order");
-                foreach (var order in orders)
-                {
-                    Console.WriteLine(order.DateCreate.ToString());
-                }
                 return orders;
             }     
         }

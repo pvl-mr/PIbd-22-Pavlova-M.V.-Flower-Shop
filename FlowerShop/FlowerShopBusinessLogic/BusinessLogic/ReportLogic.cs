@@ -65,11 +65,6 @@ namespace FlowerShopBusinessLogic.BusinessLogic
                 Status = x.Status
             })
             .ToList();
-            Console.WriteLine("2 step");
-            foreach (var order in orders)
-            {
-                Console.WriteLine(order.DateCreate.ToString());
-            }
             return orders;
         }
 
