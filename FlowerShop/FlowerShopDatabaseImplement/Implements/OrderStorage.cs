@@ -40,11 +40,9 @@ namespace FlowerShopDatabaseImplement.Implements
             }
             using (var context = new FlowerShopDatabase())
             {
-                Console.WriteLine(model.DateFrom.ToString());
-                Console.WriteLine(model.DateTo.ToString());
-
                 var orders = context.Orders.Include(rec => rec.Flower)
-                 .Where(rec => rec.DateCreate >= model.DateFrom && rec.DateCreate <= model.DateTo)
+                 .Where(rec => (!model.DateFrom.HasValue && !model.DateTo.HasValue && rec.DateCreate.Date == model.DateCreate.Date) ||
+                (model.DateFrom.HasValue && model.DateTo.HasValue && rec.DateCreate.Date >= model.DateFrom.Value.Date && rec.DateCreate.Date <= model.DateTo.Value.Date))
                 .Select(rec => new OrderViewModel
                 {
                     Id = rec.Id,
@@ -63,9 +61,7 @@ namespace FlowerShopDatabaseImplement.Implements
                     Console.WriteLine(order.DateCreate.ToString());
                 }
                 return orders;
-            }
-
-           
+            }     
         }
 
         public OrderViewModel GetElement(OrderBindingModel model)
