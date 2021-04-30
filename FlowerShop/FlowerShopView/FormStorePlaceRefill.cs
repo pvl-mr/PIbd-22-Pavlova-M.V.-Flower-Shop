@@ -64,7 +64,7 @@ namespace FlowerShopView
                 return;
             }
 
-            storePlaceLogic.AddComponent(new ComponentStorePlaceBindingModel
+            storePlaceLogic.AddComponent(new StorePlaceComponentBindingModel
             {
                 ComponentId = Convert.ToInt32(comboBoxComponents.SelectedValue),
                 StorePlaceId = Convert.ToInt32(comboBoxStorePlaces.SelectedValue),

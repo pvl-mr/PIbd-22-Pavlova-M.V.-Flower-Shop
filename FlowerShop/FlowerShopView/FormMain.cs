@@ -122,7 +122,6 @@ namespace FlowerShopView
             form.ShowDialog();
         }
 
-
         private void складыToolStripMenuItem_Click(object sender, EventArgs e)
         {
             FormStorePlaces form = Container.Resolve<FormStorePlaces>();

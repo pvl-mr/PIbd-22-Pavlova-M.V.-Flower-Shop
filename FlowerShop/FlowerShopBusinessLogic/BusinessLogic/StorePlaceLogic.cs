@@ -58,7 +58,7 @@ namespace FlowerShopBusinessLogic.BusinessLogic
             _storePlaceStorage.Delete(model);
         }
 
-        public void AddComponent(ComponentStorePlaceBindingModel model)
+        public void AddComponent(StorePlaceComponentBindingModel model)
         {
             StorePlaceViewModel storePlace = _storePlaceStorage.GetElement(new StorePlaceBindingModel { Id = model.StorePlaceId });
 

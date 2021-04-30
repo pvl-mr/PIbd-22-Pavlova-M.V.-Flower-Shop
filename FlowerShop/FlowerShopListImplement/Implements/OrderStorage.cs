@@ -76,10 +76,19 @@ namespace FlowerShopListImplement.Implements
 
         private OrderViewModel CreateModel(Order order)
         {
+            string FlowerName = "";
+            for (int j = 0; j < source.Flowers.Count; ++j)
+            {
+                if (source.Flowers[j].Id == order.FlowerId)
+                {
+                    FlowerName = source.Flowers[j].FlowerName;
+                    break;
+                }
+            }
             return new OrderViewModel
             {
                 Id = order.Id,
-                FlowerName = source.Flowers.FirstOrDefault(flower => flower.Id == order.FlowerId)?.FlowerName,
+                FlowerName = FlowerName,
                 Count = order.Count,
                 Sum = order.Sum,
                 Status = order.Status,

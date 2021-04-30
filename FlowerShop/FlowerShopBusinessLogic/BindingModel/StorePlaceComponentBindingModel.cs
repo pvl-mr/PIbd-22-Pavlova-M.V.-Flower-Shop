@@ -4,7 +4,7 @@ using System.Text;
 
 namespace FlowerShopBusinessLogic.BindingModel
 {
-    public class ComponentStorePlaceBindingModel
+    public class StorePlaceComponentBindingModel
     {
         public int StorePlaceId { get; set; }
         public int ComponentId { get; set; }

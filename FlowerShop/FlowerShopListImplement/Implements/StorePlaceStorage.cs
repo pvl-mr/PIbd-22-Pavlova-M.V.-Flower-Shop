@@ -169,5 +169,9 @@ namespace FlowerShopListImplement.Implements
             CreateModel(model, tempStoreHouse);
         }
 
+        public bool TakeComponents(Dictionary<int, (string, int)> flowerComponents, int count)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
