@@ -1,4 +1,4 @@
-﻿
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using System;
@@ -6,20 +6,24 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 
-namespace FlowerShopClientApp
+namespace FlowerShopApp
 {
-    public static class APIClient
+    public class APIClient
     {
         private static readonly HttpClient client = new HttpClient();
+
         public static void Connect(IConfiguration configuration)
         {
+            Program.Password = configuration["Password"];
+            Console.WriteLine("Mariya " + configuration["Password"]);
             client.BaseAddress = new Uri(configuration["IPAddress"]);
             client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            client.DefaultRequestHeaders.Accept.Add(new
+            MediaTypeWithQualityHeaderValue("application/json"));
         }
+
         public static T GetRequest<T>(string requestUrl)
         {
-
             var response = client.GetAsync(requestUrl);
             var result = response.Result.Content.ReadAsStringAsync().Result;
             if (response.Result.IsSuccessStatusCode)
@@ -31,6 +35,7 @@ namespace FlowerShopClientApp
                 throw new Exception(result);
             }
         }
+
         public static void PostRequest<T>(string requestUrl, T model)
         {
             var json = JsonConvert.SerializeObject(model);

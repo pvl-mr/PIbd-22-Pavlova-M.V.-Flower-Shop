@@ -73,7 +73,7 @@
             this.cправочникиToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.компонентыToolStripMenuItem,
             this.изделияToolStripMenuItem,
-            this.клиентыToolStripMenuItem1
+            this.клиентыToolStripMenuItem1,
             this.складыToolStripMenuItem});
             this.cправочникиToolStripMenuItem.Name = "cправочникиToolStripMenuItem";
             this.cправочникиToolStripMenuItem.Size = new System.Drawing.Size(121, 25);

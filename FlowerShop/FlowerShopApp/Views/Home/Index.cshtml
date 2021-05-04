@@ -1,0 +1,60 @@
+﻿@using FlowerShopBusinessLogic.ViewModels
+@model List<StorePlaceViewModel>
+@{
+    ViewData["Title"] = "Home Page";
+}
+<div class="text-center">
+    <h1 class="display-4">Склады</h1>
+</div>
+<div class="text-center">
+    @{
+        if (Model == null)
+        {
+            <h3 class="display-4">Авторизируйтесь</h3>
+            return;
+        }
+        <p>
+            <a asp-action="Create">Создать склад</a>
+        </p>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        Номер
+                    </th>
+                    <th>
+                        Название склада
+                    </th>
+                    <th>
+                        ФИО ответственного
+                    </th>
+                    <th>
+                        Дата создания
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Id)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StorePlaceName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.AdministratorName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DateCreate)
+                        </td>
+                        <td>
+                            <a asp-action="Update" asp-route-storePlaceId="@item.Id" asp-route-name="@item.StorePlaceName" asp-route-administratorName="@item.AdministratorName">Изменить</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>

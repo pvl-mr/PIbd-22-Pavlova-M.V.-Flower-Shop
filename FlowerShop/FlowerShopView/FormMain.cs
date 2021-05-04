@@ -167,11 +167,11 @@ namespace FlowerShopView
             form.ShowDialog();
         }
 
-<<<<<<< HEAD
         private void клиентыToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             var form = Container.Resolve<FormClients>();
-=======
+            form.ShowDialog();
+        }
         private void списокСкладовToolStripMenuItem_Click(object sender, EventArgs e)
         {
             using (var dialog = new SaveFileDialog { Filter = "docx|*.docx" })
@@ -197,7 +197,6 @@ namespace FlowerShopView
         private void всеЗаказыToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var form = Container.Resolve<FormReportTotalOrders>();
->>>>>>> lab4_complex
             form.ShowDialog();
         }
     }
