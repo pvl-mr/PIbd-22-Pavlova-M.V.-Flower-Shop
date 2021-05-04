@@ -43,15 +43,15 @@ namespace FlowerShopFileImplement.Implements
             {
                 return null;
             }
-            var order = source.Orders
-                        .FirstOrDefault(rec => rec.Id == model.Id || rec.FlowerId == model.FlowerId);
-            return order != null ? CreateModel(order) : null;
+            var Order = source.Orders
+                        .FirstOrDefault(rec => rec.Id == model.Id);
+            return Order != null ? CreateModel(Order) : null;
         }
 
         public void Insert(OrderBindingModel model)
         {
             int maxId = source.Orders.Count > 0 ? source.Orders.Max(rec => rec.Id) : 0;
-            var element = new Order { Id = maxId + 1};
+            var element = new Order { Id = maxId + 1 };
             source.Orders.Add(CreateModel(model, element));
         }
         public void Update(OrderBindingModel model)

@@ -167,6 +167,54 @@ namespace FlowerShopDatabaseImplement.Migrations
                     b.ToTable("Orders");
                 });
 
+            modelBuilder.Entity("FlowerShopDatabaseImplement.Models.StorePlace", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AdministratorName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("DateCreate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("StorePlaceName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("StorePlaces");
+                });
+
+            modelBuilder.Entity("FlowerShopDatabaseImplement.Models.StorePlaceComponent", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("ComponentId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Count")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StorePlaceId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ComponentId");
+
+                    b.HasIndex("StorePlaceId");
+
+                    b.ToTable("StorePlaceComponents");
+                });
+
             modelBuilder.Entity("FlowerShopDatabaseImplement.Models.FlowerComponent", b =>
                 {
                     b.HasOne("FlowerShopDatabaseImplement.Models.Component", "Component")
@@ -199,6 +247,21 @@ namespace FlowerShopDatabaseImplement.Migrations
                     b.HasOne("FlowerShopDatabaseImplement.Models.Implementer", "Implementer")
                         .WithMany("Orders")
                         .HasForeignKey("ImplementerId");
+                });
+
+            modelBuilder.Entity("FlowerShopDatabaseImplement.Models.StorePlaceComponent", b =>
+                {
+                    b.HasOne("FlowerShopDatabaseImplement.Models.Component", "Component")
+                        .WithMany()
+                        .HasForeignKey("ComponentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("FlowerShopDatabaseImplement.Models.StorePlace", "StorePlace")
+                        .WithMany("StorePlaceComponents")
+                        .HasForeignKey("StorePlaceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

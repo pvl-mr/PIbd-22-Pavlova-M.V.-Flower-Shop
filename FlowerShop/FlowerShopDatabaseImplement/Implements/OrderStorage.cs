@@ -72,8 +72,6 @@ namespace FlowerShopDatabaseImplement.Implements
                 })
                 .ToList();
             }
-
-           
         }
 
         public OrderViewModel GetElement(OrderBindingModel model)

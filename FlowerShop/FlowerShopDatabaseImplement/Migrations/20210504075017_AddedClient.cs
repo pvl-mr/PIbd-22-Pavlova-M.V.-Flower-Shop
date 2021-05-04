@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace FlowerShopDatabaseImplement.Migrations
 {
-    public partial class Initial : Migration
+    public partial class AddedClient : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -47,6 +47,21 @@ namespace FlowerShopDatabaseImplement.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Flowers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "StorePlaces",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    StorePlaceName = table.Column<string>(nullable: false),
+                    AdministratorName = table.Column<string>(nullable: false),
+                    DateCreate = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_StorePlaces", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -107,6 +122,33 @@ namespace FlowerShopDatabaseImplement.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "StorePlaceComponents",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ComponentId = table.Column<int>(nullable: false),
+                    StorePlaceId = table.Column<int>(nullable: false),
+                    Count = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_StorePlaceComponents", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_StorePlaceComponents_Components_ComponentId",
+                        column: x => x.ComponentId,
+                        principalTable: "Components",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_StorePlaceComponents_StorePlaces_StorePlaceId",
+                        column: x => x.StorePlaceId,
+                        principalTable: "StorePlaces",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_FlowerComponents_ComponentId",
                 table: "FlowerComponents",
@@ -126,6 +168,16 @@ namespace FlowerShopDatabaseImplement.Migrations
                 name: "IX_Orders_FlowerId",
                 table: "Orders",
                 column: "FlowerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_StorePlaceComponents_ComponentId",
+                table: "StorePlaceComponents",
+                column: "ComponentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_StorePlaceComponents_StorePlaceId",
+                table: "StorePlaceComponents",
+                column: "StorePlaceId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -137,13 +189,19 @@ namespace FlowerShopDatabaseImplement.Migrations
                 name: "Orders");
 
             migrationBuilder.DropTable(
-                name: "Components");
+                name: "StorePlaceComponents");
 
             migrationBuilder.DropTable(
                 name: "Clients");
 
             migrationBuilder.DropTable(
                 name: "Flowers");
+
+            migrationBuilder.DropTable(
+                name: "Components");
+
+            migrationBuilder.DropTable(
+                name: "StorePlaces");
         }
     }
 }
