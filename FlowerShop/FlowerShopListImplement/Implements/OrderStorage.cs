@@ -110,7 +110,7 @@ namespace FlowerShopListImplement.Implements
                 Status = order.Status,
                 DateCreate = order.DateCreate,
                 DateImplement = order.DateImplement
-            };     
+            };
         }
 
         private Order CreateModel(OrderBindingModel model, Order tempOrder)
