@@ -41,6 +41,14 @@ namespace FlowerShopBusinessLogic.BusinessLogic
         {
             // ищем заказы, которые уже в работе (вдруг исполнителя прервали)
             var runOrders = await Task.Run(() => _orderStorage.GetFilteredList(new OrderBindingModel { ImplementerId = implementer.Id }));
+
+            var needComponentOrders = await Task.Run(() => _orderStorage.GetFilteredList(new
+            OrderBindingModel
+            {
+                NeedComponentOrders = true,
+                ImplementerId = implementer.Id
+            }));
+
             foreach (var order in runOrders)
             {
                 // делаем работу заново
@@ -49,23 +57,45 @@ namespace FlowerShopBusinessLogic.BusinessLogic
                 // отдыхаем
                 Thread.Sleep(implementer.PauseTime);
             }
+
+            foreach (var order in needComponentOrders)
+            {
+                RunOrder(order, implementer);
+            }
+
             await Task.Run(() =>
             {
+
                 foreach (var order in orders)
                 {
                     // пытаемся назначить заказ на исполнителя
-                    try
-                    {
-                        _orderLogic.TakeOrderInWork(new ChangeStatusBindingModel { OrderId = order.Id, ImplementerId = implementer.Id });
-                        // делаем работу
-                        Thread.Sleep(implementer.WorkingTime * rnd.Next(1, 5) * order.Count);
-                        _orderLogic.FinishOrder(new ChangeStatusBindingModel { OrderId = order.Id, ImplementerId = implementer.Id });
-                        // отдыхаем
-                        Thread.Sleep(implementer.PauseTime);
-                    }
-                    catch (Exception) { }
+                    RunOrder(order, implementer);
                 }
             });
         }
+
+        private void RunOrder(OrderViewModel order, ImplementerViewModel implementer)
+        {
+            try
+            {
+                _orderLogic.TakeOrderInWork(new ChangeStatusBindingModel
+                {
+                    OrderId = order.Id,
+                    ImplementerId = implementer.Id
+                });
+                // делаем работу
+                Thread.Sleep(implementer.WorkingTime * rnd.Next(1, 5) *
+                order.Count);
+                _orderLogic.FinishOrder(new ChangeStatusBindingModel
+                {
+                    OrderId = order.Id,
+                    ImplementerId = implementer.Id
+                });
+                // отдыхаем
+                Thread.Sleep(implementer.PauseTime);
+            }
+            catch (Exception) { }
+        }
+
     }
 }

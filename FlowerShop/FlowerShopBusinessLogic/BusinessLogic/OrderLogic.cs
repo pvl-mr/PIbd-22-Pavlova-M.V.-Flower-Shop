@@ -12,11 +12,9 @@ namespace FlowerShopBusinessLogic.BusinessLogic
         private readonly IOrderStorage _orderStorage;
         private readonly object locker = new object();
         private readonly IStorePlaceStorage _storePlaceStorage;
-        private readonly IFlowerStorage _flowerStorage;
-        public OrderLogic(IOrderStorage orderStorage, IFlowerStorage flowerStorage, IStorePlaceStorage storePlaceStorage)
+        public OrderLogic(IOrderStorage orderStorage, IStorePlaceStorage storePlaceStorage)
         {
             _orderStorage = orderStorage;
-            _flowerStorage = flowerStorage;
             _storePlaceStorage = storePlaceStorage;
         }
         public List<OrderViewModel> Read(OrderBindingModel model)
@@ -54,39 +52,29 @@ namespace FlowerShopBusinessLogic.BusinessLogic
                 }
                 if (order.Status != OrderStatus.Принят)
                 {
-                    throw new Exception("Заказ не в статусе \"Принят\"");
+                    throw new Exception("Заказ не в статусе \"Принят\" или \"Требуются материалы\"");
                 }
-                _orderStorage.Update(new OrderBindingModel
+                if (order.ImplementerId.HasValue && order.Status != OrderStatus.Требуются_материалы)
+                {
+                    throw new Exception("У заказа уже есть исполнитель");
+                }
+                OrderBindingModel orderModel = new OrderBindingModel
                 {
                     Id = order.Id,
-                    ClientId = order.ClientId,
+                    FlowerId = order.FlowerId,
                     ImplementerId = model.ImplementerId,
-                    FlowerId = order.FlowerId,
                     Count = order.Count,
                     Sum = order.Sum,
                     DateCreate = order.DateCreate,
                     DateImplement = DateTime.Now,
-                    Status = OrderStatus.Выполняется
-                });
-                if (order.Status != OrderStatus.Принят)
+                    Status = OrderStatus.Выполняется,
+                    ClientId = order.ClientId
+                };
+                if (!_storePlaceStorage.Unrestocking(order.FlowerId, order.Count))
                 {
-                    throw new Exception("Заказ не в статусе \"Принят\"");
+                    orderModel.Status = OrderStatus.Требуются_материалы;
                 }
-                if (!_storePlaceStorage.TakeComponents(_flowerStorage.GetElement(new FlowerBindingModel { Id = order.FlowerId }).FlowerComponents, order.Count))
-                {
-                    throw new Exception("Недостаточно материалов");
-                }
-                _orderStorage.Update(new OrderBindingModel
-                {
-                    Id = order.Id,
-                    ClientId = order.ClientId,
-                    FlowerId = order.FlowerId,
-                    Count = order.Count,
-                    Sum = order.Sum,
-                    DateCreate = order.DateCreate,
-                    DateImplement = DateTime.Now,
-                    Status = OrderStatus.Выполняется
-                });
+                _orderStorage.Update(orderModel);
             }    
         }
 
