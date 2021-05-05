@@ -205,7 +205,7 @@ namespace FlowerShopDatabaseImplement.Implements
                     catch
                     {
                         transaction.Rollback();
-                        throw;
+                        return false;
                     }
                 }
             }
