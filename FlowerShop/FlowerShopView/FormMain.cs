@@ -36,7 +36,8 @@ namespace FlowerShopView
                 dataGridViewOrders.DataSource = list;
                 dataGridViewOrders.Columns[0].Visible = false;
                 dataGridViewOrders.Columns[1].Visible = false;
-                dataGridViewOrders.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                dataGridViewOrders.Columns[2].Visible = false;
+                dataGridViewOrders.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                 
             }
             catch (Exception ex)
@@ -166,6 +167,11 @@ namespace FlowerShopView
             form.ShowDialog();
         }
 
+        private void клиентыToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            var form = Container.Resolve<FormClients>();
+            form.ShowDialog();
+        }
         private void списокСкладовToolStripMenuItem_Click(object sender, EventArgs e)
         {
             using (var dialog = new SaveFileDialog { Filter = "docx|*.docx" })

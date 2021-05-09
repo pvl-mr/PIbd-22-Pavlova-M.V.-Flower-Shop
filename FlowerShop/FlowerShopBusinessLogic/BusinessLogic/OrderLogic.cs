@@ -34,6 +34,7 @@ namespace FlowerShopBusinessLogic.BusinessLogic
         {
             _orderStorage.Insert(new OrderBindingModel
             {
+                ClientId = model.ClientId,
                 FlowerId = model.FlowerId,
                 Count = model.Count,
                 Sum = model.Sum,
@@ -59,6 +60,7 @@ namespace FlowerShopBusinessLogic.BusinessLogic
             _orderStorage.Update(new OrderBindingModel
             {
                 Id = order.Id,
+                ClientId = order.ClientId,
                 FlowerId = order.FlowerId,
                 Count = order.Count,
                 Sum = order.Sum,
@@ -82,6 +84,7 @@ namespace FlowerShopBusinessLogic.BusinessLogic
             _orderStorage.Update(new OrderBindingModel
             {
                 Id = order.Id,
+                ClientId = order.ClientId,
                 FlowerId = order.FlowerId,
                 Count = order.Count,
                 Sum = order.Sum,
@@ -104,6 +107,7 @@ namespace FlowerShopBusinessLogic.BusinessLogic
             _orderStorage.Update(new OrderBindingModel
             {
                 Id = order.Id,
+                ClientId = order.ClientId,
                 FlowerId = order.FlowerId,
                 Count = order.Count,
                 Sum = order.Sum,

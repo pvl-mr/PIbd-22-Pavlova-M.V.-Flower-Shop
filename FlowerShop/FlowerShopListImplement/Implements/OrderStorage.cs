@@ -37,8 +37,10 @@ namespace FlowerShopListImplement.Implements
             List<OrderViewModel> result = new List<OrderViewModel>();
             foreach (var order in source.Orders)
             {
-                if ((!model.DateFrom.HasValue && !model.DateTo.HasValue && order.DateCreate.Date == model.DateCreate.Date) ||
-                  (model.DateFrom.HasValue && model.DateTo.HasValue && order.DateCreate.Date >= model.DateFrom.Value.Date && order.DateCreate.Date <= model.DateTo.Value.Date))
+                if (((model.ClientId.HasValue && order.ClientId == model.ClientId) ||
+                    !model.DateFrom.HasValue && !model.DateTo.HasValue && order.DateCreate.Date == model.DateCreate.Date) ||
+                    (model.DateFrom.HasValue && model.DateTo.HasValue && order.DateCreate.Date >= model.DateFrom.Value.Date
+                    && order.DateCreate.Date <= model.DateTo.Value.Date))
                 {
                     result.Add(CreateModel(order));
                 }
@@ -86,9 +88,22 @@ namespace FlowerShopListImplement.Implements
                     break;
                 }
             }
+
+            string clientFIO = null;
+
+            foreach (var client in source.Clients)
+            {
+                if (client.Id == order.ClientId)
+                {
+                    clientFIO = client.ClientFIO;
+                }
+            }
+
             return new OrderViewModel
             {
                 Id = order.Id,
+                ClientId = order.ClientId,
+                ClientFIO = clientFIO,
                 FlowerName = FlowerName,
                 Count = order.Count,
                 Sum = order.Sum,
@@ -100,6 +115,7 @@ namespace FlowerShopListImplement.Implements
 
         private Order CreateModel(OrderBindingModel model, Order tempOrder)
         {
+            tempOrder.ClientId = (int)model.ClientId;
             tempOrder.FlowerId = model.FlowerId == 0 ? tempOrder.FlowerId : model.FlowerId;
             tempOrder.Count = model.Count;
             tempOrder.Sum = model.Sum;
