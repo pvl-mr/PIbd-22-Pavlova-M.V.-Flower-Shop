@@ -20,21 +20,36 @@ namespace FlowerShopView
         public new IUnityContainer Container { get; set; }
         private readonly FlowerLogic _logicF;
         private readonly OrderLogic _logicO;
-        public FormCreateOrder(FlowerLogic logicP, OrderLogic logicO)
+        private readonly ClientLogic _logicC;
+        public FormCreateOrder(FlowerLogic logicF, OrderLogic logicO, ClientLogic logicC)
         {
             InitializeComponent();
-            _logicF = logicP;
+            _logicF = logicF;
             _logicO = logicO;
+            _logicC = logicC;
         }
         private void FormCreateOrder_Load(object sender, EventArgs e)
         {
             try
             {
                 var list = _logicF.Read(null);
-                comboBoxFlower.DataSource = list;
-                comboBoxFlower.DisplayMember = "FlowerName";
-                comboBoxFlower.ValueMember = "Id";
+                if (list != null)
+                {
+                    comboBoxFlower.DataSource = list;
+                    comboBoxFlower.DisplayMember = "FlowerName";
+                    comboBoxFlower.ValueMember = "Id";
+                    comboBoxFlower.SelectedItem = null;
+                }
+                var listClients = _logicC.Read(null);
+                foreach (var client in listClients)
+                {
+                    comboBoxClient.DataSource = listClients;
+                    comboBoxClient.DisplayMember = "ClientFIO";
+                    comboBoxClient.ValueMember = "Id";
+                    comboBoxClient.SelectedItem = null;
+                }
             }
+
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -85,6 +100,7 @@ namespace FlowerShopView
             {
                 _logicO.CreateOrder(new CreateOrderBindingModel
                 {
+                    ClientId = Convert.ToInt32(comboBoxClient.SelectedValue),
                     FlowerId = Convert.ToInt32(comboBoxFlower.SelectedValue),
                     Count = Convert.ToInt32(textBoxCount.Text),
                     Sum = Convert.ToDecimal(textBoxSum.Text)

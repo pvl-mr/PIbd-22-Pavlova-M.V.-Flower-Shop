@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FlowerShopDatabaseImplement.Migrations
 {
     [DbContext(typeof(FlowerShopDatabase))]
-    [Migration("20210309144203_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20210407083417_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,6 +20,30 @@ namespace FlowerShopDatabaseImplement.Migrations
                 .HasAnnotation("ProductVersion", "3.1.12")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("FlowerShopDatabaseImplement.Models.Client", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ClientFIO")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Clients");
+                });
 
             modelBuilder.Entity("FlowerShopDatabaseImplement.Models.Component", b =>
                 {
@@ -88,6 +112,9 @@ namespace FlowerShopDatabaseImplement.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("ClientId")
+                        .HasColumnType("int");
+
                     b.Property<int>("Count")
                         .HasColumnType("int");
 
@@ -107,6 +134,8 @@ namespace FlowerShopDatabaseImplement.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ClientId");
 
                     b.HasIndex("FlowerId");
 
@@ -130,7 +159,13 @@ namespace FlowerShopDatabaseImplement.Migrations
 
             modelBuilder.Entity("FlowerShopDatabaseImplement.Models.Order", b =>
                 {
-                    b.HasOne("FlowerShopDatabaseImplement.Models.Flower", null)
+                    b.HasOne("FlowerShopDatabaseImplement.Models.Client", "Client")
+                        .WithMany("Orders")
+                        .HasForeignKey("ClientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("FlowerShopDatabaseImplement.Models.Flower", "Flower")
                         .WithMany("Orders")
                         .HasForeignKey("FlowerId")
                         .OnDelete(DeleteBehavior.Cascade)

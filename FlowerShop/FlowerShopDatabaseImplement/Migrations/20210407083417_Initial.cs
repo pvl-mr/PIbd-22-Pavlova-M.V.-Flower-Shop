@@ -3,10 +3,25 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace FlowerShopDatabaseImplement.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Clients",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ClientFIO = table.Column<string>(nullable: false),
+                    Email = table.Column<string>(nullable: false),
+                    Password = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Clients", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Components",
                 columns: table => new
@@ -67,6 +82,7 @@ namespace FlowerShopDatabaseImplement.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    ClientId = table.Column<int>(nullable: false),
                     FlowerId = table.Column<int>(nullable: false),
                     Count = table.Column<int>(nullable: false),
                     Sum = table.Column<decimal>(nullable: false),
@@ -77,6 +93,12 @@ namespace FlowerShopDatabaseImplement.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Orders", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Orders_Clients_ClientId",
+                        column: x => x.ClientId,
+                        principalTable: "Clients",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Orders_Flowers_FlowerId",
                         column: x => x.FlowerId,
@@ -96,6 +118,11 @@ namespace FlowerShopDatabaseImplement.Migrations
                 column: "FlowerId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Orders_ClientId",
+                table: "Orders",
+                column: "ClientId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Orders_FlowerId",
                 table: "Orders",
                 column: "FlowerId");
@@ -111,6 +138,9 @@ namespace FlowerShopDatabaseImplement.Migrations
 
             migrationBuilder.DropTable(
                 name: "Components");
+
+            migrationBuilder.DropTable(
+                name: "Clients");
 
             migrationBuilder.DropTable(
                 name: "Flowers");
