@@ -20,25 +20,28 @@ namespace FlowerShopView
         public new IUnityContainer Container { get; set; }
         private readonly OrderLogic _orderLogic;
         private readonly ReportLogic _report;
+        private readonly WorkModeling _workModeling;
 
-        public FormMain(OrderLogic orderLogic, ReportLogic reportLogic)
+        public FormMain(OrderLogic orderLogic, ReportLogic reportLogic, WorkModeling workModeling)
         {
             InitializeComponent();
             this._orderLogic = orderLogic;
             _report = reportLogic;
+            _workModeling = workModeling;
         }
        
         private void LoadData()
         {
             try
             {
-                var list = _orderLogic.Read(null);             
+                var list = _orderLogic.Read(null);
                 dataGridViewOrders.DataSource = list;
                 dataGridViewOrders.Columns[0].Visible = false;
                 dataGridViewOrders.Columns[1].Visible = false;
                 dataGridViewOrders.Columns[2].Visible = false;
-                dataGridViewOrders.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-                
+                dataGridViewOrders.Columns[3].Visible = false;
+                dataGridViewOrders.Columns[9].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+
             }
             catch (Exception ex)
             {
@@ -158,6 +161,18 @@ namespace FlowerShopView
         {
             var form = Container.Resolve<FormClients>();
             form.ShowDialog();
+        }
+
+        private void исполнителиToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = Container.Resolve<FormImplementers>();
+            form.ShowDialog();
+        }
+
+        private void запускРаботToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            _workModeling.DoWork();
+            LoadData();
         }
     }
 }

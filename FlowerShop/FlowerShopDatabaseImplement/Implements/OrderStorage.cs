@@ -1,4 +1,5 @@
 ﻿using FlowerShopBusinessLogic.BindingModel;
+using FlowerShopBusinessLogic.Enums;
 using FlowerShopBusinessLogic.Interfaces;
 using FlowerShopBusinessLogic.ViewModels;
 using FlowerShopDatabaseImplement.Models;
@@ -16,12 +17,16 @@ namespace FlowerShopDatabaseImplement.Implements
         {
             using (var context = new FlowerShopDatabase())
             {
-                return context.Orders
-                .Include(rec => rec.Flower)
+                return context.Orders.Include(rec => rec.Flower)
                 .Include(rec => rec.Client)
+                .Include(rec => rec.Implementer)
                 .Select(rec => new OrderViewModel
                 {
                     Id = rec.Id,
+                    ClientId = rec.ClientId,
+                    ImplementerId = rec.ImplementerId,
+                    ImplementerFIO = rec.Implementer.ImplementerFIO,
+                    ClientFIO = rec.Client.ClientFIO,
                     FlowerId = rec.FlowerId,
                     FlowerName = rec.Flower.FlowerName,
                     Count = rec.Count,
@@ -29,8 +34,6 @@ namespace FlowerShopDatabaseImplement.Implements
                     Status = rec.Status,
                     DateCreate = rec.DateCreate,
                     DateImplement = rec.DateImplement,
-                    ClientId = rec.ClientId,
-                    ClientFIO = rec.Client.ClientFIO
                 })
                 .ToList();
             }
@@ -44,15 +47,21 @@ namespace FlowerShopDatabaseImplement.Implements
             }
             using (var context = new FlowerShopDatabase())
             {
-                return context.Orders
-                .Include(rec => rec.Flower)
-                .Include(rec => rec.Client)
-                .Where(rec => (!model.DateFrom.HasValue && !model.DateTo.HasValue && rec.DateCreate.Date == model.DateCreate.Date) ||
-                (model.DateFrom.HasValue && model.DateTo.HasValue && rec.DateCreate.Date >= model.DateFrom.Value.Date && rec.DateCreate.Date <= model.DateTo.Value.Date)
-                || (model.ClientId.HasValue && rec.ClientId == model.ClientId))
+                return context.Orders.Include(rec => rec.Flower).Include(rec => rec.Client).Include(rec => rec.Implementer)
+                .Where(rec => (!model.DateFrom.HasValue && !model.DateTo.HasValue &&
+                rec.DateCreate.Date == model.DateCreate.Date) ||
+                (model.DateFrom.HasValue && model.DateTo.HasValue &&
+                rec.DateCreate.Date >= model.DateFrom.Value.Date && rec.DateCreate.Date <=
+                model.DateTo.Value.Date) || (model.ClientId.HasValue && rec.ClientId == model.ClientId) ||
+                (model.FreeOrders.HasValue && model.FreeOrders.Value && rec.Status ==
+                OrderStatus.Принят) || (model.ImplementerId.HasValue && rec.ImplementerId == model.ImplementerId && rec.Status == OrderStatus.Выполняется))
                 .Select(rec => new OrderViewModel
                 {
                     Id = rec.Id,
+                    ClientId = rec.ClientId,
+                    ClientFIO = rec.Client.ClientFIO,
+                    ImplementerId = rec.ImplementerId,
+                    ImplementerFIO = rec.Implementer.ImplementerFIO,
                     FlowerId = rec.FlowerId,
                     FlowerName = rec.Flower.FlowerName,
                     Count = rec.Count,
@@ -60,8 +69,6 @@ namespace FlowerShopDatabaseImplement.Implements
                     Status = rec.Status,
                     DateCreate = rec.DateCreate,
                     DateImplement = rec.DateImplement,
-                    ClientId = rec.ClientId,
-                    ClientFIO = rec.Client.ClientFIO
                 })
                 .ToList();
             }
@@ -75,14 +82,18 @@ namespace FlowerShopDatabaseImplement.Implements
             }
             using (var context = new FlowerShopDatabase())
             {
-                var order = context.Orders
-                .Include(rec => rec.Flower)
-                .Include(rec => rec.Client)
+                var order = context.Orders.Include(rec => rec.Flower)
+                    .Include(rec => rec.Client)
+                    .Include(rec => rec.Implementer)
                 .FirstOrDefault(rec => rec.Id == model.Id);
                 return order != null ?
                 new OrderViewModel
                 {
                     Id = order.Id,
+                    ClientId = order.ClientId,
+                    ClientFIO = order.Client.ClientFIO,
+                    ImplementerId = order.ImplementerId,
+                    ImplementerFIO = order.ImplementerId.HasValue ? order.Implementer.ImplementerFIO : string.Empty,
                     FlowerId = order.FlowerId,
                     FlowerName = order.Flower.FlowerName,
                     Count = order.Count,
@@ -90,8 +101,6 @@ namespace FlowerShopDatabaseImplement.Implements
                     Status = order.Status,
                     DateCreate = order.DateCreate,
                     DateImplement = order.DateImplement,
-                    ClientId = order.ClientId,
-                    ClientFIO = order.Client.ClientFIO
                 } :
                 null;
             }
@@ -110,12 +119,12 @@ namespace FlowerShopDatabaseImplement.Implements
         {
             using (var context = new FlowerShopDatabase())
             {
-                var element = context.Orders.FirstOrDefault(rec => rec.Id == model.Id);
-                if (element == null)
+                var order = context.Orders.FirstOrDefault(rec => rec.Id == model.Id);
+                if (order == null)
                 {
                     throw new Exception("Элемент не найден");
                 }
-                CreateModel(model, element);
+                CreateModel(model, order);
                 context.SaveChanges();
             }
         }
@@ -139,14 +148,16 @@ namespace FlowerShopDatabaseImplement.Implements
 
         private Order CreateModel(OrderBindingModel model, Order order)
         {
+            order.ClientId = (int)model.ClientId;
             order.FlowerId = model.FlowerId;
             order.Count = model.Count;
             order.Sum = model.Sum;
             order.Status = model.Status;
             order.DateCreate = model.DateCreate;
+            order.ImplementerId = model.ImplementerId;
             order.DateImplement = model.DateImplement;
-            order.ClientId = model.ClientId.Value;
             return order;
         }
+
     }
 }
