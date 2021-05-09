@@ -43,9 +43,9 @@ namespace FlowerShopFileImplement.Implements
             {
                 return null;
             }
-            var order = source.Orders
-                        .FirstOrDefault(rec => rec.Id == model.Id || rec.FlowerId == model.FlowerId);
-            return order != null ? CreateModel(order) : null;
+            var Order = source.Orders
+                        .FirstOrDefault(rec => rec.Id == model.Id);
+            return Order != null ? CreateModel(Order) : null;
         }
 
         public void Insert(OrderBindingModel model)

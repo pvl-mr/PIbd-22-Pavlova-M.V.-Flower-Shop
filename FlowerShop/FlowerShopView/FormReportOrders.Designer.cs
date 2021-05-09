@@ -1,4 +1,3 @@
-﻿
 namespace FlowerShopView
 {
     partial class FormReportOrders
@@ -90,7 +89,7 @@ namespace FlowerShopView
             this.Controls.Add(this.dateTimePickerTo);
             this.Controls.Add(this.dateTimePickerFrom);
             this.Name = "FormReportOrders";
-            this.Text = "Заказы по датам";
+            this.Text = "Заказы клиентов";
             this.ResumeLayout(false);
 
         }
