@@ -90,7 +90,7 @@ namespace FlowerShopView
             this.Controls.Add(this.dateTimePickerTo);
             this.Controls.Add(this.dateTimePickerFrom);
             this.Name = "FormReportOrders";
-            this.Text = "FormReportOrders";
+            this.Text = "Заказы по датам";
             this.ResumeLayout(false);
 
         }
