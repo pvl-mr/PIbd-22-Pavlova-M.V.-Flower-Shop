@@ -72,8 +72,6 @@ namespace FlowerShopDatabaseImplement.Implements
                 })
                 .ToList();
             }
-
-           
         }
 
         public OrderViewModel GetElement(OrderBindingModel model)
@@ -102,7 +100,7 @@ namespace FlowerShopDatabaseImplement.Implements
                     Sum = order.Sum,
                     Status = order.Status,
                     DateCreate = order.DateCreate,
-                    DateImplement = order.DateImplement
+                    DateImplement = order.DateImplement,
                 } :
                 null;
             }

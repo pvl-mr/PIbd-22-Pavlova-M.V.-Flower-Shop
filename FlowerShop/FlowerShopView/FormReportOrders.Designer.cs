@@ -1,4 +1,3 @@
-﻿
 namespace FlowerShopView
 {
     partial class FormReportOrders
