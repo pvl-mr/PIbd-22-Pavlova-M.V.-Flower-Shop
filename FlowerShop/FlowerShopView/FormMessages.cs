@@ -32,7 +32,7 @@ namespace FlowerShopView
         {
             try
             {
-                Program.ConfigGrid(logic.Read(null), dataGridView);
+                Program.ConfigGrid(logic.Read(null), dataGridViewMessages);
             }
             catch (Exception ex)
             {
