@@ -166,6 +166,14 @@ namespace FlowerShopListImplement.Implements
             {
                 throw new Exception("Элемент не найден");
             }
+            if (!model.ClientId.HasValue)
+            {
+                model.ClientId = tempOrder.ClientId;
+            }
+            if (!model.ImplementerId.HasValue)
+            {
+                model.ImplementerId = tempOrder.ImplementerId;
+            }
             CreateModel(model, tempOrder);
         }
     }

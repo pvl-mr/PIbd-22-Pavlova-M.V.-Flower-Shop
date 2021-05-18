@@ -10,15 +10,17 @@ namespace FlowerShopBusinessLogic.BusinessLogic
     public class OrderLogic
     {
         private readonly IOrderStorage _orderStorage;
-        private readonly object locker = new object();
         private readonly IStorePlaceStorage _storePlaceStorage;
         private readonly IFlowerStorage _flowerStorage;
+        private readonly object locker = new object();
+
         public OrderLogic(IOrderStorage orderStorage, IStorePlaceStorage storePlaceStorage, IFlowerStorage flowerStorage)
         {
             _orderStorage = orderStorage;
             _storePlaceStorage = storePlaceStorage;
             _flowerStorage = flowerStorage;
         }
+
         public List<OrderViewModel> Read(OrderBindingModel model)
         {
             if (model == null)
@@ -31,58 +33,59 @@ namespace FlowerShopBusinessLogic.BusinessLogic
             }
             return _orderStorage.GetFilteredList(model);
         }
+
         public void CreateOrder(CreateOrderBindingModel model)
         {
             _orderStorage.Insert(new OrderBindingModel
             {
-                ClientId = model.ClientId,
                 FlowerId = model.FlowerId,
+                ClientId = model.ClientId,
                 Count = model.Count,
                 Sum = model.Sum,
                 DateCreate = DateTime.Now,
                 Status = OrderStatus.Принят
             });
         }
+
         public void TakeOrderInWork(ChangeStatusBindingModel model)
         {
-            lock(locker)
+            lock (locker)
             {
-                var order = _orderStorage.GetElement(new OrderBindingModel { Id = model.OrderId });
+                OrderStatus status = OrderStatus.Выполняется;
+                var order = _orderStorage.GetElement(new OrderBindingModel
+                {
+                    Id = model.OrderId
+                });
                 if (order == null)
                 {
-                    throw new Exception("Не найден заказ");
+                    throw new Exception("Заказ не найден");
                 }
-                if (order.Status != OrderStatus.Принят && order.Status != OrderStatus.Требуются_материалы)
+                if (order.Status != OrderStatus.Принят)
                 {
-                    throw new Exception("Заказ не в статусе \"Принят\" или \"Требуются материалы\"");
+                    throw new Exception("заказ не в статусе \"Принят\"");
+                }
+                var flower = _flowerStorage.GetElement(new FlowerBindingModel { Id = order.FlowerId });
+                if (!_storePlaceStorage.TakeComponents(flower.FlowerComponents, order.Count))
+                {
+                    status = OrderStatus.Требуются_материалы;
                 }
                 if (order.ImplementerId.HasValue)
                 {
                     throw new Exception("У заказа уже есть исполнитель");
                 }
-                var updateBindingModel = new OrderBindingModel
+                _orderStorage.Update(new OrderBindingModel
                 {
                     Id = order.Id,
+                    ClientId = order.ClientId,
+                    ImplementerId = model.ImplementerId,
                     FlowerId = order.FlowerId,
                     Count = order.Count,
                     Sum = order.Sum,
                     DateCreate = order.DateCreate,
-                    ClientId = order.ClientId
-                };
-
-                if (!_storePlaceStorage.TakeComponents(_flowerStorage.GetElement(new FlowerBindingModel { Id = order.FlowerId }).FlowerComponents, order.Count))
-                {
-                    updateBindingModel.Status = OrderStatus.Требуются_материалы;
-                }
-                else
-                {
-                    updateBindingModel.DateImplement = DateTime.Now;
-                    updateBindingModel.Status = OrderStatus.Выполняется;
-                    updateBindingModel.ImplementerId = model.ImplementerId;
-                }
-
-                _orderStorage.Update(updateBindingModel);
-            }    
+                    DateImplement = order.DateImplement,
+                    Status = status
+                });
+            }
         }
 
         public void FinishOrder(ChangeStatusBindingModel model)
@@ -90,7 +93,16 @@ namespace FlowerShopBusinessLogic.BusinessLogic
             var order = _orderStorage.GetElement(new OrderBindingModel { Id = model.OrderId });
             if (order == null)
             {
-                throw new Exception("Не найден заказ");
+                throw new Exception("Заказ не найден");
+            }
+            if (order.Status == OrderStatus.Требуются_материалы)
+            {
+                order.Status = OrderStatus.Выполняется;
+            }
+            var flower = _flowerStorage.GetElement(new FlowerBindingModel { Id = order.FlowerId });
+            if (!_storePlaceStorage.TakeComponents(flower.FlowerComponents, order.Count))
+            {
+                return;
             }
             if (order.Status != OrderStatus.Выполняется)
             {
@@ -99,22 +111,21 @@ namespace FlowerShopBusinessLogic.BusinessLogic
             _orderStorage.Update(new OrderBindingModel
             {
                 Id = order.Id,
-                ClientId = order.ClientId,
-                ImplementerId = order.ImplementerId,
                 FlowerId = order.FlowerId,
+                ImplementerId = order.ImplementerId,
                 Count = order.Count,
                 Sum = order.Sum,
                 DateCreate = order.DateCreate,
-                DateImplement = order.DateImplement,
                 Status = OrderStatus.Готов
             });
         }
+
         public void PayOrder(ChangeStatusBindingModel model)
         {
             var order = _orderStorage.GetElement(new OrderBindingModel { Id = model.OrderId });
             if (order == null)
             {
-                throw new Exception("Не найден заказ");
+                throw new Exception("Заказ не найден");
             }
             if (order.Status != OrderStatus.Готов)
             {
@@ -123,13 +134,12 @@ namespace FlowerShopBusinessLogic.BusinessLogic
             _orderStorage.Update(new OrderBindingModel
             {
                 Id = order.Id,
-                ClientId = order.ClientId,
-                ImplementerId = order.ImplementerId,
                 FlowerId = order.FlowerId,
+                ImplementerId = order.ImplementerId,
                 Count = order.Count,
                 Sum = order.Sum,
                 DateCreate = order.DateCreate,
-                DateImplement = order.DateImplement,
+                DateImplement = DateTime.Now,
                 Status = OrderStatus.Оплачен
             });
         }

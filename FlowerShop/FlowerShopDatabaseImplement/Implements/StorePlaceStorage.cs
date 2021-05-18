@@ -159,7 +159,7 @@ namespace FlowerShopDatabaseImplement.Implements
             }
         }
 
-        public bool TakeComponents(Dictionary<int, (string, int)> components, int flowerCount)
+        public bool TakeComponents(Dictionary<int, (string, int)> components, int count)
         {
             using (var context = new FlowerShopDatabase())
             {
@@ -167,48 +167,32 @@ namespace FlowerShopDatabaseImplement.Implements
                 {
                     try
                     {
-                        foreach (KeyValuePair<int, (string, int)> storePlaceComponent in components)
+                        foreach (var component in components)
                         {
-                            int count = storePlaceComponent.Value.Item2 * flowerCount;
-                            IEnumerable<StorePlaceComponent> StorePlaceComponents = context.StorePlaceComponents.Where(storePlace => storePlace.ComponentId == storePlaceComponent.Key);
-                            int freeCount = StorePlaceComponents.Sum(storePlace => storePlace.Count);
-                            if (freeCount < count)
+                            int requiredCount = component.Value.Item2 * count;
+                            foreach (var storePlace in context.StorePlaces.Include(rec => rec.StorePlaceComponents))
                             {
-                                throw new Exception("Недостаточно компонентов");
+                                int? availableCount = storePlace.StorePlaceComponents.FirstOrDefault(rec => rec.ComponentId == component.Key)?.Count;
+                                if (availableCount == null) { continue; }
+                                requiredCount -= (int)availableCount;
+                                storePlace.StorePlaceComponents.FirstOrDefault(rec => rec.ComponentId == component.Key).Count = (requiredCount < 0) ? (int)availableCount - ((int)availableCount + requiredCount) : 0;
                             }
-
-                            foreach (StorePlaceComponent component in StorePlaceComponents)
+                            if (requiredCount > 0)
                             {
-                                if (component.Count <= count)
-                                {
-                                    count -= component.Count;
-                                    context.StorePlaceComponents.Remove(component);
-                                    context.SaveChanges();
-                                }
-                                else
-                                {
-                                    component.Count -= count;
-                                    context.SaveChanges();
-                                    count = 0;
-                                }
-
-                                if (count == 0)
-                                {
-                                    break;
-                                }
+                                return false;
                             }
                         }
-
+                        context.SaveChanges();
                         transaction.Commit();
-                        return true;
                     }
-                    catch
+                    catch (Exception)
                     {
                         transaction.Rollback();
                         return false;
                     }
                 }
             }
+            return true;
         }
 
         private StorePlace CreateModel(StorePlaceBindingModel model, StorePlace storePlace, FlowerShopDatabase context)

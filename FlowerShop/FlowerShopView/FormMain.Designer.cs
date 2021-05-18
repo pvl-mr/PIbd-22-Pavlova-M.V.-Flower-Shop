@@ -47,7 +47,6 @@
             this.dataGridViewOrders = new System.Windows.Forms.DataGridView();
             this.запускРаботToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.исполнителиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.клиентыToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.списокСкладовToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.загруженностьСкладовToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.всеЗаказыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();

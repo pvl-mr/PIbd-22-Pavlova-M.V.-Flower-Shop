@@ -28,71 +28,60 @@ namespace FlowerShopBusinessLogic.BusinessLogic
             _orderLogic = orderLogic;
             rnd = new Random(1000);
         }
-
+        /// <summary>
+        /// Запуск работ
+        /// </summary>
         public void DoWork()
         {
             var implementers = _implementerStorage.GetFullList();
-            var orders = _orderStorage.GetFilteredList(new OrderBindingModel { FreeOrders = true });
+            var orders = _orderStorage.GetFilteredList(new OrderBindingModel
+            {
+                FreeOrders = true
+            });
             foreach (var implementer in implementers)
             {
                 WorkerWorkAsync(implementer, orders);
             }
         }
-
+        /// <summary>
+        /// Иммитация работы исполнителя
+        /// </summary>
+        /// <param name="implementer"></param>
+        /// <param name="orders"></param>
         private async void WorkerWorkAsync(ImplementerViewModel implementer, List<OrderViewModel> orders)
         {
-            //Cперва отрабатываются заказы со статусом «Выполняются»
-
-            var runOrders = await Task.Run(() => _orderLogic.Read(new OrderBindingModel
-            {
-                ImplementerId = implementer.Id
-            }));
-
+            // ищем заказы, которые уже в работе (вдруг исполнителя прервали)
+            var runOrders = await Task.Run(() => _orderStorage.GetFilteredList(new OrderBindingModel
+            { ImplementerId = implementer.Id }));
             foreach (var order in runOrders)
             {
+                // делаем работу заново
                 Thread.Sleep(implementer.WorkingTime * rnd.Next(1, 5) * order.Count);
-                _orderLogic.FinishOrder(new ChangeStatusBindingModel { OrderId = order.Id });
+                _orderLogic.FinishOrder(new ChangeStatusBindingModel
+                {
+                    OrderId = order.Id
+                });
+                // отдыхаем
                 Thread.Sleep(implementer.PauseTime);
             }
-
-            //Потом заказы со статусом «Требуются материалы» 
-
-            var ordersWithRequiredMaterials = await Task.Run(() => _orderLogic.Read(null)
-            .Where(rec => rec.Status == OrderStatus.Требуются_материалы).ToList());
-
-            foreach (var order in ordersWithRequiredMaterials)
+            var needMaterials = await Task.Run(() => _orderStorage.GetFilteredList(new OrderBindingModel
+            { ImplementerId = implementer.Id, Status = Enums.OrderStatus.Требуются_материалы }));
+            foreach (var order in needMaterials)
             {
-                try
+                // делаем работу заново
+                Thread.Sleep(implementer.WorkingTime * rnd.Next(1, 5) * order.Count);
+                _orderLogic.FinishOrder(new ChangeStatusBindingModel
                 {
-                    _orderLogic.TakeOrderInWork(new ChangeStatusBindingModel
-                    {
-                        OrderId = order.Id,
-                        ImplementerId = implementer.Id
-                    });
-
-                    var processedOrder = _orderStorage.GetElement(new OrderBindingModel
-                    {
-                        Id = order.Id
-                    });
-
-                    if (processedOrder.Status == OrderStatus.Требуются_материалы)
-                    {
-                        continue;
-                    }
-
-                    Thread.Sleep(implementer.WorkingTime * rnd.Next(1, 5) * order.Count);
-                    _orderLogic.FinishOrder(new ChangeStatusBindingModel { OrderId = order.Id });
-                    Thread.Sleep(implementer.PauseTime);
-                }
-                catch (Exception) { }
+                    OrderId = order.Id
+                });
+                // отдыхаем
+                Thread.Sleep(implementer.PauseTime);
             }
-
-            // Только потом новые заказы
-
             await Task.Run(() =>
             {
                 foreach (var order in orders)
                 {
+                    // пытаемся назначить заказ на исполнителя
                     try
                     {
                         _orderLogic.TakeOrderInWork(new ChangeStatusBindingModel
@@ -100,17 +89,13 @@ namespace FlowerShopBusinessLogic.BusinessLogic
                             OrderId = order.Id,
                             ImplementerId = implementer.Id
                         });
-
-                        if (order.Status == OrderStatus.Требуются_материалы)
-                        {
-                            continue;
-                        }
-
+                        // делаем работу
                         Thread.Sleep(implementer.WorkingTime * rnd.Next(1, 5) * order.Count);
                         _orderLogic.FinishOrder(new ChangeStatusBindingModel
                         {
                             OrderId = order.Id
                         });
+                        // отдыхаем
                         Thread.Sleep(implementer.PauseTime);
                     }
                     catch (Exception) { }
