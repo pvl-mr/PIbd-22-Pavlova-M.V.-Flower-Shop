@@ -19,12 +19,14 @@ namespace FlowerShopFileImplement
         private readonly string ClientFileName = "Client.xml";
         private readonly string ImplementerFileName = "Implementer.xml";
         private readonly string MessageFileName = "Message.xml";
+        private readonly string StorePlaceFileName = "StorePlace.xml";
         public List<Componet> Components { get; set; }
         public List<Order> Orders { get; set; }
         public List<Flower> Flowers { get; set; }
         public List<Client> Clients { get; set; }
         public List<Implementer> Implementers { get; set; }
         public List<MessageInfo> Messages { get; set; }
+        public List<StorePlace> StorePlaces { get; set; }
         private FileDataListSingleton()
         {
             Components = LoadComponents();
@@ -33,6 +35,7 @@ namespace FlowerShopFileImplement
             Clients = LoadClients();
             Implementers = LoadImplementers();
             Messages = LoadMessages();
+            StorePlaces = LoadStorePlaces();
         }
 
         public static FileDataListSingleton GetInstance()
@@ -51,6 +54,7 @@ namespace FlowerShopFileImplement
             SaveClients();
             SaveImplementers();
             SaveMessages();
+            SaveStorePlaces();
         }
 
         private List<Implementer> LoadImplementers()
@@ -189,6 +193,58 @@ namespace FlowerShopFileImplement
                 }
             }
             return list;
+        }
+
+        private List<StorePlace> LoadStorePlaces()
+        {
+            var list = new List<StorePlace>();
+            if (File.Exists(StorePlaceFileName))
+            {
+                XDocument xDocument = XDocument.Load(StorePlaceFileName);
+                var xElements = xDocument.Root.Elements("StorePlace").ToList();
+                foreach (var elem in xElements)
+                {
+                    var storePlaceComp = new Dictionary<int, int>();
+                    foreach (var component in elem.Element("StorePlaceComponents").Elements("StorePlaceComponent").ToList())
+                    {
+                        storePlaceComp.Add(Convert.ToInt32(component.Element("Key").Value), Convert.ToInt32(component.Element("Value").Value));
+                    }
+                    list.Add(new StorePlace
+                    {
+                        Id = Convert.ToInt32(elem.Attribute("Id").Value),
+                        StorePlaceName = elem.Element("StorePlaceName").Value,
+                        AdministratorName = elem.Element("AdministratorName").Value,
+                        DateCreate = Convert.ToDateTime(elem.Element("DateCreate").Value),
+                        StorePlaceComponents = storePlaceComp
+                    });
+                }
+            }
+            return list;
+        }
+        private void SaveStorePlaces()
+        {
+            if (StorePlaces != null)
+            {
+                var xElement = new XElement("StorePlaces");
+                foreach (var storePlace in StorePlaces)
+                {
+                    var compElement = new XElement("StorePlaceComponents");
+                    foreach (var component in storePlace.StorePlaceComponents)
+                    {
+                        compElement.Add(new XElement("StorePlaceComponent",
+                        new XElement("Key", component.Key),
+                        new XElement("Value", component.Value)));
+                    }
+                    xElement.Add(new XElement("StorePlace",
+                    new XAttribute("Id", storePlace.Id),
+                    new XElement("StorePlaceName", storePlace.StorePlaceName),
+                    new XElement("AdministratorName", storePlace.AdministratorName),
+                    new XElement("DateCreate", storePlace.DateCreate.ToString()),
+                    compElement));
+                }
+                XDocument xDocument = new XDocument(xElement);
+                xDocument.Save(StorePlaceFileName);
+            }
         }
 
         private void SaveComponents()

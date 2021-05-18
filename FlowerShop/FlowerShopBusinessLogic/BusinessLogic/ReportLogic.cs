@@ -14,11 +14,14 @@ namespace FlowerShopBusinessLogic.BusinessLogic
         private readonly IComponentStorage _componentStorage;
         private readonly IFlowerStorage _flowerStorage;
         private readonly IOrderStorage _orderStorage;
-        public ReportLogic(IFlowerStorage flowerStorage, IComponentStorage componentStorage, IOrderStorage orderStorage)
+        private readonly IStorePlaceStorage _storePlaceStorage;
+        public ReportLogic(IFlowerStorage flowerStorage, IComponentStorage componentStorage, IOrderStorage orderStorage, IStorePlaceStorage storePlaceStorage)
         {
             _flowerStorage = flowerStorage;
             _componentStorage = componentStorage;
             _orderStorage = orderStorage;
+            _storePlaceStorage = storePlaceStorage;
+
         }
         /// <summary>
         /// Получение списка компонент с указанием, в каких изделиях используются
@@ -26,7 +29,6 @@ namespace FlowerShopBusinessLogic.BusinessLogic
         /// <returns></returns>
         public List<ReportFlowerComponentViewModel> GetFlowerComponent()
         {
-            var components = _componentStorage.GetFullList();
             var flowers = _flowerStorage.GetFullList();
             var list = new List<ReportFlowerComponentViewModel>();
             foreach (var flower in flowers)
@@ -37,13 +39,11 @@ namespace FlowerShopBusinessLogic.BusinessLogic
                     Components = new List<Tuple<string, int>>(),
                     TotalCount = 0
                 };
-                foreach (var component in components)
+                foreach (var component in flower.FlowerComponents)
                 {
-                    if (flower.FlowerComponents.ContainsKey(component.Id))
-                    {
-                        record.Components.Add(new Tuple<string, int>(component.ComponentName, flower.FlowerComponents[component.Id].Item2));
-                        record.TotalCount += flower.FlowerComponents[component.Id].Item2;
-                    }
+                    record.Components.Add(new Tuple<string, int>(component.Value.Item1, component.Value.Item2));
+                    record.TotalCount += component.Value.Item2;
+
                 }
                 list.Add(record);
             }
@@ -68,12 +68,42 @@ namespace FlowerShopBusinessLogic.BusinessLogic
                 Status = x.Status
             })
             .ToList();
-            Console.WriteLine("2 step");
-            foreach (var order in orders)
-            {
-                Console.WriteLine(order.DateCreate.ToString());
-            }
             return orders;
+        }
+
+        public List<ReportStorePlaceComponentViewModel> GetStorePlaceComponents()
+        {
+            var storePlaces = _storePlaceStorage.GetFullList();
+            var list = new List<ReportStorePlaceComponentViewModel>();
+            foreach (var storePlace in storePlaces)
+            {
+                var record = new ReportStorePlaceComponentViewModel
+                {
+                    StorePlaceName = storePlace.StorePlaceName,
+                    Components = new List<Tuple<string, int>>(),
+                    TotalCount = 0
+                };
+                foreach (var component in storePlace.StorePlaceComponents)
+                {
+                    record.Components.Add(new Tuple<string, int>(component.Value.Item1, component.Value.Item2));
+                    record.TotalCount += component.Value.Item2;
+                }
+                list.Add(record);
+            }
+            return list;
+        }
+
+        public List<ReportTotalOrdersViewModel> GetTotalOrders()
+        {
+            return _orderStorage.GetFullList()
+                .GroupBy(order => order.DateCreate.ToShortDateString())
+                .Select(rec => new ReportTotalOrdersViewModel
+                {
+                    Date = Convert.ToDateTime(rec.Key),
+                    Count = rec.Count(),
+                    Sum = rec.Sum(order => order.Sum)
+                })
+                .ToList();
         }
 
         /// <summary>
@@ -117,5 +147,36 @@ namespace FlowerShopBusinessLogic.BusinessLogic
                 Orders = GetOrders(model)
             });
         }
+
+        public void SaveStorePlacesToWordFile(ReportBindingModel model)
+        {
+            SaveToWord.CreateDocStorePlace(new WordInfoStorePlace
+            {
+                FileName = model.FileName,
+                Title = "Список складов",
+                StorePlaces = _storePlaceStorage.GetFullList()
+            });
+        }
+
+        public void SaveStorePlaceComponentsToExcelFile(ReportBindingModel model)
+        {
+            SaveToExcel.CreateDocStorePlace(new ExcelInfoStorePlace
+            {
+                FileName = model.FileName,
+                Title = "Список складов",
+                StorePlaceComponents = GetStorePlaceComponents()
+            });
+        }
+
+        public void SaveTotalOrdersToPdfFile(ReportBindingModel model)
+        {
+            SaveToPdf.CreateDocTotalOrders(new PdfInfoTotalOrders
+            {
+                FileName = model.FileName,
+                Title = "Список заказов",
+                Orders = GetTotalOrders()
+            });
+        }
+
     }
 }

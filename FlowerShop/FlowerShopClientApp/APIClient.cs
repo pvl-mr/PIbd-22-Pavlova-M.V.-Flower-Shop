@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿
+using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using System;
 using System.Net.Http;
@@ -18,6 +19,7 @@ namespace FlowerShopClientApp
         }
         public static T GetRequest<T>(string requestUrl)
         {
+
             var response = client.GetAsync(requestUrl);
             var result = response.Result.Content.ReadAsStringAsync().Result;
             if (response.Result.IsSuccessStatusCode)
