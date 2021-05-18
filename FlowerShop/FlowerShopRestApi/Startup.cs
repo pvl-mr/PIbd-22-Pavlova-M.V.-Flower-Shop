@@ -27,17 +27,21 @@ namespace FlowerShopRestApi
             services.AddTransient<IOrderStorage, OrderStorage>();
             services.AddTransient<IFlowerStorage, FlowerStorage>();
             services.AddTransient<IMessageInfoStorage, MessageInfoStorage>();
+            services.AddTransient<IStorePlaceStorage, StorePlaceStorage>();
+            services.AddTransient<IComponentStorage, ComponentStorage>();
             services.AddTransient<OrderLogic>();
             services.AddTransient<ClientLogic>();
             services.AddTransient<FlowerLogic>();
             services.AddTransient<MailLogic>();
+            services.AddTransient<StorePlaceLogic>();
+            services.AddTransient<ComponentLogic>();
             services.AddControllers().AddNewtonsoftJson();
             MailLogic.MailConfig(new MailConfig
             {
                 SmtpClientHost = "smtp.gmail.com",
                 SmtpClientPort = 587,
                 MailLogin = "pavlovamarr@gmail.com",
-                MailPassword = "xadskj1@",
+                MailPassword = "3107200147905273",
             });
         }
 

@@ -36,5 +36,6 @@ namespace FlowerShopBusinessLogic.BindingModel
         public DateTime? DateTo { get; set; }
         [DataMember]
         public bool? FreeOrders { get; set; }
+        public bool? NeedComponentOrders { get; set; }
     }
 }

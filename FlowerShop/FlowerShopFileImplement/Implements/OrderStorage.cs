@@ -32,8 +32,8 @@ namespace FlowerShopFileImplement.Implements
             return source.Orders.Where(rec => (!model.DateFrom.HasValue && !model.DateTo.HasValue && rec.DateCreate.Date == model.DateCreate.Date)
                     || (model.DateFrom.HasValue && model.DateTo.HasValue && rec.DateCreate.Date >= model.DateFrom.Value.Date && rec.DateCreate.Date <= model.DateTo.Value.Date)
                     || (model.ClientId.HasValue && rec.ClientId == model.ClientId)
-                    || (model.FreeOrders.HasValue && model.FreeOrders.Value && !rec.ImplementerId.HasValue)
-                    || (model.ImplementerId.HasValue && rec.ImplementerId == model.ImplementerId && rec.Status == OrderStatus.Выполняется))
+                    || (model.FreeOrders.HasValue && model.FreeOrders.Value && !rec.ImplementerId.HasValue))
+                //    || (model.ImplementerId.HasValue && rec.ImplementerId == model.ImplementerId && rec.Status == OrderStatus.Выполняется))
             .Select(CreateModel).ToList();
         }
 
@@ -43,15 +43,15 @@ namespace FlowerShopFileImplement.Implements
             {
                 return null;
             }
-            var order = source.Orders
-                        .FirstOrDefault(rec => rec.Id == model.Id || rec.FlowerId == model.FlowerId);
-            return order != null ? CreateModel(order) : null;
+            var Order = source.Orders
+                        .FirstOrDefault(rec => rec.Id == model.Id);
+            return Order != null ? CreateModel(Order) : null;
         }
 
         public void Insert(OrderBindingModel model)
         {
             int maxId = source.Orders.Count > 0 ? source.Orders.Max(rec => rec.Id) : 0;
-            var element = new Order { Id = maxId + 1};
+            var element = new Order { Id = maxId + 1 };
             source.Orders.Add(CreateModel(model, element));
         }
         public void Update(OrderBindingModel model)
@@ -60,6 +60,10 @@ namespace FlowerShopFileImplement.Implements
             if (element == null)
             {
                 throw new Exception("Элемент не найден");
+            }
+            if (!model.ImplementerId.HasValue)
+            {
+                model.ImplementerId = element.ImplementerId;
             }
             CreateModel(model, element);
         }

@@ -90,7 +90,9 @@ namespace FlowerShopListImplement.Implements
                     break;
                 }
             }
+
             string clientFIO = null;
+
             foreach (var client in source.Clients)
             {
                 if (client.Id == order.ClientId)
@@ -98,6 +100,7 @@ namespace FlowerShopListImplement.Implements
                     clientFIO = client.ClientFIO;
                 }
             }
+
             string implementerFIO = null;
             foreach (var implementer in source.Implementers)
             {
@@ -106,6 +109,7 @@ namespace FlowerShopListImplement.Implements
                     implementerFIO = implementer.ImplementerFIO;
                 }
             }
+
             return new OrderViewModel
             {
                 Id = order.Id,
@@ -119,7 +123,7 @@ namespace FlowerShopListImplement.Implements
                 Status = order.Status,
                 DateCreate = order.DateCreate,
                 DateImplement = order.DateImplement
-            };     
+            };
         }
 
         private Order CreateModel(OrderBindingModel model, Order tempOrder)
@@ -161,6 +165,14 @@ namespace FlowerShopListImplement.Implements
             if (tempOrder == null)
             {
                 throw new Exception("Элемент не найден");
+            }
+            if (!model.ClientId.HasValue)
+            {
+                model.ClientId = tempOrder.ClientId;
+            }
+            if (!model.ImplementerId.HasValue)
+            {
+                model.ImplementerId = tempOrder.ImplementerId;
             }
             CreateModel(model, tempOrder);
         }

@@ -300,6 +300,36 @@
     <Compile Include="FormReportOrders.Designer.cs">
       <DependentUpon>FormReportOrders.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormReportTotalOrders.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormReportTotalOrders.Designer.cs">
+      <DependentUpon>FormReportTotalOrders.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormStorePlace.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormStorePlace.Designer.cs">
+      <DependentUpon>FormStorePlace.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormReportStorePlaceComponents.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormReportStorePlaceComponents.Designer.cs">
+      <DependentUpon>FormReportStorePlaceComponents.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormStorePlaceRefill.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormStorePlaceRefill.Designer.cs">
+      <DependentUpon>FormStorePlaceRefill.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormStorePlaces.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormStorePlaces.Designer.cs">
+      <DependentUpon>FormStorePlaces.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SqlServerTypes\Loader.cs" />
@@ -342,6 +372,21 @@
     <EmbeddedResource Include="FormReportOrders.resx">
       <DependentUpon>FormReportOrders.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FormReportTotalOrders.resx">
+      <DependentUpon>FormReportTotalOrders.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormStorePlace.resx">
+      <DependentUpon>FormStorePlace.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormReportStorePlaceComponents.resx">
+      <DependentUpon>FormReportStorePlaceComponents.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormStorePlaceRefill.resx">
+      <DependentUpon>FormStorePlaceRefill.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormStorePlaces.resx">
+      <DependentUpon>FormStorePlaces.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -352,12 +397,10 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <EmbeddedResource Include="ReportOrders.rdlc" />
+    <EmbeddedResource Include="ReportTotalOrders.rdlc" />
     <None Include="packages.config" />
-    <None Include="Properties\DataSources\FlowerShopBusinessLogic.ViewModels.ComponentViewModel.datasource" />
-    <None Include="Properties\DataSources\FlowerShopBusinessLogic.ViewModels.FlowerViewModel.datasource" />
-    <None Include="Properties\DataSources\FlowerShopBusinessLogic.ViewModels.OrderViewModel.datasource" />
-    <None Include="Properties\DataSources\FlowerShopBusinessLogic.ViewModels.ReportFlowerComponentViewModel.datasource" />
     <None Include="Properties\DataSources\FlowerShopBusinessLogic.ViewModels.ReportOrdersViewModel.datasource" />
+    <None Include="Properties\DataSources\FlowerShopBusinessLogic.ViewModels.ReportTotalOrdersViewModel1.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

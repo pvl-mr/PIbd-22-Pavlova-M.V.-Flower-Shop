@@ -31,7 +31,7 @@ namespace FlowerShopView
             _workModeling = workModeling;
             this._backUpAbstractLogic = backUpAbstractLogic;
         }
-       
+
         private void LoadData()
         {
             try
@@ -82,6 +82,18 @@ namespace FlowerShopView
         private void изделияToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
             var form = Container.Resolve<FormFlowers>();
+            form.ShowDialog();
+        }
+
+        private void складыToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FormStorePlaces form = Container.Resolve<FormStorePlaces>();
+            form.ShowDialog();
+        }
+
+        private void пополнениеСкладаToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FormStorePlaceRefill form = Container.Resolve<FormStorePlaceRefill>();
             form.ShowDialog();
         }
 
@@ -156,6 +168,34 @@ namespace FlowerShopView
             {
                 MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void списокСкладовToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (var dialog = new SaveFileDialog { Filter = "docx|*.docx" })
+            {
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    _report.SaveStorePlacesToWordFile(new ReportBindingModel
+                    {
+                        FileName = dialog.FileName
+                    });
+
+                    MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+        }
+
+        private void загруженностьСкладовToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = Container.Resolve<FormReportStorePlaceComponents>();
+            form.ShowDialog();
+        }
+
+        private void всеЗаказыToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = Container.Resolve<FormReportTotalOrders>();
+            form.ShowDialog();
         }
     }
 }

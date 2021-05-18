@@ -16,17 +16,11 @@ namespace FlowerShopDatabaseImplement.Implements
             using (var context = new FlowerShopDatabase())
             {
                 return context.MessageInfoes
-                .Select(rec => new MessageInfoViewModel
-                {
-                    MessageId = rec.MessageId,
-                    SenderName = rec.SenderName,
-                    DateDelivery = rec.DateDelivery,
-                    Subject = rec.Subject,
-                    Body = rec.Body
-                })
-                .ToList();
+                .Select(CreateModel)
+               .ToList();
             }
         }
+
         public List<MessageInfoViewModel> GetFilteredList(MessageInfoBindingModel model)
         {
             if (model == null)
@@ -35,20 +29,21 @@ namespace FlowerShopDatabaseImplement.Implements
             }
             using (var context = new FlowerShopDatabase())
             {
+                if (model.ToSkip.HasValue && model.ToTake.HasValue && !model.ClientId.HasValue)
+                {
+                    return context.MessageInfoes.Skip((int)model.ToSkip).Take((int)model.ToTake)
+                    .Select(CreateModel).ToList();
+                }
                 return context.MessageInfoes
                 .Where(rec => (model.ClientId.HasValue && rec.ClientId == model.ClientId) ||
                 (!model.ClientId.HasValue && rec.DateDelivery.Date == model.DateDelivery.Date))
-                .Select(rec => new MessageInfoViewModel
-                {
-                    MessageId = rec.MessageId,
-                    SenderName = rec.SenderName,
-                    DateDelivery = rec.DateDelivery,
-                    Subject = rec.Subject,
-                    Body = rec.Body
-                })
+                .Skip(model.ToSkip ?? 0)
+                .Take(model.ToTake ?? context.MessageInfoes.Count())
+                .Select(CreateModel)
                 .ToList();
             }
         }
+
         public void Insert(MessageInfoBindingModel model)
         {
             using (var context = new FlowerShopDatabase())
@@ -56,7 +51,7 @@ namespace FlowerShopDatabaseImplement.Implements
                 MessageInfo element = context.MessageInfoes.FirstOrDefault(rec => rec.MessageId == model.MessageId);
                 if (element != null)
                 {
-                    throw new Exception("Уже есть письмо с таким идентификатором");
+                    return;
                 }
                 context.MessageInfoes.Add(new MessageInfo
                 {
@@ -69,6 +64,18 @@ namespace FlowerShopDatabaseImplement.Implements
                 });
                 context.SaveChanges();
             }
+        }
+
+        private MessageInfoViewModel CreateModel(MessageInfo model)
+        {
+            return new MessageInfoViewModel
+            {
+                MessageId = model.MessageId,
+                SenderName = model.SenderName,
+                DateDelivery = model.DateDelivery,
+                Subject = model.Subject,
+                Body = model.Body
+            };
         }
     }
 }

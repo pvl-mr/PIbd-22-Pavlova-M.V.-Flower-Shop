@@ -19,3 +19,4 @@ namespace FlowerShopListImplement.Models
         public string Body { get; set; }
     }
 }
+
