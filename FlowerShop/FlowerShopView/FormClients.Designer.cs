@@ -63,7 +63,7 @@ namespace FlowerShopView
             this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.dataGridViewClients);
             this.Name = "FormClients";
-            this.Text = "FormClients";
+            this.Text = "Клиенты";
             this.Load += new System.EventHandler(this.FormClients_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewClients)).EndInit();
             this.ResumeLayout(false);
