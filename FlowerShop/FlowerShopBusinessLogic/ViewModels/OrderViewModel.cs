@@ -28,7 +28,7 @@ namespace FlowerShopBusinessLogic.ViewModels
         public int FlowerId { get; set; }
 
         [DataMember]
-        [Column(title: "Клиент", width: 150)]
+        [Column(title: "Клиент", width: 100)]
         public string ClientFIO { get; set; }
 
         [DataMember]
@@ -52,11 +52,11 @@ namespace FlowerShopBusinessLogic.ViewModels
         public OrderStatus Status { get; set; }
 
         [DataMember]
-        [Column(title: "Дата создания", width: 100)]
+        [Column(title: "Дата создания", width: 120, format: "s")]
         public DateTime DateCreate { get; set; }
 
         [DataMember]
-        [Column(title: "Дата выполнения", width: 100)]
+        [Column(title: "Дата выполнения", width: 120, format: "s")]
         public DateTime? DateImplement { get; set; }
     }
 }
