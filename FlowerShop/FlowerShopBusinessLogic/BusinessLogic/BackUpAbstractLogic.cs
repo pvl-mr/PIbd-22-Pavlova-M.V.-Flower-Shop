@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
+using System.Linq;
 using System.Reflection;
 using System.Runtime.Serialization.Json;
+using System.Xml.Linq;
 using System.Xml.Serialization;
 
 namespace FlowerShopBusinessLogic.BusinessLogic
@@ -31,8 +33,8 @@ namespace FlowerShopBusinessLogic.BusinessLogic
                 Assembly assem = GetAssembly();
                 // вытаскиваем список классов для сохранения
                 var dbsets = GetFullList();
-                // берем метод для сохранения (из базового абстрактного класса)
-                MethodInfo method = GetType().BaseType.GetTypeInfo().GetDeclaredMethod("SaveToFile");
+                // берем метод для сохранения (из базвого абстрактного класса)
+                MethodInfo method = GetType().BaseType.GetTypeInfo().GetDeclaredMethod("SaveToFileXml");
                 foreach (var set in dbsets)
                 {
                     // создаем объект из класса для сохранения
@@ -53,19 +55,32 @@ namespace FlowerShopBusinessLogic.BusinessLogic
                 throw;
             }
         }
-        private void SaveToFile<T>(string folderName) where T : class, new()
+
+        private void SaveToFileXml<T>(string folderName) where T : class, new()
         {
             var records = GetList<T>();
             T obj = new T();
-            /*DataContractJsonSerializer jsonFormatter = new DataContractJsonSerializer(typeof(List<T>));
-            using (FileStream fs = new FileStream(string.Format("{0}/{1}.json", folderName, obj.GetType().Name), FileMode.OpenOrCreate))*/
-            XmlSerializer xmlSerializer = new XmlSerializer(typeof(List<T>));
-            using (FileStream fs = new FileStream(string.Format("{0}/{1}.xml", folderName, obj.GetType().Name), FileMode.OpenOrCreate))
+            var typeName = obj.GetType().Name;
+            if (records != null)
             {
-                //jsonFormatter.WriteObject(fs, records);
-                xmlSerializer.Serialize(fs, records);
+                var root = new XElement(typeName + 's');
+                foreach (var record in records)
+                {
+                    var elem = new XElement(typeName);
+                    foreach (var mem in obj.GetType().GetMembers()
+                        .Where(rec => rec.MemberType != MemberTypes.Method &&
+                        rec.MemberType != MemberTypes.Constructor &&
+                        !rec.ToString().Contains(".Models.")))
+                    {
+                        elem.Add(new XElement(mem.Name, record.GetType().GetProperty(mem.Name)?.GetValue(record) ?? "null"));
+                    }
+                    root.Add(elem);
+                }
+                XDocument xDocument = new XDocument(root);
+                xDocument.Save(string.Format("{0}/{1}.xml", folderName, typeName));
             }
         }
+
         protected abstract Assembly GetAssembly();
         protected abstract List<PropertyInfo> GetFullList();
         protected abstract List<T> GetList<T>() where T : class, new();
