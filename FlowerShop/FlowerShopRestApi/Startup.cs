@@ -37,7 +37,7 @@ namespace FlowerShopRestApi
                 SmtpClientHost = "smtp.gmail.com",
                 SmtpClientPort = 587,
                 MailLogin = "pavlovamarr@gmail.com",
-                MailPassword = "xadskj1@",
+                MailPassword = "ekrjn12@!",
             });
         }
 
