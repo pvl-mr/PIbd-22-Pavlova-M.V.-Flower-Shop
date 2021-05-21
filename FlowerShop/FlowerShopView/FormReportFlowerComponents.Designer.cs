@@ -30,11 +30,11 @@ namespace FlowerShopView
         private void InitializeComponent()
         {
             this.btnSaveToExcel = new System.Windows.Forms.Button();
-            this.dataGridView = new System.Windows.Forms.DataGridView();
+            this.dataGridViewFlowerComponents = new System.Windows.Forms.DataGridView();
             this.ColumnComponent = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnFlower = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnCount = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewFlowerComponents)).BeginInit();
             this.SuspendLayout();
             // 
             // btnSaveToExcel
@@ -49,18 +49,18 @@ namespace FlowerShopView
             // 
             // dataGridView
             // 
-            this.dataGridView.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewFlowerComponents.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.dataGridViewFlowerComponents.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewFlowerComponents.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ColumnFlower,
             this.ColumnComponent,
             this.ColumnCount});
-            this.dataGridView.Location = new System.Drawing.Point(21, 65);
-            this.dataGridView.Name = "dataGridView";
-            this.dataGridView.RowHeadersWidth = 53;
-            this.dataGridView.RowTemplate.Height = 24;
-            this.dataGridView.Size = new System.Drawing.Size(750, 373);
-            this.dataGridView.TabIndex = 1;
+            this.dataGridViewFlowerComponents.Location = new System.Drawing.Point(21, 65);
+            this.dataGridViewFlowerComponents.Name = "dataGridView";
+            this.dataGridViewFlowerComponents.RowHeadersWidth = 53;
+            this.dataGridViewFlowerComponents.RowTemplate.Height = 24;
+            this.dataGridViewFlowerComponents.Size = new System.Drawing.Size(750, 373);
+            this.dataGridViewFlowerComponents.TabIndex = 1;
             // 
             // ColumnFlower
             // 
@@ -89,12 +89,12 @@ namespace FlowerShopView
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.dataGridView);
+            this.Controls.Add(this.dataGridViewFlowerComponents);
             this.Controls.Add(this.btnSaveToExcel);
             this.Name = "FormReportFlowerComponents";
             this.Text = "Компоненты по изделиям";
             this.Load += new System.EventHandler(this.FormReportFlowerComponents_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewFlowerComponents)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -102,7 +102,7 @@ namespace FlowerShopView
         #endregion
 
         private System.Windows.Forms.Button btnSaveToExcel;
-        private System.Windows.Forms.DataGridView dataGridView;
+        private System.Windows.Forms.DataGridView dataGridViewFlowerComponents;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnComponent;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnFlower;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnCount;

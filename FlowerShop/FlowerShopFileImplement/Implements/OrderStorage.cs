@@ -1,4 +1,5 @@
 ﻿using FlowerShopBusinessLogic.BindingModel;
+using FlowerShopBusinessLogic.Enums;
 using FlowerShopBusinessLogic.Interfaces;
 using FlowerShopBusinessLogic.ViewModels;
 using FlowerShopFileImplement.Models;
@@ -28,13 +29,12 @@ namespace FlowerShopFileImplement.Implements
             {
                 return null;
             }
-            return source.Orders
-            .Where(rec => (!model.DateFrom.HasValue && !model.DateTo.HasValue &&
-            rec.DateCreate.Date == model.DateCreate.Date) || (model.DateFrom.HasValue && model.DateTo.HasValue && rec.DateCreate.Date
-            >= model.DateFrom.Value.Date && rec.DateCreate.Date <= model.DateTo.Value.Date) ||
-            (model.ClientId.HasValue && rec.ClientId == model.ClientId))
-            .Select(CreateModel)
-            .ToList();
+            return source.Orders.Where(rec => (!model.DateFrom.HasValue && !model.DateTo.HasValue && rec.DateCreate.Date == model.DateCreate.Date)
+                    || (model.DateFrom.HasValue && model.DateTo.HasValue && rec.DateCreate.Date >= model.DateFrom.Value.Date && rec.DateCreate.Date <= model.DateTo.Value.Date)
+                    || (model.ClientId.HasValue && rec.ClientId == model.ClientId)
+                    || (model.FreeOrders.HasValue && model.FreeOrders.Value && !rec.ImplementerId.HasValue))
+                //    || (model.ImplementerId.HasValue && rec.ImplementerId == model.ImplementerId && rec.Status == OrderStatus.Выполняется))
+            .Select(CreateModel).ToList();
         }
 
         public OrderViewModel GetElement(OrderBindingModel model)
@@ -61,6 +61,10 @@ namespace FlowerShopFileImplement.Implements
             {
                 throw new Exception("Элемент не найден");
             }
+            if (!model.ImplementerId.HasValue)
+            {
+                model.ImplementerId = element.ImplementerId;
+            }
             CreateModel(model, element);
         }
         public void Delete(OrderBindingModel model)
@@ -80,6 +84,7 @@ namespace FlowerShopFileImplement.Implements
         {
             order.FlowerId = model.FlowerId;
             order.ClientId = (int)model.ClientId;
+            order.ImplementerId = model.ImplementerId;
             order.Count = model.Count;
             order.Sum = model.Sum;
             order.Status = model.Status;
@@ -94,9 +99,11 @@ namespace FlowerShopFileImplement.Implements
             {
                 Id = order.Id,
                 ClientId = order.ClientId,
-                ClientFIO = source.Clients.FirstOrDefault(rec => rec.Id == order.ClientId)?.ClientFIO,
+                ClientFIO = source.Clients.FirstOrDefault(x => x.Id == order.ClientId)?.ClientFIO,
                 FlowerId = order.FlowerId,
                 FlowerName = source.Flowers.FirstOrDefault(flower => flower.Id == order.FlowerId)?.FlowerName,
+                ImplementerId = order.ImplementerId,
+                ImplementerFIO = source.Implementers.FirstOrDefault(x => x.Id == order.ImplementerId)?.ImplementerFIO,
                 Count = order.Count,
                 Sum = order.Sum,
                 DateCreate = order.DateCreate,
@@ -104,6 +111,5 @@ namespace FlowerShopFileImplement.Implements
                 DateImplement = order.DateImplement
             };
         }
-
     }
 }

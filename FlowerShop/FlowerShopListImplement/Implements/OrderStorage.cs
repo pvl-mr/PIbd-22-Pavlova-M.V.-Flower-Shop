@@ -1,4 +1,5 @@
 ﻿using FlowerShopBusinessLogic.BindingModel;
+using FlowerShopBusinessLogic.Enums;
 using FlowerShopBusinessLogic.Interfaces;
 using FlowerShopBusinessLogic.ViewModels;
 using FlowerShopListImplement.Models;
@@ -37,10 +38,11 @@ namespace FlowerShopListImplement.Implements
             List<OrderViewModel> result = new List<OrderViewModel>();
             foreach (var order in source.Orders)
             {
-                if (((model.ClientId.HasValue && order.ClientId == model.ClientId) ||
-                    !model.DateFrom.HasValue && !model.DateTo.HasValue && order.DateCreate.Date == model.DateCreate.Date) ||
-                    (model.DateFrom.HasValue && model.DateTo.HasValue && order.DateCreate.Date >= model.DateFrom.Value.Date
-                    && order.DateCreate.Date <= model.DateTo.Value.Date))
+                if ((!model.DateFrom.HasValue && !model.DateTo.HasValue && order.DateCreate.Date == model.DateCreate.Date)
+                    || (model.DateFrom.HasValue && model.DateTo.HasValue && order.DateCreate.Date >= model.DateFrom.Value.Date && order.DateCreate.Date <= model.DateTo.Value.Date)
+                    || (model.ClientId.HasValue && order.ClientId == model.ClientId)
+                    || (model.FreeOrders.HasValue && model.FreeOrders.Value && !order.ImplementerId.HasValue)
+                    || (model.ImplementerId.HasValue && order.ImplementerId == model.ImplementerId && order.Status == OrderStatus.Выполняется))
                 {
                     result.Add(CreateModel(order));
                 }
@@ -99,11 +101,22 @@ namespace FlowerShopListImplement.Implements
                 }
             }
 
+            string implementerFIO = null;
+            foreach (var implementer in source.Implementers)
+            {
+                if (implementer.Id == order.ImplementerId)
+                {
+                    implementerFIO = implementer.ImplementerFIO;
+                }
+            }
+
             return new OrderViewModel
             {
                 Id = order.Id,
                 ClientId = order.ClientId,
                 ClientFIO = clientFIO,
+                ImplementerId = order.ImplementerId,
+                ImplementerFIO = implementerFIO,
                 FlowerName = FlowerName,
                 Count = order.Count,
                 Sum = order.Sum,
@@ -116,6 +129,7 @@ namespace FlowerShopListImplement.Implements
         private Order CreateModel(OrderBindingModel model, Order tempOrder)
         {
             tempOrder.ClientId = (int)model.ClientId;
+            tempOrder.ImplementerId = model.ImplementerId;
             tempOrder.FlowerId = model.FlowerId == 0 ? tempOrder.FlowerId : model.FlowerId;
             tempOrder.Count = model.Count;
             tempOrder.Sum = model.Sum;
@@ -151,6 +165,14 @@ namespace FlowerShopListImplement.Implements
             if (tempOrder == null)
             {
                 throw new Exception("Элемент не найден");
+            }
+            if (!model.ClientId.HasValue)
+            {
+                model.ClientId = tempOrder.ClientId;
+            }
+            if (!model.ImplementerId.HasValue)
+            {
+                model.ImplementerId = tempOrder.ImplementerId;
             }
             CreateModel(model, tempOrder);
         }
