@@ -50,7 +50,7 @@ namespace FlowerShopView
             this.ClientSize = new System.Drawing.Size(1003, 450);
             this.Controls.Add(this.dataGridViewMessages);
             this.Name = "FormMessages";
-            this.Text = "FormMessages";
+            this.Text = "Сообщения";
             this.Load += new System.EventHandler(this.FormMessages_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewMessages)).EndInit();
             this.ResumeLayout(false);
