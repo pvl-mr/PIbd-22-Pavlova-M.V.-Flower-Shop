@@ -81,7 +81,7 @@ namespace FlowerShopFileImplement
             {
                 XDocument xDocument = XDocument.Load(ComponentFileName);
                 var xElements = xDocument.Root.Elements("Component").ToList();
-               
+
                 foreach (var elem in xElements)
                 {
                     list.Add(new Componet
@@ -202,7 +202,7 @@ namespace FlowerShopFileImplement
                     new XAttribute("Id", component.Id),
                     new XElement("ComponentName", component.ComponentName)));
                 }
-                
+
                 XDocument xDocument = new XDocument(xElement);
                 xDocument.Save(ComponentFileName);
             }
