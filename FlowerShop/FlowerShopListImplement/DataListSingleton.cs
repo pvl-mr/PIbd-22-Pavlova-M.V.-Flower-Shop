@@ -12,6 +12,7 @@ namespace FlowerShopListImplement.Models
         public List<Flower> Flowers { get; set; }
         public List<Client> Clients { get; set; }
         public List<Implementer> Implementers { get; set; }
+        public List<MessageInfo> Messages { get; set; }
         public List<StorePlace> StorePlaces { get; set; }
       
         private DataListSingleton()
@@ -21,6 +22,7 @@ namespace FlowerShopListImplement.Models
             Flowers = new List<Flower>();
             Clients = new List<Client>();
             Implementers = new List<Implementer>();
+            Messages = new List<MessageInfo>();
             StorePlaces = new List<StorePlace>();
         }
       

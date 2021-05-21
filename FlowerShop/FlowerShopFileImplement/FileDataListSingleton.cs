@@ -18,12 +18,14 @@ namespace FlowerShopFileImplement
         private readonly string FlowerFileName = "Flower.xml";
         private readonly string ClientFileName = "Client.xml";
         private readonly string ImplementerFileName = "Implementer.xml";
+        private readonly string MessageFileName = "Message.xml";
         private readonly string StorePlaceFileName = "StorePlace.xml";
         public List<Componet> Components { get; set; }
         public List<Order> Orders { get; set; }
         public List<Flower> Flowers { get; set; }
         public List<Client> Clients { get; set; }
         public List<Implementer> Implementers { get; set; }
+        public List<MessageInfo> Messages { get; set; }
         public List<StorePlace> StorePlaces { get; set; }
         private FileDataListSingleton()
         {
@@ -32,6 +34,7 @@ namespace FlowerShopFileImplement
             Flowers = LoadFlowers();
             Clients = LoadClients();
             Implementers = LoadImplementers();
+            Messages = LoadMessages();
             StorePlaces = LoadStorePlaces();
         }
 
@@ -50,6 +53,7 @@ namespace FlowerShopFileImplement
             SaveFlowers();
             SaveClients();
             SaveImplementers();
+            SaveMessages();
             SaveStorePlaces();
         }
 
@@ -168,6 +172,29 @@ namespace FlowerShopFileImplement
             return list;
         }
 
+        private List<MessageInfo> LoadMessages()
+        {
+            var list = new List<MessageInfo>();
+            if (File.Exists(OrderFileName))
+            {
+                XDocument xDocument = XDocument.Load(MessageFileName);
+                var xElements = xDocument.Root.Elements("Message").ToList();
+                foreach (var elem in xElements)
+                {
+                    list.Add(new MessageInfo
+                    {
+                        MessageId = elem.Element("MessageId")?.Value,
+                        Body = elem.Element("Body")?.Value,
+                        ClientId = Convert.ToInt32(elem.Element("ClientId")?.Value),
+                        Subject = elem.Element("Subject")?.Value,
+                        SenderName = elem.Element("SenderName")?.Value,
+                        DateDelivery = Convert.ToDateTime(elem.Element("DateDelivery")?.Value)
+                    });
+                }
+            }
+            return list;
+        }
+
         private List<StorePlace> LoadStorePlaces()
         {
             var list = new List<StorePlace>();
@@ -194,7 +221,6 @@ namespace FlowerShopFileImplement
             }
             return list;
         }
-
         private void SaveStorePlaces()
         {
             if (StorePlaces != null)
@@ -317,6 +343,26 @@ namespace FlowerShopFileImplement
                 }
                 XDocument xDocument = new XDocument(xElement);
                 xDocument.Save(ImplementerFileName);
+            }
+        }
+
+        private void SaveMessages()
+        {
+            if (Messages != null)
+            {
+                var xElement = new XElement("Messages");
+                foreach (var msg in Messages)
+                {
+                    xElement.Add(new XElement("Message",
+                    new XAttribute("MessageId", msg.MessageId),
+                    new XElement("Body", msg.Body),
+                    new XElement("DateDelivery", msg.DateDelivery),
+                    new XElement("SenderName", msg.SenderName),
+                    new XElement("Subject", msg.Subject),
+                    new XElement("ClientId", msg.ClientId)));
+                }
+                XDocument xDocument = new XDocument(xElement);
+                xDocument.Save(MessageFileName);
             }
         }
     }

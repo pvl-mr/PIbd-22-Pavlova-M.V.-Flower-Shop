@@ -25,6 +25,18 @@ namespace FlowerShopClientApp.Controllers
             return
             View(APIClient.GetRequest<List<OrderViewModel>>($"api/main/getorders?clientId={Program.Client.Id}"));
         }
+
+        public IActionResult Mail(int page = 1)
+        {
+            if (Program.Client == null)
+            {
+                return Redirect("~/Home/Enter");
+            }
+            var temp = APIClient.GetRequest<(List<MessageInfoViewModel> list, bool hasNext)>($"api/client/getmessages?clientId={Program.Client.Id}&page={page}");
+            (List<MessageInfoViewModel>, bool, int) model = (temp.list, temp.hasNext, page);
+            return View(model);
+        }
+
         [HttpGet]
         public IActionResult Privacy()
         {
@@ -40,16 +52,16 @@ namespace FlowerShopClientApp.Controllers
             if (!string.IsNullOrEmpty(login) && !string.IsNullOrEmpty(password)
             && !string.IsNullOrEmpty(fio))
             {
+                Program.Client.ClientFIO = fio;
+                Program.Client.Email = login;
+                Program.Client.Password = password;
                 APIClient.PostRequest("api/client/updatedata", new ClientBindingModel
                 {
                     Id = Program.Client.Id,
                     ClientFIO = fio,
                     Email = login,
                     Password = password
-                });
-                Program.Client.ClientFIO = fio;
-                Program.Client.Email = login;
-                Program.Client.Password = password;
+                });     
                 Response.Redirect("Index");
                 return;
             }

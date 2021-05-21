@@ -32,16 +32,16 @@ namespace FlowerShopView
                 var dict = logic.GetFlowerComponent();
                 if (dict != null)
                 {
-                    dataGridViewFlowerComponents.Rows.Clear();
+                    dataGridViewFlowerComponent.Rows.Clear();
                     foreach (var elem in dict)
                     {
-                        dataGridViewFlowerComponents.Rows.Add(new object[] { elem.FlowerName, "", "" });
+                        dataGridViewFlowerComponent.Rows.Add(new object[] { elem.FlowerName, "", "" });
                         foreach (var listElem in elem.Components)
                         {
-                            dataGridViewFlowerComponents.Rows.Add(new object[] { "", listElem.Item1, listElem.Item2 });
+                            dataGridViewFlowerComponent.Rows.Add(new object[] { "", listElem.Item1, listElem.Item2 });
                         }
-                        dataGridViewFlowerComponents.Rows.Add(new object[] { "Итого", "", elem.TotalCount });
-                        dataGridViewFlowerComponents.Rows.Add(new object[] { });
+                        dataGridViewFlowerComponent.Rows.Add(new object[] { "Итого", "", elem.TotalCount });
+                        dataGridViewFlowerComponent.Rows.Add(new object[] { });
                     }
                 }
             }
