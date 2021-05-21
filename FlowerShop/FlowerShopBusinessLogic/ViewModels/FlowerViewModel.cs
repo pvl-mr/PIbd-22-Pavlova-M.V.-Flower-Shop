@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FlowerShopBusinessLogic.Attributes;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.Serialization;
@@ -16,11 +17,11 @@ namespace FlowerShopBusinessLogic.ViewModels
         public int Id { get; set; }
 
         [DataMember]
-        [DisplayName("Название изделия")]
+        [Column(title: "Название изделия", gridViewAutoSize: GridViewAutoSize.Fill)]
         public string FlowerName { get; set; }
 
         [DataMember]
-        [DisplayName("Цена")]
+        [Column(title: "Цена", width: 50)]
         public decimal Price { get; set; }
 
         [DataMember]

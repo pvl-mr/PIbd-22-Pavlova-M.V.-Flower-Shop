@@ -1,11 +1,13 @@
 ﻿using FlowerShopBusinessLogic.BindingModel;
 using FlowerShopBusinessLogic.BusinessLogic;
+using FlowerShopBusinessLogic.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -33,9 +35,14 @@ namespace FlowerShopView
                 {
                     try
                     {
-                        logic.SaveStorePlaceComponentsToExcelFile(new ReportBindingModel
+                        MethodInfo method = logic.GetType().GetMethod("SaveStorePlaceComponentsToExcelFile");
+
+                        method.Invoke(logic, new object[]
                         {
-                            FileName = dialog.FileName
+                            new ReportBindingModel
+                            {
+                                FileName = dialog.FileName
+                            }
                         });
                         MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
@@ -51,7 +58,8 @@ namespace FlowerShopView
         {
             try
             {
-                var storePlaceComponents = logic.GetStorePlaceComponents();
+                MethodInfo method = logic.GetType().GetMethod("GetStorePlaceComponents");
+                List<ReportStorePlaceComponentViewModel> storePlaceComponents = (List<ReportStorePlaceComponentViewModel>)method.Invoke(logic, null);
                 if (storePlaceComponents != null)
                 {
                     dataGridViewStorePlaceComponents.Rows.Clear();

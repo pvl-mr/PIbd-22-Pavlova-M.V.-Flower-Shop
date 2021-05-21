@@ -1,5 +1,6 @@
 ﻿using FlowerShopBusinessLogic.BindingModel;
 using FlowerShopBusinessLogic.BusinessLogic;
+using FlowerShopBusinessLogic.ViewModels;
 using Microsoft.Reporting.WinForms;
 using System;
 using System.Collections.Generic;
@@ -7,6 +8,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -33,9 +35,14 @@ namespace FlowerShopView
                 {
                     try
                     {
-                        logic.SaveTotalOrdersToPdfFile(new ReportBindingModel
+                        MethodInfo method = logic.GetType().GetMethod("SaveTotalOrdersToPdfFile");
+
+                        method.Invoke(logic, new object[]
                         {
-                            FileName = dialog.FileName
+                            new ReportBindingModel
+                            {
+                                FileName = dialog.FileName
+                            }
                         });
 
                         MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -52,7 +59,8 @@ namespace FlowerShopView
         {
             try
             {
-                var dataSource = logic.GetTotalOrders();
+                MethodInfo method = logic.GetType().GetMethod("GetTotalOrders");
+                var dataSource = (List<ReportTotalOrdersViewModel>)method.Invoke(logic, null);
 
                 ReportDataSource source = new ReportDataSource("DataSetTotalOrders", dataSource);
                 reportTotalOrders.LocalReport.DataSources.Add(source);

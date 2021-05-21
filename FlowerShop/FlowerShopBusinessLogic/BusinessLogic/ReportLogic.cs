@@ -5,20 +5,19 @@ using FlowerShopBusinessLogic.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 
 namespace FlowerShopBusinessLogic.BusinessLogic
 {
     public class ReportLogic
     {
-        private readonly IComponentStorage _componentStorage;
         private readonly IFlowerStorage _flowerStorage;
         private readonly IOrderStorage _orderStorage;
         private readonly IStorePlaceStorage _storePlaceStorage;
-        public ReportLogic(IFlowerStorage flowerStorage, IComponentStorage componentStorage, IOrderStorage orderStorage, IStorePlaceStorage storePlaceStorage)
+        public ReportLogic(IFlowerStorage flowerStorage, IOrderStorage orderStorage, IStorePlaceStorage storePlaceStorage)
         {
             _flowerStorage = flowerStorage;
-            _componentStorage = componentStorage;
             _orderStorage = orderStorage;
             _storePlaceStorage = storePlaceStorage;
 
@@ -125,11 +124,13 @@ namespace FlowerShopBusinessLogic.BusinessLogic
         /// <param name="model"></param>
         public void SaveFlowerComponentToExcelFile(ReportBindingModel model)
         {
+            MethodInfo method = GetType().GetMethod("GetFlowerComponent");
+
             SaveToExcel.CreateDoc(new ExcelInfo
             {
                 FileName = model.FileName,
                 Title = "Изделия с указанием компонентов",
-                FlowerComponents = GetFlowerComponent()
+                FlowerComponents = (List<ReportFlowerComponentViewModel>)method.Invoke(this, null)
             });
         }
         /// <summary>
@@ -138,13 +139,15 @@ namespace FlowerShopBusinessLogic.BusinessLogic
         /// <param name="model"></param>
         public void SaveOrdersToPdfFile(ReportBindingModel model)
         {
+            MethodInfo method = GetType().GetMethod("GetOrders");
+            
             SaveToPdf.CreateDoc(new PdfInfo
             {
                 FileName = model.FileName,
                 Title = "Список заказов",
                 DateFrom = model.DateFrom.Value,
                 DateTo = model.DateTo.Value,
-                Orders = GetOrders(model)
+                Orders = (List<ReportOrdersViewModel>)method.Invoke(this, new object[] { model })
             });
         }
 
@@ -160,21 +163,25 @@ namespace FlowerShopBusinessLogic.BusinessLogic
 
         public void SaveStorePlaceComponentsToExcelFile(ReportBindingModel model)
         {
+            MethodInfo method = GetType().GetMethod("GetStorePlaceComponent");
+
             SaveToExcel.CreateDocStorePlace(new ExcelInfoStorePlace
             {
                 FileName = model.FileName,
                 Title = "Список складов",
-                StorePlaceComponents = GetStorePlaceComponents()
+                StorePlaceComponents = (List<ReportStorePlaceComponentViewModel>)method.Invoke(this, null)
             });
         }
 
         public void SaveTotalOrdersToPdfFile(ReportBindingModel model)
         {
+            MethodInfo method = GetType().GetMethod("GetTotalOrders");
+
             SaveToPdf.CreateDocTotalOrders(new PdfInfoTotalOrders
             {
                 FileName = model.FileName,
                 Title = "Список заказов",
-                Orders = GetTotalOrders()
+                Orders = (List<ReportTotalOrdersViewModel>)method.Invoke(this, null)
             });
         }
 
